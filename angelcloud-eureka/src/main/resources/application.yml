@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: @pom.artifactId@
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/@pom.artifactId@/
+    # 避免注册自己
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+      # 开发环境推荐false 避免
+      # EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.
+      enable-self-preservation: false

@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: @pom.artifactId@
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: @pom.artifactId@
+
+server:
+  port: 8501
+
