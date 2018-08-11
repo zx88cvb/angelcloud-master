@@ -5,4 +5,22 @@
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
+    <resultMap id="BaseResultMap" type="com.angel.provider.model.domain.SysUser">
+        <id column="" property="" javaType="Integer" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, username, password, nickname, question, answer, create_time, update_time,
+        last_login_time, avatar, status, is_del
+    </sql>
+
+    <select id="selectByUsernameAndPass" parameterType="map" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Base_Column_List" />
+      FROM sys_user
+      WHERE
+        username = #{username} AND
+        password = #{password} AND
+        is_del = 0
+    </select>
 </mapper>

@@ -63,6 +63,11 @@
 
         <dependency>
             <groupId>com.angel</groupId>
+            <artifactId>angelcloud-common-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
             <artifactId>angelcloud-common-util</artifactId>
         </dependency>
 

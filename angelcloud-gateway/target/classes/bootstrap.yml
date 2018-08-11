@@ -13,18 +13,28 @@ spring:
 #          headers:
 #          - dummy
       routes:
-      - id: api
+      - id: baidu
         # 重点！/info必须使用http进行转发，lb代表从注册中心获取服务
-        uri: lb://angelcloud.com
+        uri: http://www.baidu.com/
          # 重点！转发该路径！,/userapi/**,
         predicates:
-        - Path=/**
+        - Path=/baidu/**
+      # - id: apiuser
+        # 重点！/info必须使用http进行转发，lb代表从注册中心获取服务
+        # uri: lb://ANGELCLOUD-PROVIDER-USER
+         # 重点！转发该路径！,/userapi/**,
+        # predicates:
+        # - Path=/ANGELCLOUD-PROVIDER-USER/**
+    consul:
+      host: localhost
+      port: 8500
+      healthCheckInterval: 15s
 
 server:
   port: 8080
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+# eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
 
