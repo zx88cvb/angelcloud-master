@@ -1,7 +1,10 @@
 package com.angel.gateway.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;
+import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,7 +59,9 @@ public class RouteConfiguration {
      *如果使用了注册中心（如：Eureka），进行控制则需要增加如下配置
      */
     /*@Bean
-    public RouteDefinitionLocator discoveryClientRouteDefinitionLocator(DiscoveryClient discoveryClient) {
-        return new DiscoveryClientRouteDefinitionLocator(discoveryClient);
+    @ConditionalOnBean(DiscoveryClient.class)
+    @ConditionalOnProperty(name = "spring.cloud.gateway.discovery.locator.enabled")
+    public DiscoveryClientRouteDefinitionLocator discoveryClientRouteDefinitionLocator(DiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {
+        return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);
     }*/
 }

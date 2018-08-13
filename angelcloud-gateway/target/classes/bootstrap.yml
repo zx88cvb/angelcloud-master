@@ -13,12 +13,15 @@ spring:
 #          headers:
 #          - dummy
       routes:
-      - id: baidu
+      - id: angelcloud-provider-user
         # 重点！/info必须使用http进行转发，lb代表从注册中心获取服务
-        uri: http://www.baidu.com/
+        uri: lb://angelcloud-provider-user
          # 重点！转发该路径！,/userapi/**,
         predicates:
-        - Path=/baidu/**
+        - Path= /userapi/**
+        filters:
+        - StripPrefix= 1
+        # - RewritePath=/userapi/(?.*), /${segment}
       # - id: apiuser
         # 重点！/info必须使用http进行转发，lb代表从注册中心获取服务
         # uri: lb://ANGELCLOUD-PROVIDER-USER
