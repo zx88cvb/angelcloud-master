@@ -15,6 +15,7 @@
         <module>angelcloud-common-base</module>
         <module>angelcloud-common-util</module>
         <module>angelcloud-common-core</module>
+        <module>angelcloud-common-config</module>
     </modules>
 
     <properties>
