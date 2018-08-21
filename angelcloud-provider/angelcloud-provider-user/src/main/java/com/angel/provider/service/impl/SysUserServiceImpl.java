@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @since 2018-07-30
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     @Resource
@@ -35,6 +35,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 返回结果集
      */
     @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult login(String username, String password) {
         String passwordNew = DigestUtils.md5Hex(password);
         SysUser sysUser = sysUserMapper.selectByUsernameAndPass(username, passwordNew);

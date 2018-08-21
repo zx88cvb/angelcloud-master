@@ -6,7 +6,7 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <resultMap id="BaseResultMap" type="com.angel.provider.model.domain.SysUser">
-        <id column="" property="" javaType="Integer" />
+        <id column="id" property="id" javaType="Integer" />
     </resultMap>
 
     <sql id="Base_Column_List" >

@@ -1,50 +1,46 @@
 package com.angel.provider.model.domain;
 
 import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
- * 系统用户表(后台管理)
+ * 后台菜单表
  * </p>
  *
  * @author aa
- * @since 2018-07-30
+ * @since 2018-08-18
  */
 @Data
-public class SysUser implements Serializable {
+public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户表id
+     * id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 用户名
+     * 父id
      */
-    private String username;
+    private Integer pId;
     /**
-     * 用户密码，MD5加密
+     * 菜单名称
      */
-    private String password;
+    private String menuName;
     /**
-     * 昵称
+     * url链接
      */
-    private String nickname;
+    private String url;
     /**
-     * 找回密码问题
+     * 图标
      */
-    private String question;
-    /**
-     * 找回密码答案
-     */
-    private String answer;
+    private String iconImg;
     /**
      * 创建时间
      */
@@ -54,19 +50,19 @@ public class SysUser implements Serializable {
      */
     private Date updateTime;
     /**
-     * 上次登录时间
+     * 排序
      */
-    private Date lastLoginTime;
+    private Integer orderIndex;
     /**
-     * 头像
+     * 层级
      */
-    private String avatar;
+    private Integer level;
     /**
-     * 用户状态 0-正常 1-封禁
+     * 是否禁用(0:未禁用 1 禁用)
      */
-    private Integer status;
+    private Integer isActivity;
     /**
-     * 是否删除 0 未删除 1 已删除
+     * 是否删除(0:未删除 1:删除)
      */
     private Integer isDel;
 

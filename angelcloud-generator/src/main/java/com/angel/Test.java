@@ -59,6 +59,6 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        new Test().generateByTables("com.angel","blog_category");
+        new Test().generateByTables("com.angel","sys_menu");
     }
 }

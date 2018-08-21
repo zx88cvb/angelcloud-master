@@ -2,6 +2,7 @@ package com.angel.provider.model.vo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  * @since 2018-07-30
  */
 @Data
+@ApiModel
 public class SysUserVo implements Serializable {
 
     private static final long serialVersionUID = 1L;

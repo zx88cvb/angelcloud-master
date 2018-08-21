@@ -1,4 +1,4 @@
-package com.angel.provider.web.controller;
+package com.angel.provider.web.admin.controller;
 
 
 import com.angel.base.constant.ServerResponse;
