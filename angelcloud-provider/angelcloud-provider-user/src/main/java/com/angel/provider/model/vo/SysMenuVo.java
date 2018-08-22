@@ -1,5 +1,6 @@
 package com.angel.provider.model.vo;
 
+import com.angel.base.model.vo.BaseVo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Data
 @ApiModel
-public class SysMenuVo implements Serializable{
+public class SysMenuVo extends BaseVo implements Serializable{
 
     /**
      * id

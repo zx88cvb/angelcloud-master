@@ -46,299 +46,299 @@ public enum ErrorCodeEnum {
 	 */
 	GL99990002(99990002, "微服务不在线,或者网络超时"),
 	/**
-	 * Uac 10010001 error code enum.
+	 * USER 10010001 error code enum.
 	 */
 //	 1001 用户中心
-	UAC10010001(10010001, "会话超时,请刷新页面重试"),
+	USER10010001(10010001, "会话超时,请刷新页面重试"),
 	/**
-	 * Uac 10010002 error code enum.
+	 * USER 10010002 error code enum.
 	 */
-	UAC10010002(10010002, "TOKEN解析失败"),
+	USER10010002(10010002, "TOKEN解析失败"),
 	/**
-	 * Uac 10010003 error code enum.
+	 * USER 10010003 error code enum.
 	 */
-	UAC10010003(10010003, "操作频率过快, 您的帐号已被冻结"),
+	USER10010003(10010003, "操作频率过快, 您的帐号已被冻结"),
 	/**
-	 * Uac 10011001 error code enum.
+	 * USER 10011001 error code enum.
 	 */
-	UAC10011001(10011001, "用户Id不能为空"),
+	USER10011001(10011001, "用户Id不能为空"),
 	/**
-	 * Uac 10011002 error code enum.
+	 * USER 10011002 error code enum.
 	 */
-	UAC10011002(10011002, "找不到用户,loginName=%s"),
+	USER10011002(10011002, "找不到用户,loginName=%s"),
 	/**
-	 * Uac 10011003 error code enum.
+	 * USER 10011003 error code enum.
 	 */
-	UAC10011003(10011003, "找不到用户,userId=%s"),
+	USER10011003(10011003, "找不到用户,userId=%s"),
 	/**
-	 * Uac 10011004 error code enum.
+	 * USER 10011004 error code enum.
 	 */
-	UAC10011004(10011004, "找不到用户,email=%s"),
+	USER10011004(10011004, "找不到用户,email=%s"),
 	/**
-	 * Uac 10011006 error code enum.
+	 * USER 10011006 error code enum.
 	 */
-	UAC10011006(10012006, "手机号不能为空"),
+	USER10011006(10012006, "手机号不能为空"),
 	/**
-	 * Uac 10011007 error code enum.
+	 * USER 10011007 error code enum.
 	 */
-	UAC10011007(10011007, "登录名不能为空"),
+	USER10011007(10011007, "登录名不能为空"),
 	/**
-	 * Uac 10011008 error code enum.
+	 * USER 10011008 error code enum.
 	 */
-	UAC10011008(10011008, "新密码不能为空"),
+	USER10011008(10011008, "新密码不能为空"),
 	/**
-	 * Uac 10011009 error code enum.
+	 * USER 10011009 error code enum.
 	 */
-	UAC10011009(10011009, "确认密码不能为空"),
+	USER10011009(10011009, "确认密码不能为空"),
 	/**
-	 * Uac 10011010 error code enum.
+	 * USER 10011010 error code enum.
 	 */
-	UAC10011010(10011010, "两次密码不一致"),
+	USER10011010(10011010, "两次密码不一致"),
 	/**
-	 * Uac 10011011 error code enum.
+	 * USER 10011011 error code enum.
 	 */
-	UAC10011011(10011011, "用户不存在, userId=%s"),
+	USER10011011(10011011, "用户不存在, userId=%s"),
 	/**
-	 * Uac 10011012 error code enum.
+	 * USER 10011012 error code enum.
 	 */
-	UAC10011012(10011012, "登录名已存在"),
+	USER10011012(10011012, "登录名已存在"),
 	/**
-	 * Uac 10011013 error code enum.
+	 * USER 10011013 error code enum.
 	 */
-	UAC10011013(10011013, "手机号已存在"),
+	USER10011013(10011013, "手机号已存在"),
 	/**
-	 * Uac 10011014 error code enum.
+	 * USER 10011014 error code enum.
 	 */
-	UAC10011014(10011014, "密码不能为空"),
+	USER10011014(10011014, "密码不能为空"),
 	/**
-	 * Uac 10011016 error code enum.
+	 * USER 10011016 error code enum.
 	 */
-	UAC10011016(10011016, "用户名或密码错误"),
+	USER10011016(10011016, "用户名或密码错误"),
 	/**
-	 * Uac 10011017 error code enum.
+	 * USER 10011017 error code enum.
 	 */
-	UAC10011017(10011017, "验证类型错误"),
+	USER10011017(10011017, "验证类型错误"),
 	/**
-	 * Uac 10011018 error code enum.
+	 * USER 10011018 error code enum.
 	 */
-	UAC10011018(10011018, "邮箱不能为空"),
+	USER10011018(10011018, "邮箱不能为空"),
 	/**
-	 * Uac 10011019 error code enum.
+	 * USER 10011019 error code enum.
 	 */
-	UAC10011019(10011019, "邮箱已存在"),
+	USER10011019(10011019, "邮箱已存在"),
 	/**
-	 * Uac 10011020 error code enum.
+	 * USER 10011020 error code enum.
 	 */
-	UAC10011020(10011020, "短信模板不能为空"),
+	USER10011020(10011020, "短信模板不能为空"),
 	/**
-	 * Uac 10011021 error code enum.
+	 * USER 10011021 error code enum.
 	 */
-	UAC10011021(10011021, "发送短信验证码对象转换为json字符串失败"),
+	USER10011021(10011021, "发送短信验证码对象转换为json字符串失败"),
 	/**
-	 * Uac 10011022 error code enum.
+	 * USER 10011022 error code enum.
 	 */
-	UAC10011022(10011022, "发送短信验证码失败"),
+	USER10011022(10011022, "发送短信验证码失败"),
 	/**
-	 * Uac 10011023 error code enum.
+	 * USER 10011023 error code enum.
 	 */
-	UAC10011023(10011023, "越权操作"),
+	USER10011023(10011023, "越权操作"),
 	/**
-	 * Uac 10011024 error code enum.
+	 * USER 10011024 error code enum.
 	 */
-	UAC10011024(10011024, "找不到绑定的用户, userId=%"),
+	USER10011024(10011024, "找不到绑定的用户, userId=%"),
 	/**
-	 * Uac 10011025 error code enum.
+	 * USER 10011025 error code enum.
 	 */
-	UAC10011025(10011025, "用户已存在, loginName=%"),
+	USER10011025(10011025, "用户已存在, loginName=%"),
 	/**
-	 * Uac 10011026 error code enum.
+	 * USER 10011026 error code enum.
 	 */
-	UAC10011026(10011026, "更新用户失败, userId=%"),
+	USER10011026(10011026, "更新用户失败, userId=%"),
 	/**
-	 * Uac 10011027 error code enum.
+	 * USER 10011027 error code enum.
 	 */
-	UAC10011027(10011027, "找不到用户,mobile=%s"),
+	USER10011027(10011027, "找不到用户,mobile=%s"),
 	/**
-	 * Uac 10011028 error code enum.
+	 * USER 10011028 error code enum.
 	 */
-	UAC10011028(10011028, "链接已失效"),
+	USER10011028(10011028, "链接已失效"),
 	/**
-	 * Uac 10011029 error code enum.
+	 * USER 10011029 error code enum.
 	 */
-	UAC10011029(10011029, "重置密码失败"),
+	USER10011029(10011029, "重置密码失败"),
 	/**
-	 * Uac 10011030 error code enum.
+	 * USER 10011030 error code enum.
 	 */
-	UAC10011030(10011030, "激活失败, 链接已过期"),
+	USER10011030(10011030, "激活失败, 链接已过期"),
 	/**
-	 * Uac 10011031 error code enum.
+	 * USER 10011031 error code enum.
 	 */
-	UAC10011031(10011031, "验证码超时, 请重新发送验证码"),
+	USER10011031(10011031, "验证码超时, 请重新发送验证码"),
 	/**
-	 * Uac 10011032 error code enum.
+	 * USER 10011032 error code enum.
 	 */
-	UAC10011032(10011032, "邮箱不存在, loginName=%s,email=%s"),
+	USER10011032(10011032, "邮箱不存在, loginName=%s,email=%s"),
 	/**
-	 * Uac 10011033 error code enum.
+	 * USER 10011033 error code enum.
 	 */
-	UAC10011033(10011033, "清空该用户常用菜单失败"),
+	USER10011033(10011033, "清空该用户常用菜单失败"),
 	/**
-	 * Uac 10011034 error code enum.
+	 * USER 10011034 error code enum.
 	 */
-	UAC10011034(10011034, "不允许操作admin用户"),
+	USER10011034(10011034, "不允许操作admin用户"),
 	/**
-	 * Uac 10011035 error code enum.
+	 * USER 10011035 error code enum.
 	 */
-	UAC10011035(10011035, "原始密码输入错误"),
+	USER10011035(10011035, "原始密码输入错误"),
 	/**
-	 * Uac 10011036 error code enum.
+	 * USER 10011036 error code enum.
 	 */
-	UAC10011036(10011036, "新密码和原始密码不能相同"),
+	USER10011036(10011036, "新密码和原始密码不能相同"),
 	/**
-	 * Uac 10011037 error code enum.
+	 * USER 10011037 error code enum.
 	 */
-	UAC10011037(10011037, "修改用户失败,userId=%s"),
+	USER10011037(10011037, "修改用户失败,userId=%s"),
 	/**
-	 * Uac 10011038 error code enum.
+	 * USER 10011038 error code enum.
 	 */
-	UAC10011038(10011038, "激活用户失败,userId=%s"),
+	USER10011038(10011038, "激活用户失败,userId=%s"),
 	/**
-	 * Uac 10011039 error code enum.
+	 * USER 10011039 error code enum.
 	 */
-	UAC10011039(10011039, "验证token失败"),
+	USER10011039(10011039, "验证token失败"),
 	/**
-	 * Uac 10011040 error code enum.
+	 * USER 10011040 error code enum.
 	 */
-	UAC10011040(10011040, "解析header失败"),
+	USER10011040(10011040, "解析header失败"),
 	/**
-	 * Uac 10011041 error code enum.
+	 * USER 10011041 error code enum.
 	 */
-	UAC10011041(10011041, "页面已过期,请重新登录"),
+	USER10011041(10011041, "页面已过期,请重新登录"),
 	/**
-	 * Uac 10011042 error code enum.
+	 * USER 10011042 error code enum.
 	 */
-	UAC10011042(10011042, "Cookie转码异常"),
+	USER10011042(10011042, "Cookie转码异常"),
 	/**
-	 * Uac 10012001 error code enum.
+	 * USER 10012001 error code enum.
 	 */
-	UAC10012001(10012001, "角色ID不能为空"),
+	USER10012001(10012001, "角色ID不能为空"),
 	/**
-	 * Uac 10012002 error code enum.
+	 * USER 10012002 error code enum.
 	 */
-	UAC10012002(10012002, "拥有的角色不允许禁用"),
+	USER10012002(10012002, "拥有的角色不允许禁用"),
 	/**
-	 * Uac 10012003 error code enum.
+	 * USER 10012003 error code enum.
 	 */
-	UAC10012003(10012003, "系统角色不能删除"),
+	USER10012003(10012003, "系统角色不能删除"),
 	/**
-	 * Uac 10012004 error code enum.
+	 * USER 10012004 error code enum.
 	 */
-	UAC10012004(10012004, "超级角色Id不能为空"),
+	USER10012004(10012004, "超级角色Id不能为空"),
 
 	/**
-	 * Uac 10012005 error code enum.
+	 * USER 10012005 error code enum.
 	 */
-	UAC10012005(10012005, "找不到角色信息,roleId=%s"),
+	USER10012005(10012005, "找不到角色信息,roleId=%s"),
 	/**
-	 * Uac 10012006 error code enum.
+	 * USER 10012006 error code enum.
 	 */
-	UAC10012006(10012006, "删除角色失败, roleId=%s"),
+	USER10012006(10012006, "删除角色失败, roleId=%s"),
 	/**
-	 * Uac 10012007 error code enum.
+	 * USER 10012007 error code enum.
 	 */
-	UAC10012007(10012007, "批量删除角色失败, roleId=%s"),
+	USER10012007(10012007, "批量删除角色失败, roleId=%s"),
 	/**
-	 * Uac 10012008 error code enum.
+	 * USER 10012008 error code enum.
 	 */
-	UAC10012008(10012008, "找不到绑定的角色, roleId=%s"),
-
-
-	/**
-	 * Uac 10013001 error code enum.
-	 */
-	UAC10013001(10013001, "父菜单不存在,menuId=%s"),
-	/**
-	 * Uac 10013002 error code enum.
-	 */
-	UAC10013002(10013002, "更新上级菜单失败,menuId=%s"),
-	/**
-	 * Uac 10013003 error code enum.
-	 */
-	UAC10013003(10013003, "菜单不存在,menuId=%s"),
-	/**
-	 * Uac 10013004 error code enum.
-	 */
-	UAC10013004(10013004, "启用菜单失败,menuId=%s"),
-	/**
-	 * Uac 10013005 error code enum.
-	 */
-	UAC10013005(10013005, "禁用菜单失败,menuId=%s"),
-	/**
-	 * Uac 10013006 error code enum.
-	 */
-	UAC10013006(10013006, "更新菜单状态失败,menuId=%s"),
-	/**
-	 * Uac 10013007 error code enum.
-	 */
-	UAC10013007(10013007, "根菜单不能禁用"),
-	/**
-	 * Uac 10013008 error code enum.
-	 */
-	UAC10013008(10013008, "删除菜单失败, menuId=%s"),
-	/**
-	 * Uac 10013009 error code enum.
-	 */
-	UAC10013009(10013009, "请先分配菜单"),
-	/**
-	 * Uac 10013010 error code enum.
-	 */
-	UAC10013010(10013010, "选择菜单不是根目录,menuId=%s"),
+	USER10012008(10012008, "找不到绑定的角色, roleId=%s"),
 
 
 	/**
-	 * Uac 10014001 error code enum.
+	 * USER 10013001 error code enum.
 	 */
-	UAC10014001(10014001, "找不到权限信息, actionId=%s"),
+	USER10013001(10013001, "父菜单不存在,menuId=%s"),
 	/**
-	 * Uac 10014002 error code enum.
+	 * USER 10013002 error code enum.
 	 */
-	UAC10014002(10014002, "删除失败, actionId=%s"),
+	USER10013002(10013002, "更新上级菜单失败,menuId=%s"),
 	/**
-	 * Uac 10014003 error code enum.
+	 * USER 10013003 error code enum.
 	 */
-	UAC10014003(10014003, "保存权限信息失败"),
+	USER10013003(10013003, "菜单不存在,menuId=%s"),
 	/**
-	 * Uac 10015001 error code enum.
+	 * USER 10013004 error code enum.
 	 */
-	UAC10015001(10015001, "找不到组织信息,groupId=%s"),
+	USER10013004(10013004, "启用菜单失败,menuId=%s"),
 	/**
-	 * Uac 10015002 error code enum.
+	 * USER 10013005 error code enum.
 	 */
-	UAC10015002(10015002, "组织状态不存在"),
+	USER10013005(10013005, "禁用菜单失败,menuId=%s"),
 	/**
-	 * Uac 10015003 error code enum.
+	 * USER 10013006 error code enum.
 	 */
-	UAC10015003(10015003, "操作越权, 启用子节点, 必须先启用父节点"),
+	USER10013006(10013006, "更新菜单状态失败,menuId=%s"),
 	/**
-	 * Uac 10015004 error code enum.
+	 * USER 10013007 error code enum.
 	 */
-	UAC10015004(10015004, "找不到组织信息,groupId=%s"),
+	USER10013007(10013007, "根菜单不能禁用"),
 	/**
-	 * Uac 10015006 error code enum.
+	 * USER 10013008 error code enum.
 	 */
-	UAC10015006(10015006, "更新组织信息失败,groupId=%s"),
+	USER10013008(10013008, "删除菜单失败, menuId=%s"),
 	/**
-	 * Uac 10015007 error code enum.
+	 * USER 10013009 error code enum.
 	 */
-	UAC10015007(10015007, "该组织下还存在子节点，不能将其删除, Pid=%s"),
+	USER10013009(10013009, "请先分配菜单"),
 	/**
-	 * Uac 10015008 error code enum.
+	 * USER 10013010 error code enum.
 	 */
-	UAC10015008(10015008, "该组织下绑定的用户，不能将其删除, groupId=%s"),
+	USER10013010(10013010, "选择菜单不是根目录,menuId=%s"),
+
+
 	/**
-	 * Uac 10015009 error code enum.
+	 * USER 10014001 error code enum.
 	 */
-	UAC10015009(10015009, "找不到上级组织, groupId=%s"),
+	USER10014001(10014001, "找不到权限信息, actionId=%s"),
+	/**
+	 * USER 10014002 error code enum.
+	 */
+	USER10014002(10014002, "删除失败, actionId=%s"),
+	/**
+	 * USER 10014003 error code enum.
+	 */
+	USER10014003(10014003, "保存权限信息失败"),
+	/**
+	 * USER 10015001 error code enum.
+	 */
+	USER10015001(10015001, "找不到组织信息,groupId=%s"),
+	/**
+	 * USER 10015002 error code enum.
+	 */
+	USER10015002(10015002, "组织状态不存在"),
+	/**
+	 * USER 10015003 error code enum.
+	 */
+	USER10015003(10015003, "操作越权, 启用子节点, 必须先启用父节点"),
+	/**
+	 * USER 10015004 error code enum.
+	 */
+	USER10015004(10015004, "找不到组织信息,groupId=%s"),
+	/**
+	 * USER 10015006 error code enum.
+	 */
+	USER10015006(10015006, "更新组织信息失败,groupId=%s"),
+	/**
+	 * USER 10015007 error code enum.
+	 */
+	USER10015007(10015007, "该组织下还存在子节点，不能将其删除, Pid=%s"),
+	/**
+	 * USER 10015008 error code enum.
+	 */
+	USER10015008(10015008, "该组织下绑定的用户，不能将其删除, groupId=%s"),
+	/**
+	 * USER 10015009 error code enum.
+	 */
+	USER10015009(10015009, "找不到上级组织, groupId=%s"),
 	/**
 	 * Mdc 10021001 error code enum.
 	 */
@@ -412,66 +412,14 @@ public enum ErrorCodeEnum {
 	 */
 	MDC10021023(10021023, "删除商品信息失败, productId=%s"),
 	/**
-	 * Omc 10031001 error code enum.
+	 * BLOG 10031001 error code enum.
 	 */
-// 1003 订单中心
-	OMC10031001(10031001, "购物车为空, userId=%s"),
+// 1003 博客中心
+	BLOG10031001(10031001, "博客为空"),
 	/**
-	 * Omc 10031002 error code enum.
+	 * BLOG 10031002 error code enum.
 	 */
-	OMC10031002(10031002, "生成订单失败"),
-	/**
-	 * Omc 10031003 error code enum.
-	 */
-	OMC10031003(10031003, "该用户此订单不存在"),
-	/**
-	 * Omc 10031004 error code enum.
-	 */
-	OMC10031004(10031004, "已付款, 无法取消订单"),
-	/**
-	 * Omc 10031005 error code enum.
-	 */
-	OMC10031005(10031005, "找不到订单信息, orderNo=%s"),
-	/**
-	 * Omc 10031006 error code enum.
-	 */
-	OMC10031006(10031006, "清空购物车失败"),
-	/**
-	 * Omc 10031007 error code enum.
-	 */
-	OMC10031007(10031007, "不存在默认地址"),
-	/**
-	 * Omc 10031008 error code enum.
-	 */
-	OMC10031008(10031008, "更新默认地址失败, addressId=%s"),
-	/**
-	 * Omc 10031009 error code enum.
-	 */
-	OMC10031009(10031009, "批量插入订单明细失败"),
-	/**
-	 * Omc 10031010 error code enum.
-	 */
-	OMC10031010(10031010, "非快乐学习网的订单, 回调忽略"),
-	/**
-	 * Omc 10031011 error code enum.
-	 */
-	OMC10031011(10031011, "支付宝重复调用"),
-	/**
-	 * Omc 10031012 error code enum.
-	 */
-	OMC10031012(10031012, "上传失败"),
-	/**
-	 * Omc 10031013 error code enum.
-	 */
-	OMC10031013(10031013, "获取附件地址失败"),
-	/**
-	 * Omc 10031014 error code enum.
-	 */
-	OMC10031014(10031014, "更新购物车数据失败, cartId=%s"),
-	/**
-	 * Omc 10031016 error code enum.
-	 */
-	OMC10031016(10031016, "更新购物车数据失败, cartId=%s"),
+	BLOG10031002(10031002, "创建博客失败"),
 	/**
 	 * Opc 10040001 error code enum.
 	 */

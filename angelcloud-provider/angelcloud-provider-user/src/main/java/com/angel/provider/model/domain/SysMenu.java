@@ -1,5 +1,6 @@
 package com.angel.provider.model.domain;
 
+import com.angel.base.model.domain.BaseEntity;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.util.Date;
  * @since 2018-08-18
  */
 @Data
-public class SysMenu implements Serializable {
+public class SysMenu extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,14 +43,6 @@ public class SysMenu implements Serializable {
      */
     private String iconImg;
     /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 最后一次更新时间
-     */
-    private Date updateTime;
-    /**
      * 排序
      */
     private Integer orderIndex;
@@ -61,9 +54,5 @@ public class SysMenu implements Serializable {
      * 是否禁用(0:未禁用 1 禁用)
      */
     private Integer isActivity;
-    /**
-     * 是否删除(0:未删除 1:删除)
-     */
-    private Integer isDel;
 
 }

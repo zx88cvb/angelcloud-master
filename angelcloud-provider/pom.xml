@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>angelcloud-provider-user</module>
+        <module>angelcloud-provider-blog</module>
     </modules>
     <artifactId>angelcloud-provider</artifactId>
 
@@ -53,6 +54,11 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- mybatis plus -->

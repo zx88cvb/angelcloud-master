@@ -1,5 +1,6 @@
 package com.angel.provider.model.domain;
 
+import com.angel.base.model.domain.BaseEntity;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * @since 2018-07-30
  */
 @Data
-public class SysUser implements Serializable {
+public class SysUser extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,14 +47,6 @@ public class SysUser implements Serializable {
      */
     private String answer;
     /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 最后一次更新时间
-     */
-    private Date updateTime;
-    /**
      * 上次登录时间
      */
     private Date lastLoginTime;
@@ -65,9 +58,5 @@ public class SysUser implements Serializable {
      * 用户状态 0-正常 1-封禁
      */
     private Integer status;
-    /**
-     * 是否删除 0 未删除 1 已删除
-     */
-    private Integer isDel;
 
 }

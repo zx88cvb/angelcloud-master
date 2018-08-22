@@ -1,5 +1,6 @@
 package com.angel.provider.model.vo;
 
+import com.angel.base.model.vo.BaseVo;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import io.swagger.annotations.ApiModel;
@@ -17,7 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
-public class SysUserVo implements Serializable {
+public class SysUserVo extends BaseVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,9 +48,5 @@ public class SysUserVo implements Serializable {
      * 用户状态 0-正常 1-封禁
      */
     private Integer status;
-    /**
-     * 是否删除 0 未删除 1 已删除
-     */
-    private Integer isDel;
 
 }

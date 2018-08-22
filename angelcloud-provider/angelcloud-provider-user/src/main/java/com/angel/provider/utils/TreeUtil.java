@@ -4,7 +4,6 @@ import com.angel.provider.model.vo.SysMenuVo;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 

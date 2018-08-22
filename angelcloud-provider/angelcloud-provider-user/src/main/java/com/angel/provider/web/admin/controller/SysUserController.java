@@ -66,7 +66,7 @@ public class SysUserController {
                                  String username, String password) {
         ServiceResult result = iSysUserService.login(username, password);
         if (!result.isSuccess()) {
-            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.UAC10011016.code(),ErrorCodeEnum.UAC10011016.msg());
+            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.USER10011016.code(),ErrorCodeEnum.USER10011016.msg());
         }
 
         return ServerResponse.createBySuccess();
