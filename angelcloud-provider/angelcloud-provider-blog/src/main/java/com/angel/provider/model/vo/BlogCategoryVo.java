@@ -25,7 +25,6 @@ public class BlogCategoryVo extends BaseVo implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 分类名称

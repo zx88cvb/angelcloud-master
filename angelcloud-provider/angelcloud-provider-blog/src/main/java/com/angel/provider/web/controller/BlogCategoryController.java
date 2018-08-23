@@ -1,22 +1,24 @@
 package com.angel.provider.web.controller;
 
 
+import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
+import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.BlogCategory;
+import com.angel.provider.model.dto.BlogCategoryDto;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.service.IBlogCategoryService;
 import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -51,6 +53,84 @@ public class BlogCategoryController {
         }
         Page<BlogCategoryVo> blogCategoryVoPage = blogCategoryVoResult.getResult();
         return ServerResponse.createBySuccess(blogCategoryVoPage);
+    }
+
+    /**
+     * 新增博客分类
+     * @param request request
+     * @param blogCategoryDto 分类信息DTO
+     * @param bindingResult 验证
+     * @return 返回code
+     */
+    @PostMapping("insertBlogCategory")
+    @ApiOperation(value = "新增博客分类", httpMethod = "POST")
+    public ServerResponse insertBlogCategory (HttpServletRequest request,
+                                              @ApiParam(name = "blogCategoryDto", value = "分类信息DTO") @Valid BlogCategoryDto blogCategoryDto,
+                                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
+        ServiceResult<Integer> integerServiceResult = iBlogCategoryService.insertBlogCategory(blogCategoryDto);
+        if (!integerServiceResult.isSuccess()) {
+            return ServerResponse.createByError();
+        }
+
+        // 个数小于1时 新增错误
+        if (integerServiceResult.getResult() < 1) {
+            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031006.code(),ErrorCodeEnum.BLOG10031006.msg());
+        }
+        return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 修改博客分类
+     * @param request request
+     * @param blogCategoryDto 分类信息DTO
+     * @param bindingResult 验证
+     * @return 返回code
+     */
+    @PutMapping("updateBlogCategory")
+    @ApiOperation(value = "修改博客分类", httpMethod = "PUT")
+    public ServerResponse updateBlogCategory (HttpServletRequest request,
+                                              @ApiParam(name = "blogCategoryDto", value = "分类信息DTO") @Valid BlogCategoryDto blogCategoryDto,
+                                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
+
+        ServiceResult<Integer> integerServiceResult = iBlogCategoryService.updateBlogCategory(blogCategoryDto);
+        if (!integerServiceResult.isSuccess()) {
+            return ServerResponse.createByError();
+        }
+
+        // 个数小于1时 新增错误
+        if (integerServiceResult.getResult() < 1) {
+            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031007.code(),ErrorCodeEnum.BLOG10031007.msg());
+        }
+
+        return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 删除博客分类
+     * @param request
+     * @param id 主键id
+     * @return 返回个数
+     */
+    @DeleteMapping("deleteBlogCategoryById")
+    @ApiOperation(value = "删除博客分类", httpMethod = "DELETE")
+    public ServerResponse deleteBlogCategoryById (HttpServletRequest request,
+                                                  @ApiParam(name = "id", value = "主键", required = true, type = "int") Integer id) {
+        if (id == null || id < 1) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        ServiceResult<Integer> integerServiceResult = iBlogCategoryService.deleteBlogCategoryById(id);
+        // 个数小于1时 新增错误
+        if (integerServiceResult.getResult() < 1) {
+            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031008.code(),ErrorCodeEnum.BLOG10031008.msg());
+        }
+
+        return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
     }
 }
 

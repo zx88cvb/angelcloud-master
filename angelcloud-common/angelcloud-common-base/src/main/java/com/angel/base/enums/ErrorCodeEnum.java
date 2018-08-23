@@ -421,6 +421,30 @@ public enum ErrorCodeEnum {
 	 */
 	BLOG10031002(10031002, "创建博客失败"),
 	/**
+	 * BLOG 10031003 error code enum.
+	 */
+	BLOG10031003(10031003, ""),
+	/**
+	 * BLOG 10031004 error code enum.
+	 */
+	BLOG10031004(10031004, ""),
+	/**
+	 * BLOG 10031005 error code enum.
+	 */
+	BLOG10031005(10031005, ""),
+	/**
+	 * BLOG 10031006 error code enum.
+	 */
+	BLOG10031006(10031006, "创建博客分类失败"),
+	/**
+	 * BLOG 10031007 error code enum.
+	 */
+	BLOG10031007(10031006, "修改博客分类失败"),
+	/**
+	 * BLOG 10031008 error code enum.
+	 */
+	BLOG10031008(10031006, "删除博客分类失败"),
+	/**
 	 * Opc 10040001 error code enum.
 	 */
 // 1004 对接中心

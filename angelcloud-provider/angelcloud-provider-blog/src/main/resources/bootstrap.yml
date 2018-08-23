@@ -22,6 +22,8 @@ mybatis-plus:
   configuration:
     # 来开启驼峰功能
     map-underscore-to-camel-case: true
+    # 打印SQL
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 mapper:
   mappers: com.angel.provider.mapper.*
   not-empty: false

@@ -28,6 +28,13 @@ spring:
          # 重点！转发该路径！,/userapi/**,
         # predicates:
         # - Path=/ANGELCLOUD-PROVIDER-USER/**
+      router:
+      - id: angelcloud-provider-blog
+        uri: lb://angelcloud-provider-blog
+        predicates:
+        - Path= /blogapi/**
+        filters:
+        - StripPrefix= 1
     consul:
       host: localhost
       port: 8500
