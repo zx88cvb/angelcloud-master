@@ -37,6 +37,11 @@ public class BlogCategoryController {
     @Resource
     private IBlogCategoryService iBlogCategoryService;
 
+    @GetMapping
+    public String retStr(){
+        return "success";
+    }
+
     /**
      * 获取博客分类分页数据
      * @param request request
