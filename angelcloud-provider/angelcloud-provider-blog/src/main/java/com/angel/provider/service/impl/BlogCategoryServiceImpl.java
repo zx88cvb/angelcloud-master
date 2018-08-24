@@ -5,6 +5,7 @@ import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.BlogCategoryMapper;
 import com.angel.provider.model.domain.BlogCategory;
 import com.angel.provider.model.dto.BlogCategoryDto;
+import com.angel.provider.model.form.BlogCategoryForm;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.service.IBlogCategoryService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -87,8 +88,8 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
     @Override
     public ServiceResult<Integer> updateBlogCategory(BlogCategoryDto blogCategoryDto) {
         BlogCategory blogCategory = new BlogCategory();
-        blogCategory.setUpdateTime(new Date());
         BeanUtils.copyProperties(blogCategoryDto, blogCategory);
+        blogCategory.setUpdateTime(new Date());
         //返回个数
         Integer count = blogCategoryMapper.updateById(blogCategory);
         return ServiceResult.of(count);

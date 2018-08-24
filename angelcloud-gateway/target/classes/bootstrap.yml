@@ -13,6 +13,7 @@ spring:
 #          headers:
 #          - dummy
       routes:
+        # 系统路由
       - id: angelcloud-provider-user
         # 重点！/info必须使用http进行转发，lb代表从注册中心获取服务
         uri: lb://angelcloud-provider-user
@@ -28,7 +29,8 @@ spring:
          # 重点！转发该路径！,/userapi/**,
         # predicates:
         # - Path=/ANGELCLOUD-PROVIDER-USER/**
-      router:
+
+        # 博客路由
       - id: angelcloud-provider-blog
         uri: lb://angelcloud-provider-blog
         predicates:

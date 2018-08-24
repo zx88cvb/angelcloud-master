@@ -1,7 +1,9 @@
 package com.angel.provider.config;
 
 import com.angel.provider.interceptor.TokenInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -34,5 +36,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         super.addInterceptors(registry);
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**")
                 .excludePathPatterns("/pay/alipayCallback", "/swagger-resources/**", "*.js", "/**/*.js", "*.css", "/**/*.css", "*.html", "/**/*.html");
+    }
+
+    // put请求
+    @Bean
+    public HttpPutFormContentFilter httpPutFormContentFilter() {
+        return new HttpPutFormContentFilter();
     }
 }

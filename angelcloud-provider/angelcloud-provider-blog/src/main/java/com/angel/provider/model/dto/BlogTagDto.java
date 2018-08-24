@@ -1,31 +1,26 @@
 package com.angel.provider.model.dto;
 
 import com.angel.base.model.dto.BaseDto;
-import com.angel.base.model.vo.BaseVo;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * <p>
- * 博客分类表Dto
+ * 博客标签表Dto
  * </p>
  *
  * @author Angel
- * @since 2018-08-13
+ * @since 2018-08-24
  */
 @Data
-public class BlogCategoryDto extends BaseDto implements Serializable {
+public class BlogTagDto extends BaseDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
     private Integer id;
     /**
-     * 分类名称
+     * 标签名称
      */
-    private String categoryName;
-
+    private String tagName;
 }

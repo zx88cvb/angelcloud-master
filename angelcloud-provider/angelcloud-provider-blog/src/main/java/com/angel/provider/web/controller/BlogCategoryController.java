@@ -7,19 +7,20 @@ import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.BlogCategory;
 import com.angel.provider.model.dto.BlogCategoryDto;
+import com.angel.provider.model.form.BlogCategoryForm;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.service.IBlogCategoryService;
 import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * <p>
@@ -37,10 +38,6 @@ public class BlogCategoryController {
     @Resource
     private IBlogCategoryService iBlogCategoryService;
 
-    @GetMapping
-    public String retStr(){
-        return "success";
-    }
 
     /**
      * 获取博客分类分页数据
@@ -63,18 +60,20 @@ public class BlogCategoryController {
     /**
      * 新增博客分类
      * @param request request
-     * @param blogCategoryDto 分类信息DTO
+     * @param blogCategoryForm 分类信息Form
      * @param bindingResult 验证
      * @return 返回code
      */
     @PostMapping("insertBlogCategory")
     @ApiOperation(value = "新增博客分类", httpMethod = "POST")
     public ServerResponse insertBlogCategory (HttpServletRequest request,
-                                              @ApiParam(name = "blogCategoryDto", value = "分类信息DTO") @Valid BlogCategoryDto blogCategoryDto,
+                                              @ApiParam(name = "blogCategoryForm", value = "分类信息Form") @Valid BlogCategoryForm blogCategoryForm,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
+        BlogCategoryDto blogCategoryDto = new BlogCategoryDto();
+        BeanUtils.copyProperties(blogCategoryForm, blogCategoryDto);
         ServiceResult<Integer> integerServiceResult = iBlogCategoryService.insertBlogCategory(blogCategoryDto);
         if (!integerServiceResult.isSuccess()) {
             return ServerResponse.createByError();
@@ -90,18 +89,21 @@ public class BlogCategoryController {
     /**
      * 修改博客分类
      * @param request request
-     * @param blogCategoryDto 分类信息DTO
+     * @param blogCategoryForm 分类信息Form
      * @param bindingResult 验证
      * @return 返回code
      */
     @PutMapping("updateBlogCategory")
     @ApiOperation(value = "修改博客分类", httpMethod = "PUT")
     public ServerResponse updateBlogCategory (HttpServletRequest request,
-                                              @ApiParam(name = "blogCategoryDto", value = "分类信息DTO") @Valid BlogCategoryDto blogCategoryDto,
+                                              @ApiParam(name = "blogCategoryForm", value = "分类信息Form") @Valid BlogCategoryForm blogCategoryForm,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
+
+        BlogCategoryDto blogCategoryDto = new BlogCategoryDto();
+        BeanUtils.copyProperties(blogCategoryForm, blogCategoryDto);
 
         ServiceResult<Integer> integerServiceResult = iBlogCategoryService.updateBlogCategory(blogCategoryDto);
         if (!integerServiceResult.isSuccess()) {
@@ -122,10 +124,10 @@ public class BlogCategoryController {
      * @param id 主键id
      * @return 返回个数
      */
-    @DeleteMapping("deleteBlogCategoryById")
+    @DeleteMapping("deleteBlogCategoryById/{id}")
     @ApiOperation(value = "删除博客分类", httpMethod = "DELETE")
     public ServerResponse deleteBlogCategoryById (HttpServletRequest request,
-                                                  @ApiParam(name = "id", value = "主键", required = true, type = "int") Integer id) {
+                                                  @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") Integer id) {
         if (id == null || id < 1) {
             return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }

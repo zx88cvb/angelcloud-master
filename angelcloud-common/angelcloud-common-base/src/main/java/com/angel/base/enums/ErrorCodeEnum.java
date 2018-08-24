@@ -439,11 +439,23 @@ public enum ErrorCodeEnum {
 	/**
 	 * BLOG 10031007 error code enum.
 	 */
-	BLOG10031007(10031006, "修改博客分类失败"),
+	BLOG10031007(10031007, "修改博客分类失败"),
 	/**
 	 * BLOG 10031008 error code enum.
 	 */
-	BLOG10031008(10031006, "删除博客分类失败"),
+	BLOG10031008(10031008, "删除博客分类失败"),
+	/**
+	 * BLOG 10031009 error code enum.
+	 */
+	BLOG10031009(10031009, "创建博客标签失败"),
+	/**
+	 * BLOG 10031010 error code enum.
+	 */
+	BLOG10031010(10031010, "修改博客标签失败"),
+	/**
+	 * BLOG 10031011 error code enum.
+	 */
+	BLOG10031011(10031011, "删除博客标签失败"),
 	/**
 	 * Opc 10040001 error code enum.
 	 */
