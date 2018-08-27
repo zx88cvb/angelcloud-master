@@ -43,7 +43,7 @@ spring:
       healthCheckInterval: 15s
 
 server:
-  port: 8080
+  port: 8082
 
 # eureka:
 #  client:

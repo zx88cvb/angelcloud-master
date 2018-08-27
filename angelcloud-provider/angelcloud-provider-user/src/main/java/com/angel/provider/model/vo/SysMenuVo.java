@@ -1,6 +1,7 @@
 package com.angel.provider.model.vo;
 
 import com.angel.base.model.vo.BaseVo;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Data
 @ApiModel
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class SysMenuVo extends BaseVo implements Serializable{
 
     /**
@@ -38,6 +40,10 @@ public class SysMenuVo extends BaseVo implements Serializable{
      * 图标
      */
     private String iconImg;
+    /**
+     * 描述
+     */
+    private String description;
     /**
      * 层级
      */

@@ -43,6 +43,10 @@ public class SysMenu extends BaseEntity implements Serializable {
      */
     private String iconImg;
     /**
+     * 描述
+     */
+    private String description;
+    /**
      * 排序
      */
     private Integer orderIndex;

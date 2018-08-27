@@ -63,6 +63,10 @@ public class BlogArticle extends BaseEntity implements Serializable {
      */
     private Integer isRecommend;
     /**
+     * 发表用户id
+     */
+    private Integer userId;
+    /**
      * 分类id
      */
     private Integer categoryId;
