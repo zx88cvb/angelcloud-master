@@ -18,6 +18,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/blogArticle")
 @Api("博客文章Api")
 public class BlogArticleController {
-
 }
 

@@ -105,6 +105,7 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         BlogCategory blogCategory = new BlogCategory();
         blogCategory.setId(id);
         blogCategory.setIsDel(GlobalConstant.IsDel.YES);
+        blogCategory.setUpdateTime(new Date());
         Integer count = blogCategoryMapper.updateById(blogCategory);
         return ServiceResult.of(count);
     }

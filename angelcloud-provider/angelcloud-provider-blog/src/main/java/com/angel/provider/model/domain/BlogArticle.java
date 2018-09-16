@@ -1,6 +1,7 @@
 package com.angel.provider.model.domain;
 
 import com.angel.base.model.domain.BaseEntity;
+import com.angel.provider.model.bo.SysUserBo;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -74,4 +75,5 @@ public class BlogArticle extends BaseEntity implements Serializable {
      * 浏览量
      */
     private Integer browseCount;
+
 }

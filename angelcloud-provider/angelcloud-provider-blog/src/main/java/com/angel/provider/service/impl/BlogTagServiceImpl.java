@@ -105,6 +105,7 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         BlogTag blogTag = new BlogTag();
         blogTag.setId(id);
         blogTag.setIsDel(GlobalConstant.IsDel.YES);
+        blogTag.setUpdateTime(new Date());
         Integer count = blogTagMapper.updateById(blogTag);
         return ServiceResult.of(count);
     }
