@@ -1,7 +1,7 @@
 package com.angel.provider.mapper;
 
 import com.angel.provider.model.domain.SysMenu;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>

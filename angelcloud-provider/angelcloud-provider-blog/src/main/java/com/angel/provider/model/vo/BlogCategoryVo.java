@@ -2,8 +2,7 @@ package com.angel.provider.model.vo;
 
 import com.angel.base.model.domain.BaseEntity;
 import com.angel.base.model.vo.BaseVo;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;

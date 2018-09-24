@@ -1,6 +1,6 @@
 package com.angel.base.model.domain;
 
-import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

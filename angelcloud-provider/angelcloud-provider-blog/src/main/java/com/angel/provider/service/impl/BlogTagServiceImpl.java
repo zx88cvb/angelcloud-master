@@ -3,15 +3,17 @@ package com.angel.provider.service.impl;
 import com.angel.base.constant.GlobalConstant;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.BlogTagMapper;
+import com.angel.provider.model.domain.BlogCategory;
 import com.angel.provider.model.domain.BlogTag;
 import com.angel.provider.model.dto.BlogTagDto;
 import com.angel.provider.model.form.BlogTagForm;
 import com.angel.provider.model.vo.BlogTagVo;
 import com.angel.provider.service.IBlogTagService;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -45,14 +47,17 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<Page<BlogTagVo>> getBlogTagPage(BlogTag blogTag) {
-        Page<BlogTagVo> page = new Page<>(blogTag.getPageNum(), blogTag.getPageSize());
+        Page<BlogTagVo> page = new Page<>();
 
         //条件查询
-        Wrapper<BlogTag> entity = new EntityWrapper<>();
-        entity.eq("is_del", GlobalConstant.IsDel.NO)
-                .like("tag_name", blogTag.getTagName())
-                .orderDesc(Lists.newArrayList("create_time"));
-        List<BlogTag> blogTagList = blogTagMapper.selectPage(page, entity);
+        //条件查询
+        LambdaQueryWrapper<BlogTag> entity = new QueryWrapper<BlogTag>().lambda()
+                .eq(BlogTag:: getIsDel, GlobalConstant.IsDel.NO)
+                .like(BlogTag:: getTagName, blogTag.getTagName() == null ? "" : blogTag.getTagName())
+                .orderByDesc(BlogTag:: getCreateTime);
+        IPage<BlogTag> iPage = blogTagMapper.selectPage(new Page<>(blogTag.getPageNum(), blogTag.getPageSize()), entity);
+
+        List<BlogTag> blogTagList = iPage.getRecords();
 
         //将BlogTag 转换成Vo对象
         List<BlogTagVo> collect = blogTagList.stream().map(e -> {
@@ -61,6 +66,7 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
             return blogTagVo;
         }).collect(Collectors.toList());
 
+        BeanUtils.copyProperties(iPage, page);
         page.setRecords(collect);
 
         return ServiceResult.of(page);

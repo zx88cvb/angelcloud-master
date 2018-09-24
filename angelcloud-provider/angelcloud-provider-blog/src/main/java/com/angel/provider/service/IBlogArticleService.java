@@ -4,8 +4,8 @@ import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.dto.BlogArticleDto;
 import com.angel.provider.model.vo.BlogArticleVo;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

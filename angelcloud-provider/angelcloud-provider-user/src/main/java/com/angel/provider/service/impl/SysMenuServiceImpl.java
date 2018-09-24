@@ -8,8 +8,11 @@ import com.angel.provider.model.domain.SysMenu;
 import com.angel.provider.model.vo.SysMenuVo;
 import com.angel.provider.service.ISysMenuService;
 import com.angel.provider.utils.TreeUtil;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
  * @since 2018-08-18
  */
 @Service
+@Slf4j
 @Transactional(rollbackFor = Exception.class)
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
@@ -42,11 +46,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<List<SysMenuVo>> getMenuList() {
-        EntityWrapper<SysMenu> sysMenuEntityWrapper = new EntityWrapper<SysMenu>();
-        sysMenuEntityWrapper.setEntity(new SysMenu());
-        sysMenuEntityWrapper.where("is_activity={0}", MenuConstant.isActivity.NO)
-        .and("is_del={0}", GlobalConstant.IsDel.NO);
-        List<SysMenu> sysMenuList = sysMenuMapper.selectList(sysMenuEntityWrapper);
+        LambdaQueryWrapper<SysMenu> sysMenuWrapper = new QueryWrapper<SysMenu>()
+                .lambda()
+                .eq(SysMenu:: getIsActivity, MenuConstant.isActivity.NO)
+                .eq(SysMenu:: getIsDel, GlobalConstant.IsDel.NO);
+        List<SysMenu> sysMenuList = sysMenuMapper.selectList(sysMenuWrapper);
         List<SysMenuVo> sysMenuVoList = sysMenuList.stream().map(e -> {
             SysMenuVo sysMenuVo = new SysMenuVo();
             BeanUtils.copyProperties(e, sysMenuVo);

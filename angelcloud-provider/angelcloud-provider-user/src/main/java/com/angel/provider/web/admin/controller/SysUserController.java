@@ -6,7 +6,9 @@ import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.SysUser;
 import com.angel.provider.service.ISysUserService;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -44,7 +46,7 @@ public class SysUserController {
     @ApiOperation(value = "测试方法 查询全部用户", httpMethod = "GET")
     public String selectAll () {
         Page<SysUser> page =new Page<SysUser>(0, 10);
-        Page<SysUser> sysUserPage = iSysUserService.selectPage(page);
+        IPage<SysUser> sysUserPage = iSysUserService.page(page, new QueryWrapper<>());
         List<SysUser> records = sysUserPage.getRecords();
         return records.toString();
     }

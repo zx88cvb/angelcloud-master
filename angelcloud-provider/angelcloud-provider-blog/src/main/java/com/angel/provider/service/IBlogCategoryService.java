@@ -5,8 +5,8 @@ import com.angel.provider.model.domain.BlogCategory;
 import com.angel.provider.model.dto.BlogCategoryDto;
 import com.angel.provider.model.form.BlogCategoryForm;
 import com.angel.provider.model.vo.BlogCategoryVo;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

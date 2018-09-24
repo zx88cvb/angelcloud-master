@@ -10,7 +10,7 @@ import com.angel.provider.model.dto.BlogCategoryDto;
 import com.angel.provider.model.form.BlogCategoryForm;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.service.IBlogCategoryService;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

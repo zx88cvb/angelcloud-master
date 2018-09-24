@@ -21,6 +21,19 @@
             <groupId>com.angel</groupId>
             <artifactId>angelcloud-common-base</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-security-feign</artifactId>
+        </dependency>
+
+        <!-- 熔断器 -->
+        <!--Hystrix 依赖 主要是用  @HystrixCommand-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

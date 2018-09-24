@@ -1,8 +1,6 @@
 package com.angel.provider.model.vo;
 
 import com.angel.base.model.vo.BaseVo;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -68,4 +66,9 @@ public class BlogArticleVo extends BaseVo implements Serializable {
      * 浏览量
      */
     private Integer browseCount;
+
+    /**
+     * 用户Vo
+     */
+    private SysUserVo sysUserVo;
 }

@@ -5,17 +5,19 @@ import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.BlogCategoryMapper;
 import com.angel.provider.model.domain.BlogCategory;
 import com.angel.provider.model.dto.BlogCategoryDto;
-import com.angel.provider.model.form.BlogCategoryForm;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.service.IBlogCategoryService;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -45,14 +47,18 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<Page<BlogCategoryVo>> getBlogCategoryPage(BlogCategory blogCategory) {
-        Page<BlogCategoryVo> page = new Page<>(blogCategory.getPageNum(), blogCategory.getPageSize());
-
+        Page<BlogCategoryVo> page = new Page<BlogCategoryVo>();
         //条件查询
-        Wrapper<BlogCategory> entity = new EntityWrapper<>();
-        entity.eq("is_del", GlobalConstant.IsDel.NO)
-                .like("category_name", blogCategory.getCategoryName())
-        .orderDesc(Lists.newArrayList("create_time"));
-        List<BlogCategory> blogCategoryList = blogCategoryMapper.selectPage(page, entity);
+        LambdaQueryWrapper<BlogCategory> entity = new QueryWrapper<BlogCategory>().lambda()
+                .eq(BlogCategory:: getIsDel, GlobalConstant.IsDel.NO)
+                .like(BlogCategory:: getCategoryName, blogCategory.getCategoryName() == null ? "" : blogCategory.getCategoryName())
+                .orderByDesc(BlogCategory:: getCreateTime);
+
+        // List<BlogCategory> blogCategoryList = blogCategoryMapper.selectPage(page, entity);
+        IPage<BlogCategory> iPageBlogCategory = blogCategoryMapper.selectPage(new Page<>(blogCategory.getPageNum(), blogCategory.getPageSize()), entity);
+
+        // 获取集合对象
+        List<BlogCategory> blogCategoryList = iPageBlogCategory.getRecords();
 
         //将BlogCategory 转换成Vo对象
         List<BlogCategoryVo> collect = blogCategoryList.stream().map(e -> {
@@ -61,7 +67,9 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
             return blogCategoryVo;
         }).collect(Collectors.toList());
 
+        BeanUtils.copyProperties(iPageBlogCategory, page);
         page.setRecords(collect);
+
 
         return ServiceResult.of(page);
     }

@@ -5,14 +5,19 @@ import com.angel.provider.mapper.BlogArticleMapper;
 import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.dto.BlogArticleDto;
 import com.angel.provider.model.vo.BlogArticleVo;
+import com.angel.provider.model.vo.SysUserVo;
 import com.angel.provider.service.IBlogArticleService;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.angel.provider.service.IUserSysUserService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -28,10 +33,40 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     @Resource
     private BlogArticleMapper blogArticleMapper;
 
+    @Resource
+    private IUserSysUserService iUserSysUserService;
+
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<Page<BlogArticleVo>> getBlogArticlePage(BlogArticleDto blogArticleDto) {
-        return null;
+        // 将当前页和每页显示数量加入Page对象
+        Page<BlogArticleVo> page = new Page<>(blogArticleDto.getPageNum(), blogArticleDto.getPageSize());
+
+        // DTO -> Entity
+        BlogArticle blogArticle = new BlogArticle();
+        BeanUtils.copyProperties(blogArticleDto, blogArticle);
+
+        //查询
+        IPage<BlogArticle> blogArticlePage = blogArticleMapper.selectBlogArticleConditionPage(page, blogArticle);
+
+        List<BlogArticle> blogArticleList = blogArticlePage.getRecords();
+
+        // stram() 转换成 VO LIST
+        List<BlogArticleVo> articleVoList = blogArticleList.stream().map(e -> {
+            BlogArticleVo blogArticleVo = new BlogArticleVo();
+            BeanUtils.copyProperties(e, blogArticleVo);
+
+            // feign 远程调用 获取SysUserVo
+            ServiceResult<SysUserVo> userVo = iUserSysUserService.getUserVo(e.getUserId());
+            SysUserVo sysUserVo = userVo.getResult();
+            blogArticleVo.setSysUserVo(sysUserVo);
+            return blogArticleVo;
+        }).collect(Collectors.toList());
+
+        // 将数据添加到Page
+        page.setRecords(articleVoList);
+
+        return ServiceResult.of(page);
     }
 
     /**

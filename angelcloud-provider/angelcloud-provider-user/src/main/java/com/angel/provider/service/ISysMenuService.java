@@ -3,7 +3,7 @@ package com.angel.provider.service;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.SysMenu;
 import com.angel.provider.model.vo.SysMenuVo;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 

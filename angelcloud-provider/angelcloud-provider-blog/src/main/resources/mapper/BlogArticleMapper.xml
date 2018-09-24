@@ -23,4 +23,32 @@
         <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
     </resultMap>
 
+    <sql id="Base_Column_List">
+      ${alias}.ID,
+      ${alias}.author,
+      ${alias}.title,
+      ${alias}.excerpt,
+      ${alias}.content,
+      ${alias}.blog_status,
+      ${alias}.comment_status,
+      ${alias}.thumbnail,
+      ${alias}.order_index,
+      ${alias}.is_recommend,
+      ${alias}.user_id,
+      ${alias}.category_id,
+      ${alias}.browse_count,
+      ${alias}.CREATE_TIME,
+      ${alias}.UPDATE_TIME,
+      ${alias}.IS_DEL
+    </sql>
+
+    <select id="selectBlogArticleConditionPage" resultMap="baseResultMap">
+        SELECT 
+        <include refid="Base_Column_List">
+            <property name="alias" value="ba" />
+        </include>
+        FROM
+        blog_article ba
+    </select>
+
 </mapper>

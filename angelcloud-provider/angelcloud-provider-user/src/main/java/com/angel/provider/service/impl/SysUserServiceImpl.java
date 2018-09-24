@@ -5,7 +5,7 @@ import com.angel.provider.mapper.SysUserMapper;
 import com.angel.provider.model.domain.SysUser;
 import com.angel.provider.model.vo.SysUserVo;
 import com.angel.provider.service.ISysUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -44,6 +44,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         SysUserVo sysUserVo = new SysUserVo();
         BeanUtils.copyProperties(sysUser, sysUserVo);
+        return ServiceResult.of(sysUserVo);
+    }
+
+    /**
+     * 根据id查询用户
+     * @param userId 用户id
+     * @return 返回用户Vo结果集
+     */
+    @Override
+    public ServiceResult<SysUserVo> getUserVoById(Integer userId) {
+        // 查询用户
+        SysUser sysUser = sysUserMapper.selectById(userId);
+
+        if (sysUser == null) {
+            return ServiceResult.notFound();
+        }
+
+        SysUserVo sysUserVo = new SysUserVo();
+        BeanUtils.copyProperties(sysUser, sysUserVo);
+
         return ServiceResult.of(sysUserVo);
     }
 }

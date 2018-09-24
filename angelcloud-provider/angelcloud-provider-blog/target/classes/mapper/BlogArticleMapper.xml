@@ -4,5 +4,51 @@
 
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+    <resultMap id="baseResultMap" type="com.angel.provider.model.domain.BlogArticle">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="author" property="author" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="excerpt" property="excerpt" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="blog_status" property="blogStatus" jdbcType="INTEGER" />
+        <result column="comment_status" property="commentStatus" jdbcType="INTEGER" />
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+        <result column="order_index" property="orderIndex" jdbcType="INTEGER" />
+        <result column="is_recommend" property="isRecommend" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+        <result column="browse_count" property="browseCount" jdbcType="INTEGER" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      ${alias}.ID,
+      ${alias}.author,
+      ${alias}.title,
+      ${alias}.excerpt,
+      ${alias}.content,
+      ${alias}.blog_status,
+      ${alias}.comment_status,
+      ${alias}.thumbnail,
+      ${alias}.order_index,
+      ${alias}.is_recommend,
+      ${alias}.user_id,
+      ${alias}.category_id,
+      ${alias}.browse_count,
+      ${alias}.CREATE_TIME,
+      ${alias}.UPDATE_TIME,
+      ${alias}.IS_DEL
+    </sql>
+
+    <select id="selectBlogArticleConditionPage" resultMap="baseResultMap">
+        SELECT 
+        <include refid="Base_Column_List">
+            <property name="alias" value="ba" />
+        </include>
+        FROM
+        blog_article ba
+    </select>
 
 </mapper>

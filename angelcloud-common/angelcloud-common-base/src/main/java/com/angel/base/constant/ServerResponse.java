@@ -14,6 +14,9 @@ public class ServerResponse<T> implements Serializable {
     private String message;
     private T data;
 
+    public ServerResponse() {
+    }
+
     public ServerResponse(int code) {
         this.code = code;
     }

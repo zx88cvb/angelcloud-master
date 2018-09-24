@@ -5,8 +5,8 @@ import com.angel.provider.model.domain.BlogTag;
 import com.angel.provider.model.dto.BlogTagDto;
 import com.angel.provider.model.form.BlogTagForm;
 import com.angel.provider.model.vo.BlogTagVo;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.IService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
