@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.angel.base.mapper.BaseMapper">
+    <sql id="DList-Attribute-YES">
+        1
+    </sql>
+    <sql id="DList-Attribute-NO">
+        0
+    </sql>
+</mapper>

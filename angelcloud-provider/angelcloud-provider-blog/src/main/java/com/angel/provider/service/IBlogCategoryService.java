@@ -8,6 +8,8 @@ import com.angel.provider.model.vo.BlogCategoryVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客分类表 服务类
@@ -45,4 +47,11 @@ public interface IBlogCategoryService extends IService<BlogCategory> {
      * @return 删除个数
      */
     ServiceResult<Integer> deleteBlogCategoryById (Integer id);
+
+    /**
+     * 条件查询所有博客类别
+     * @param blogCategory 条件实体类
+     * @return 类别集合
+     */
+    ServiceResult<List<BlogCategoryVo>> getBlogCategoryAll(BlogCategory blogCategory);
 }

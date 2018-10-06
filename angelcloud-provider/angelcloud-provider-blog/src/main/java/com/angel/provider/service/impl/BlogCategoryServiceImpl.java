@@ -7,17 +7,14 @@ import com.angel.provider.model.domain.BlogCategory;
 import com.angel.provider.model.dto.BlogCategoryDto;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.service.IBlogCategoryService;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -85,6 +82,9 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         BeanUtils.copyProperties(blogCategoryDto, blogCategory);
         //返回个数
         Integer count = blogCategoryMapper.insert(blogCategory);
+        if (count < 1) {
+            return ServiceResult.notFound();
+        }
         return ServiceResult.of(count);
     }
 
@@ -100,6 +100,9 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         blogCategory.setUpdateTime(new Date());
         //返回个数
         Integer count = blogCategoryMapper.updateById(blogCategory);
+        if (count < 1) {
+            return ServiceResult.notFound();
+        }
         return ServiceResult.of(count);
     }
 
@@ -115,6 +118,29 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         blogCategory.setIsDel(GlobalConstant.IsDel.YES);
         blogCategory.setUpdateTime(new Date());
         Integer count = blogCategoryMapper.updateById(blogCategory);
+        if (count < 1) {
+            return ServiceResult.notFound();
+        }
         return ServiceResult.of(count);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<List<BlogCategoryVo>> getBlogCategoryAll(BlogCategory blogCategory) {
+        //条件查询
+        LambdaQueryWrapper<BlogCategory> entity = new QueryWrapper<BlogCategory>().lambda()
+                .eq(BlogCategory:: getIsDel, GlobalConstant.IsDel.NO)
+                .like(BlogCategory:: getCategoryName, blogCategory.getCategoryName() == null ? "" : blogCategory.getCategoryName())
+                .orderByDesc(BlogCategory:: getCreateTime);
+        List<BlogCategory> blogCategoryList = blogCategoryMapper.selectList(entity);
+        //将BlogCategory 转换成Vo对象
+        List<BlogCategoryVo> collect = blogCategoryList.stream().map(e -> {
+            BlogCategoryVo blogCategoryVo = new BlogCategoryVo();
+            BeanUtils.copyProperties(e, blogCategoryVo);
+            return blogCategoryVo;
+        }).collect(Collectors.toList());
+
+        return ServiceResult.of(collect);
     }
 }

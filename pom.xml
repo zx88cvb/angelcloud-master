@@ -39,6 +39,7 @@
 		<guava.version>26.0-jre</guava.version>
 		<codehaus-jackson.version>1.9.13</codehaus-jackson.version>
 		<springfox.version>2.9.2</springfox.version>
+		<qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
 	</properties>
 
 	<!--<dependencies>
@@ -182,6 +183,19 @@
 				<groupId>com.angel</groupId>
 				<artifactId>angelcloud-provider-user-api</artifactId>
 				<version>${angelcloud.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.angel</groupId>
+				<artifactId>angelcloud-provider-blog-api</artifactId>
+				<version>${angelcloud.version}</version>
+			</dependency>
+
+			<!-- 七牛云存储 -->
+			<dependency>
+				<groupId>com.qiniu</groupId>
+				<artifactId>qiniu-java-sdk</artifactId>
+				<version>${qiniu.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

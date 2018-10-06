@@ -5,10 +5,8 @@ import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
-import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.dto.BlogArticleDto;
 import com.angel.provider.model.form.BlogArticleForm;
-import com.angel.provider.model.vo.BlogArticleVo;
 import com.angel.provider.service.IBlogArticleService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -81,14 +79,14 @@ public class BlogArticleController {
      */
     @GetMapping("getBlogArticlePage")
     @ApiOperation(value = "获取博客文章分页数据", httpMethod = "GET")
-    public ServerResponse<Page<BlogArticleVo>> getBlogCategoryPage (HttpServletRequest request,
+    public ServerResponse<Page<BlogArticleDto>> getBlogCategoryPage (HttpServletRequest request,
                                                                     @ApiParam(name = "blogArticleDto", value = "博客文章信息DTO")BlogArticleDto blogArticleDto) {
-        ServiceResult<Page<BlogArticleVo>> blogArticleVoResult = iBlogArticleService.getBlogArticlePage(blogArticleDto);
-        if (!blogArticleVoResult.isSuccess()) {
+        ServiceResult<Page<BlogArticleDto>> blogArticleDtoResult = iBlogArticleService.getBlogArticlePage(blogArticleDto);
+        if (!blogArticleDtoResult.isSuccess()) {
             return ServerResponse.createByError();
         }
-        Page<BlogArticleVo> blogArticleVoPage = blogArticleVoResult.getResult();
-        return ServerResponse.createBySuccess(blogArticleVoPage);
+        Page<BlogArticleDto> blogArticleDtoPage = blogArticleDtoResult.getResult();
+        return ServerResponse.createBySuccess(blogArticleDtoPage);
     }
 }
 

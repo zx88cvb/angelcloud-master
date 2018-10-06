@@ -37,11 +37,6 @@ public class SysUserVo extends BaseVo implements Serializable {
      */
     private String nickname;
     /**
-     * 找回密码问题
-     */
-    private String question;
-
-    /**
      * 头像
      */
     private String avatar;

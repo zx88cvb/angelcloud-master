@@ -23,6 +23,13 @@
         <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
     </resultMap>
 
+    <resultMap id="allResultMap" type="com.angel.provider.model.domain.BlogArticle" extends="baseResultMap">
+        <association property="blogCategory" javaType="com.angel.provider.model.domain.BlogCategory" >
+            <id column="BC_ID" property="id" jdbcType="INTEGER" />
+            <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
     <sql id="Base_Column_List">
       ${alias}.ID,
       ${alias}.author,
@@ -42,13 +49,52 @@
       ${alias}.IS_DEL
     </sql>
 
-    <select id="selectBlogArticleConditionPage" resultMap="baseResultMap">
+    <sql id="All_Column_List">
+        ${alias}.ID,
+        ${alias}.author,
+        ${alias}.title,
+        ${alias}.excerpt,
+        ${alias}.content,
+        ${alias}.blog_status,
+        ${alias}.comment_status,
+        ${alias}.thumbnail,
+        ${alias}.order_index,
+        ${alias}.is_recommend,
+        ${alias}.user_id,
+        ${alias}.category_id,
+        ${alias}.browse_count,
+        ${alias}.CREATE_TIME,
+        ${alias}.UPDATE_TIME,
+        ${alias}.IS_DEL,
+        ${alias_two}.IS_DEL `BC_ID`,
+        ${alias_two}.category_name
+    </sql>
+
+    <sql id="commonCondition">
+        where ${alias}.IS_DEL =
+        <include refid="com.angel.base.mapper.BaseMapper.DList-Attribute-NO" />
+    </sql>
+
+    <sql id="conditionPage">
+        where
+        ${alias}.IS_DEL = 0
+        AND ${alias_two}.IS_DEL = 0
+        AND ${alias}.category_id = ${alias_two}.id
+    </sql>
+
+    <select id="selectBlogArticleConditionPage" resultMap="allResultMap">
         SELECT 
-        <include refid="Base_Column_List">
+        <include refid="All_Column_List">
             <property name="alias" value="ba" />
+            <property name="alias_two" value="bc" />
         </include>
         FROM
-        blog_article ba
+        blog_article ba,
+        blog_category bc
+        <include refid="conditionPage">
+            <property name="alias" value="ba" />
+            <property name="alias_two" value="bc" />
+        </include>
     </select>
 
 </mapper>

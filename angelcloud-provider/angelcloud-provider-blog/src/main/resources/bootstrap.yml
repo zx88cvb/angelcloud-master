@@ -18,6 +18,13 @@ spring:
       discovery:
         healthCheckPath: /
         healthCheckInterval: 15s
+  servlet:
+    #上传
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 20MB
+      location: E:/fileResources/angelcloud/temp
 mybatis-plus:
   typeAliasesPackage: com.angel.provider.model.domain
   mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
@@ -30,6 +37,14 @@ mapper:
   mappers: com.angel.provider.mapper.*
   not-empty: false
   identity: MYSQL
+
+angelcloud:
+  qiniu:
+    accessKey: pOZwFNuIKX0YmZBYHnm0Op2kowXN4dEW4_ZrXZCI
+    secretKey: d61X6l112Kvi6EGvANRrJ_reL7HclO45dOWqc3-a
+    bucket: angelcloud
+    cdnPrefix: pfk9pbjlp.bkt.clouddn.com
+
 
 # pagehelper:
 #  helperDialect: mysql

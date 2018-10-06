@@ -10,6 +10,11 @@
   "properties": [
     {
       "sourceType": "com.angel.config.properties.AngelcloudProperties",
+      "name": "angelcloud.qiniu",
+      "type": "com.angel.config.properties.QiNiuProperties"
+    },
+    {
+      "sourceType": "com.angel.config.properties.AngelcloudProperties",
       "name": "angelcloud.swagger-properties",
       "type": "com.angel.config.properties.SwaggerProperties"
     }

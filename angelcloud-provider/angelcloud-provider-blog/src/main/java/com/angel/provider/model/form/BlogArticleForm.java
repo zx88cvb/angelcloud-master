@@ -58,6 +58,7 @@ public class BlogArticleForm extends BaseEntity implements Serializable {
     /**
      * 缩略图
      */
+    @NotNull(message = "缩略图不能为空!")
     private String thumbnail;
     /**
      * 排序
@@ -70,6 +71,7 @@ public class BlogArticleForm extends BaseEntity implements Serializable {
     /**
      * 分类id
      */
+    @NotNull(message = "分类不能为空!")
     private Integer categoryId;
     /**
      * 浏览量

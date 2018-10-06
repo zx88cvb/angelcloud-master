@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * @Author: Angel
- * @Date: 2018/9/23.
- * @Description:
+ * 用户模块远程调用
+ * Author: Angel
+ * Date: 2018/9/23.
+ * Description:
  */
 @RestController
 @Api("feign远程调用用户接口")

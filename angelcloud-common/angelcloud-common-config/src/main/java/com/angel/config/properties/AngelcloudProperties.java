@@ -12,5 +12,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = GlobalConstant.ROOT_PREFIX)
 @Component
 public class AngelcloudProperties {
+    // Swagger文档工具
     private SwaggerProperties swaggerProperties = new SwaggerProperties();
+
+    // 七牛云
+    private QiNiuProperties qiniu = new QiNiuProperties();
 }

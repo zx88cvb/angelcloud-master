@@ -83,6 +83,9 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         BeanUtils.copyProperties(blogTagDto, blogTag);
         //返回个数
         Integer count = blogTagMapper.insert(blogTag);
+        if (count < 1) {
+            return ServiceResult.notFound();
+        }
         return ServiceResult.of(count);
     }
 
@@ -98,6 +101,9 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         blogTag.setUpdateTime(new Date());
         //返回个数
         Integer count = blogTagMapper.updateById(blogTag);
+        if (count < 1) {
+            return ServiceResult.notFound();
+        }
         return ServiceResult.of(count);
     }
 
@@ -113,6 +119,9 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         blogTag.setIsDel(GlobalConstant.IsDel.YES);
         blogTag.setUpdateTime(new Date());
         Integer count = blogTagMapper.updateById(blogTag);
+        if (count < 1) {
+            return ServiceResult.notFound();
+        }
         return ServiceResult.of(count);
     }
 }

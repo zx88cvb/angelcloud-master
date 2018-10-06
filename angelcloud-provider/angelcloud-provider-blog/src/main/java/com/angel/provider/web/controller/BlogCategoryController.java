@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -54,6 +55,24 @@ public class BlogCategoryController {
             return ServerResponse.createByError();
         }
         Page<BlogCategoryVo> blogCategoryVoPage = blogCategoryVoResult.getResult();
+        return ServerResponse.createBySuccess(blogCategoryVoPage);
+    }
+
+    /**
+     * 获取博客分类分页数据
+     * @param request request
+     * @param blogCategory 分类信息
+     * @return 分类集合
+     */
+    @GetMapping("getBlogCategoryAll")
+    @ApiOperation(value = "获取全部博客分类", httpMethod = "GET")
+    public ServerResponse<List<BlogCategoryVo>> getBlogCategoryAll (HttpServletRequest request,
+                                                                    @ApiParam(name = "blogCategory", value = "分类信息")BlogCategory blogCategory) {
+        ServiceResult<List<BlogCategoryVo>> blogCategoryVoResult = iBlogCategoryService.getBlogCategoryAll(blogCategory);
+        if (!blogCategoryVoResult.isSuccess()) {
+            return ServerResponse.createByError();
+        }
+        List<BlogCategoryVo> blogCategoryVoPage = blogCategoryVoResult.getResult();
         return ServerResponse.createBySuccess(blogCategoryVoPage);
     }
 

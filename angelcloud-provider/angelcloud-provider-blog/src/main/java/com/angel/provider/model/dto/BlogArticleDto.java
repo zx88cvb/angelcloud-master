@@ -1,6 +1,8 @@
 package com.angel.provider.model.dto;
 
 import com.angel.base.model.dto.BaseDto;
+import com.angel.provider.model.vo.BlogCategoryVo;
+import com.angel.provider.model.vo.SysUserVo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -70,4 +72,14 @@ public class BlogArticleDto extends BaseDto implements Serializable {
      * 浏览量
      */
     private Integer browseCount;
+
+    /**
+     * 文章分类
+     */
+    private BlogCategoryVo blogCategoryVo;
+
+    /**
+     * 用户id
+     */
+    private SysUserVo sysUserVo;
 }

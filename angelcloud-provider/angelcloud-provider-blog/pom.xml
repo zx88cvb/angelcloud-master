@@ -35,8 +35,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.angel</groupId>
             <artifactId>angelcloud-provider-user-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-provider-blog-api</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -70,5 +70,5 @@ public class BlogArticleVo extends BaseVo implements Serializable {
     /**
      * 用户Vo
      */
-    private SysUserVo sysUserVo;
+    /*private SysUserVo sysUserVo;*/
 }

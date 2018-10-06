@@ -75,4 +75,9 @@ public class BlogArticle extends BaseEntity implements Serializable {
      */
     private Integer browseCount;
 
+    /**
+     * 文章分类
+     */
+    private BlogCategory blogCategory;
+
 }
