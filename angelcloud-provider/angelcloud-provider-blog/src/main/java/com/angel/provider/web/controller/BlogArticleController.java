@@ -55,9 +55,11 @@ public class BlogArticleController {
         if (bindingResult.hasErrors()) {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
-
         BlogArticleDto blogArticleDto = new BlogArticleDto();
         BeanUtils.copyProperties(blogArticleForm, blogArticleDto);
+
+        //TODO 用户id暂时设置成定值
+        blogArticleDto.setUserId(1);
 
         ServiceResult<Integer> integerServiceResult = iBlogArticleService.insertBlogArticle(blogArticleDto);
         if (!integerServiceResult.isSuccess()) {

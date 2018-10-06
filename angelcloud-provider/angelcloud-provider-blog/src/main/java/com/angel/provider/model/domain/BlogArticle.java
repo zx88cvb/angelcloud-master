@@ -4,7 +4,9 @@ import com.angel.base.model.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
@@ -43,13 +45,13 @@ public class BlogArticle extends BaseEntity implements Serializable {
      */
     private String content;
     /**
-     * 文章状态(0: 私有 1: 开放 2 草稿)
+     * 文章状态(0: 私有 1: 开放)
      */
-    private Integer blogStatus;
+    private Boolean blogStatus;
     /**
      * 评论状态 (0: 关闭 1 开放)
      */
-    private Integer commentStatus;
+    private Boolean commentStatus;
     /**
      * 缩略图
      */
@@ -61,7 +63,7 @@ public class BlogArticle extends BaseEntity implements Serializable {
     /**
      * 是否被推荐(0 未推荐 1 推荐)
      */
-    private Integer isRecommend;
+    private Boolean isRecommend;
     /**
      * 发表用户id
      */
@@ -74,6 +76,21 @@ public class BlogArticle extends BaseEntity implements Serializable {
      * 浏览量
      */
     private Integer browseCount;
+
+    /**
+     * 外链
+     */
+    private String linkUrl;
+
+    /**
+     * 来源
+     */
+    private String source;
+
+    /**
+     * 发布时间
+     */
+    private Date postTime;
 
     /**
      * 文章分类

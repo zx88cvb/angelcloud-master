@@ -3,9 +3,12 @@ package com.angel.provider.model.dto;
 import com.angel.base.model.dto.BaseDto;
 import com.angel.provider.model.vo.BlogCategoryVo;
 import com.angel.provider.model.vo.SysUserVo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -43,11 +46,11 @@ public class BlogArticleDto extends BaseDto implements Serializable {
     /**
      * 文章状态(0: 私有 1: 开放 2 草稿)
      */
-    private Integer blogStatus;
+    private Boolean blogStatus;
     /**
      * 评论状态 (0: 关闭 1 开放)
      */
-    private Integer commentStatus;
+    private Boolean commentStatus;
     /**
      * 缩略图
      */
@@ -59,7 +62,7 @@ public class BlogArticleDto extends BaseDto implements Serializable {
     /**
      * 是否被推荐(0 未推荐 1 推荐)
      */
-    private Integer isRecommend;
+    private Boolean isRecommend;
     /**
      * 发表用户id
      */
@@ -72,6 +75,23 @@ public class BlogArticleDto extends BaseDto implements Serializable {
      * 浏览量
      */
     private Integer browseCount;
+
+    /**
+     * 外链
+     */
+    private String linkUrl;
+
+    /**
+     * 来源
+     */
+    private String source;
+
+    /**
+     * 发布时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date postTime;
 
     /**
      * 文章分类

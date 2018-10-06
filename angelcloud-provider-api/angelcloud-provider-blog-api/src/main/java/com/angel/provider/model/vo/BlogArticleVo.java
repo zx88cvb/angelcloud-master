@@ -1,9 +1,12 @@
 package com.angel.provider.model.vo;
 
 import com.angel.base.model.vo.BaseVo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -39,13 +42,13 @@ public class BlogArticleVo extends BaseVo implements Serializable {
      */
     private String content;
     /**
-     * 文章状态(0: 私有 1: 开放 2 草稿)
+     * 文章状态(0: 私有 1: 开放)
      */
-    private Integer blogStatus;
+    private Boolean blogStatus;
     /**
      * 评论状态 (0: 关闭 1 开放)
      */
-    private Integer commentStatus;
+    private Boolean commentStatus;
     /**
      * 缩略图
      */
@@ -57,7 +60,7 @@ public class BlogArticleVo extends BaseVo implements Serializable {
     /**
      * 是否被推荐(0 未推荐 1 推荐)
      */
-    private Integer isRecommend;
+    private Boolean isRecommend;
     /**
      * 分类id
      */
@@ -68,7 +71,19 @@ public class BlogArticleVo extends BaseVo implements Serializable {
     private Integer browseCount;
 
     /**
-     * 用户Vo
+     * 外链
      */
-    /*private SysUserVo sysUserVo;*/
+    private String linkUrl;
+
+    /**
+     * 来源
+     */
+    private String source;
+
+    /**
+     * 发布时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date postTime;
 }
