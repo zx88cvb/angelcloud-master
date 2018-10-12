@@ -15,11 +15,7 @@ import io.swagger.annotations.ApiParam;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -50,7 +46,7 @@ public class BlogArticleController {
     @PostMapping("insertBlogArticle")
     @ApiOperation(value = "新增博客文章", httpMethod = "POST")
     public ServerResponse insertBlogTag (HttpServletRequest request,
-                                         @ApiParam(name = "blogArticleForm", value = "博客信息Form") @Valid BlogArticleForm blogArticleForm,
+                                         @ApiParam(name = "blogArticleForm", value = "博客信息Form") @Valid @RequestBody BlogArticleForm blogArticleForm,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());

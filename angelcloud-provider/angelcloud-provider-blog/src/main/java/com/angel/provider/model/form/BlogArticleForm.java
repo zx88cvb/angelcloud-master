@@ -1,6 +1,7 @@
 package com.angel.provider.model.form;
 
 import com.angel.base.model.domain.BaseEntity;
+import com.angel.provider.model.vo.BlogTagVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -103,4 +105,9 @@ public class BlogArticleForm extends BaseEntity implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date postTime;
+
+    /**
+     * 标签组
+     */
+    private List<BlogTagVo> tagList;
 }

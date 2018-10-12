@@ -16,5 +16,18 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
 
+    /**
+     * 分页条件查询文章
+     * @param page
+     * @param blogArticle
+     * @return
+     */
     IPage<BlogArticle> selectBlogArticleConditionPage(Page page, @Param("blogArticle") BlogArticle blogArticle);
+
+    /**
+     * 新增文章
+     * @param blogArticle 文章实体类
+     * @return 返回id
+     */
+    int insertForId(BlogArticle blogArticle);
 }

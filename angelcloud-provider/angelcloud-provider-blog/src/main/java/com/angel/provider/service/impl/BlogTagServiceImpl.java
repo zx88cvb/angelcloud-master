@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +54,12 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         //条件查询
         LambdaQueryWrapper<BlogTag> entity = new QueryWrapper<BlogTag>().lambda()
                 .eq(BlogTag:: getIsDel, GlobalConstant.IsDel.NO)
-                .like(BlogTag:: getTagName, blogTag.getTagName() == null ? "" : blogTag.getTagName())
                 .orderByDesc(BlogTag:: getCreateTime);
+
+        if (StringUtils.isNotBlank(blogTag.getTagName())) {
+            entity.like(BlogTag:: getTagName, blogTag.getTagName());
+        }
+
         IPage<BlogTag> iPage = blogTagMapper.selectPage(new Page<>(blogTag.getPageNum(), blogTag.getPageSize()), entity);
 
         List<BlogTag> blogTagList = iPage.getRecords();

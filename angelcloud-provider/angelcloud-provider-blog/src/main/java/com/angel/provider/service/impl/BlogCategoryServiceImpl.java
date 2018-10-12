@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,8 +49,12 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         //条件查询
         LambdaQueryWrapper<BlogCategory> entity = new QueryWrapper<BlogCategory>().lambda()
                 .eq(BlogCategory:: getIsDel, GlobalConstant.IsDel.NO)
-                .like(BlogCategory:: getCategoryName, blogCategory.getCategoryName() == null ? "" : blogCategory.getCategoryName())
                 .orderByDesc(BlogCategory:: getCreateTime);
+
+        //判断categoryName为不为空
+        if (StringUtils.isNotBlank(blogCategory.getCategoryName())) {
+            entity.like(BlogCategory:: getCategoryName, blogCategory.getCategoryName());
+        }
 
         // List<BlogCategory> blogCategoryList = blogCategoryMapper.selectPage(page, entity);
         IPage<BlogCategory> iPageBlogCategory = blogCategoryMapper.selectPage(new Page<>(blogCategory.getPageNum(), blogCategory.getPageSize()), entity);
@@ -131,8 +136,12 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         //条件查询
         LambdaQueryWrapper<BlogCategory> entity = new QueryWrapper<BlogCategory>().lambda()
                 .eq(BlogCategory:: getIsDel, GlobalConstant.IsDel.NO)
-                .like(BlogCategory:: getCategoryName, blogCategory.getCategoryName() == null ? "" : blogCategory.getCategoryName())
                 .orderByDesc(BlogCategory:: getCreateTime);
+        //判断categoryName为不为空
+        if (StringUtils.isNotBlank(blogCategory.getCategoryName())) {
+            entity.like(BlogCategory:: getCategoryName, blogCategory.getCategoryName());
+        }
+
         List<BlogCategory> blogCategoryList = blogCategoryMapper.selectList(entity);
         //将BlogCategory 转换成Vo对象
         List<BlogCategoryVo> collect = blogCategoryList.stream().map(e -> {

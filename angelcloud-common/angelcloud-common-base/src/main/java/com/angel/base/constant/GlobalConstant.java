@@ -24,6 +24,21 @@ public class GlobalConstant {
     }
 
     /**
+     * 属性
+     */
+    public interface Attribute {
+        /**
+         * 0
+         */
+        Integer NO = 0;
+
+        /**
+         * 1
+         */
+        Integer YES = 1;
+    }
+
+    /**
      * The constant FILE_MAX_SIZE.
      */
     public static final long FILE_MAX_SIZE = 5 * 1024 * 1024;

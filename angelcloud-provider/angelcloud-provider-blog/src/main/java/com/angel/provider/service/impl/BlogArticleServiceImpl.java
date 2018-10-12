@@ -1,11 +1,15 @@
 package com.angel.provider.service.impl;
 
+import com.angel.base.constant.GlobalConstant;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.BlogArticleMapper;
+import com.angel.provider.mapper.BlogArticleTagMapper;
+import com.angel.provider.mapper.BlogTagMapper;
 import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.dto.BlogArticleDto;
 import com.angel.provider.model.dto.BlogCategoryDto;
 import com.angel.provider.model.vo.BlogCategoryVo;
+import com.angel.provider.model.vo.BlogTagVo;
 import com.angel.provider.model.vo.SysUserVo;
 import com.angel.provider.service.IBlogArticleService;
 import com.angel.provider.service.IUserSysUserService;
@@ -36,6 +40,9 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
 
     @Resource
     private BlogArticleMapper blogArticleMapper;
+
+    @Resource
+    private BlogArticleTagMapper blogArticleTagMapper;
 
     @Resource
     private IUserSysUserService iUserSysUserService;
@@ -90,10 +97,24 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     public ServiceResult<Integer> insertBlogArticle(BlogArticleDto blogArticleDto) {
         BlogArticle blogArticle = new BlogArticle();
         BeanUtils.copyProperties(blogArticleDto, blogArticle);
-        Integer result = blogArticleMapper.insert(blogArticle);
-        if (result < 1) {
+
+        //新增文章 返回id
+        Integer id = blogArticleMapper.insertForId(blogArticle);
+
+        // 获取tag集合
+        List<BlogTagVo> tagList = blogArticleDto.getTagList();
+
+        // 获取tag id集合
+        List<Integer> tagIdList = tagList.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        // 判断是否有标签
+        if (!tagList.isEmpty()) {
+            blogArticleTagMapper.insertBatch(tagIdList, id);
+        }
+
+        if (id == null || id == GlobalConstant.Attribute.NO) {
             return ServiceResult.notFound();
         }
-        return ServiceResult.of(result);
+        return ServiceResult.of(id);
     }
 }

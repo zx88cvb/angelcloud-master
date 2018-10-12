@@ -91,6 +91,128 @@
         AND ${alias}.category_id = ${alias_two}.id
     </sql>
 
+    <insert id="insertForId" parameterType="com.angel.provider.model.domain.BlogArticle" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO blog_article
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="author != null" >
+                author,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="excerpt != null" >
+                excerpt,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="blogStatus != null" >
+                blog_status,
+            </if>
+            <if test="commentStatus != null" >
+                comment_status,
+            </if>
+            <if test="thumbnail != null" >
+                thumbnail,
+            </if>
+            <if test="orderIndex != null" >
+                order_index,
+            </if>
+            <if test="isRecommend != null" >
+                is_recommend,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="categoryId != null" >
+                category_id,
+            </if>
+            <if test="browseCount != null" >
+                browse_count,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="isDel != null" >
+                is_del,
+            </if>
+            <if test="linkUrl != null" >
+                link_url,
+            </if>
+            <if test="source != null" >
+                source,
+            </if>
+            <if test="postTime != null" >
+                post_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="author != null" >
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="excerpt != null" >
+                #{excerpt,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null" >
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="blogStatus != null" >
+                #{blogStatus,jdbcType=INTEGER},
+            </if>
+            <if test="commentStatus != null" >
+                #{commentStatus,jdbcType=INTEGER},
+            </if>
+            <if test="thumbnail != null" >
+                #{thumbnail,jdbcType=VARCHAR},
+            </if>
+            <if test="orderIndex != null" >
+                #{orderIndex,jdbcType=INTEGER},
+            </if>
+            <if test="isRecommend != null" >
+                #{isRecommend,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null" >
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="browseCount != null" >
+                #{browseCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+            <if test="isDel != null" >
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="linkUrl != null" >
+                #{linkUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null" >
+                #{source,jdbcType=VARCHAR},
+            </if>
+            <if test="postTime != null" >
+                #{postTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
     <select id="selectBlogArticleConditionPage" resultMap="allResultMap">
         SELECT 
         <include refid="All_Column_List">
@@ -104,6 +226,7 @@
             <property name="alias" value="ba" />
             <property name="alias_two" value="bc" />
         </include>
+        ORDER BY ba.CREATE_TIME
     </select>
 
 </mapper>

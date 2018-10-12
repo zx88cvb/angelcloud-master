@@ -2,6 +2,7 @@ package com.angel.provider.model.dto;
 
 import com.angel.base.model.dto.BaseDto;
 import com.angel.provider.model.vo.BlogCategoryVo;
+import com.angel.provider.model.vo.BlogTagVo;
 import com.angel.provider.model.vo.SysUserVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -9,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -102,4 +104,9 @@ public class BlogArticleDto extends BaseDto implements Serializable {
      * 用户id
      */
     private SysUserVo sysUserVo;
+
+    /**
+     * 标签组
+     */
+    private List<BlogTagVo> tagList;
 }
