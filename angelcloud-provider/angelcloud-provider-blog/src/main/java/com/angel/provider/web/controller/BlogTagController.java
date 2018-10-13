@@ -1,6 +1,7 @@
 package com.angel.provider.web.controller;
 
 
+import com.angel.base.constant.GlobalConstant;
 import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
@@ -128,14 +129,14 @@ public class BlogTagController {
     @DeleteMapping("deleteBlogTagById/{id}")
     @ApiOperation(value = "删除博客标签", httpMethod = "DELETE")
     public ServerResponse deleteBlogTagById (HttpServletRequest request,
-                                                  @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") Integer id) {
-        if (id == null || id < 1) {
+                                                  @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {
+        if (id < GlobalConstant.Attribute.YES) {
             return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         ServiceResult<Integer> integerServiceResult = iBlogTagService.deleteBlogTagById(id);
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
-            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031011.code(),ErrorCodeEnum.BLOG10031011.msg());
+        // 个数小于1时 删除错误
+        if (!integerServiceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(integerServiceResult.getMessage());
         }
 
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());

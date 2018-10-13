@@ -1,6 +1,7 @@
 package com.angel.provider.web.controller;
 
 
+import com.angel.base.constant.GlobalConstant;
 import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
@@ -45,7 +46,7 @@ public class BlogArticleController {
      */
     @PostMapping("insertBlogArticle")
     @ApiOperation(value = "新增博客文章", httpMethod = "POST")
-    public ServerResponse insertBlogTag (HttpServletRequest request,
+    public ServerResponse insertBlogArticle (HttpServletRequest request,
                                          @ApiParam(name = "blogArticleForm", value = "博客信息Form") @Valid @RequestBody BlogArticleForm blogArticleForm,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -59,7 +60,7 @@ public class BlogArticleController {
 
         ServiceResult<Integer> integerServiceResult = iBlogArticleService.insertBlogArticle(blogArticleDto);
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByError();
+            return ServerResponse.createByErrorMessage(integerServiceResult.getMessage());
         }
 
         // 个数小于1时 新增错误
@@ -77,7 +78,7 @@ public class BlogArticleController {
      */
     @GetMapping("getBlogArticlePage")
     @ApiOperation(value = "获取博客文章分页数据", httpMethod = "GET")
-    public ServerResponse<Page<BlogArticleDto>> getBlogCategoryPage (HttpServletRequest request,
+    public ServerResponse<Page<BlogArticleDto>> getBlogArticlePage (HttpServletRequest request,
                                                                     @ApiParam(name = "blogArticleDto", value = "博客文章信息DTO")BlogArticleDto blogArticleDto) {
         ServiceResult<Page<BlogArticleDto>> blogArticleDtoResult = iBlogArticleService.getBlogArticlePage(blogArticleDto);
         if (!blogArticleDtoResult.isSuccess()) {
@@ -85,6 +86,90 @@ public class BlogArticleController {
         }
         Page<BlogArticleDto> blogArticleDtoPage = blogArticleDtoResult.getResult();
         return ServerResponse.createBySuccess(blogArticleDtoPage);
+    }
+
+    /**
+     * 根据id查询
+     * @param request request
+     * @param id
+     * @return 返回单个对象结果集
+     */
+    @GetMapping("getBlogArticleById/{id}")
+    @ApiOperation(value = "根据id获取博客文章数据", httpMethod = "GET")
+    public ServerResponse<BlogArticleDto> getBlogArticleById (HttpServletRequest request,
+                                                                     @ApiParam(name = "id", value = "blogArticle文章id") @PathVariable("id") Integer id) {
+        // 判断id是否为null 或者小于1
+        if (id == null || id < GlobalConstant.Attribute.YES) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        //调用service
+        ServiceResult<BlogArticleDto> serviceResult = iBlogArticleService.getBlogArticleById(id);
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(serviceResult.getMessage());
+        }
+
+        //获取结果
+        BlogArticleDto blogArticleDto = serviceResult.getResult();
+
+        return ServerResponse.createBySuccess(blogArticleDto);
+    }
+
+    /**
+     * 修改博客文章
+     * @param request request
+     * @param blogArticleForm 博客Form
+     * @param bindingResult bindingResult
+     * @return 返回修改成功个数结果集
+     */
+    @PutMapping("updateBlogArticle")
+    @ApiOperation(value = "修改博客文章", httpMethod = "PUT")
+    public ServerResponse updateBlogArticle (HttpServletRequest request,
+                                             @ApiParam(name = "blogArticleForm", value = "博客信息Form") @Valid @RequestBody BlogArticleForm blogArticleForm,
+                                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
+        BlogArticleDto blogArticleDto = new BlogArticleDto();
+        BeanUtils.copyProperties(blogArticleForm, blogArticleDto);
+
+        //TODO 用户id暂时设置成定值
+        blogArticleDto.setUserId(1);
+
+        ServiceResult<Integer> integerServiceResult = iBlogArticleService.updateBlogArticle(blogArticleDto);
+
+        //判断 是否返回错误结果集
+        if (!integerServiceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(integerServiceResult.getMessage());
+        }
+
+        // 个数小于1时 新增错误
+        if (integerServiceResult.getResult() < 1) {
+            return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031002.code(),ErrorCodeEnum.BLOG10031002.msg());
+        }
+        return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 删除博客文章
+     * @param request request
+     * @param id 主键id
+     * @return 返回删除个数结果集
+     */
+    @DeleteMapping("deleteBlogArticleById/{id}")
+    @ApiOperation(value = "删除博客文章", httpMethod = "DELETE")
+    public ServerResponse deleteBlogArticleById (javax.servlet.http.HttpServletRequest request,
+                                                  @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {
+        if (id < 1) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        ServiceResult<Integer> integerServiceResult = iBlogArticleService.deleteBlogArticleById(id);
+        // 个数小于1时 删除错误
+        if (!integerServiceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(integerServiceResult.getMessage());
+        }
+
+        return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
     }
 }
 

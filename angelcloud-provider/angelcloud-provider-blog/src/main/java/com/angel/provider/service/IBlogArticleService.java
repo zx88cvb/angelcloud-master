@@ -3,6 +3,7 @@ package com.angel.provider.service;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.dto.BlogArticleDto;
+import com.angel.provider.model.vo.BlogArticleVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -25,7 +26,28 @@ public interface IBlogArticleService extends IService<BlogArticle> {
     /**
      * 新增博客文章
      * @param blogArticleDto 条件实体类DTO
-     * @return
+     * @return 返回新增个数
      */
     ServiceResult<Integer> insertBlogArticle (BlogArticleDto blogArticleDto);
+
+    /**
+     * 根据id查询文章
+     * @param id 文章id
+     * @return 文章结果集
+     */
+    ServiceResult<BlogArticleDto> getBlogArticleById (Integer id);
+
+    /**
+     * 修改博客文章
+     * @param blogArticleDto 条件实体类DTO
+     * @return 返回修改个数
+     */
+    ServiceResult<Integer> updateBlogArticle (BlogArticleDto blogArticleDto);
+
+    /**
+     * 删除博客文章
+     * @param id 主键id
+     * @return 返回删除个数结果集
+     */
+    ServiceResult<Integer> deleteBlogArticleById(int id);
 }

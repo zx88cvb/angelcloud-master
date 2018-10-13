@@ -1,4 +1,4 @@
-package com.angel.provider.model.domain;
+package com.angel.provider.model.vo;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @Description:
  */
 @Data
-public class BlogArticleTag implements Serializable{
+public class BlogArticleTagVo implements Serializable{
 
     /**
      * id

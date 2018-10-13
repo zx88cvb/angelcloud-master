@@ -3,6 +3,8 @@ package com.angel.provider.model.domain;
 import com.angel.base.model.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -95,6 +97,7 @@ public class BlogArticle extends BaseEntity implements Serializable {
     /**
      * 文章分类
      */
+    @TableField(exist = false)
     private BlogCategory blogCategory;
 
 }

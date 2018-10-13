@@ -1,27 +1,33 @@
 package com.angel.provider.service.impl;
 
 import com.angel.base.constant.GlobalConstant;
+import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.provider.exceptions.BlogBizException;
 import com.angel.provider.mapper.BlogArticleMapper;
 import com.angel.provider.mapper.BlogArticleTagMapper;
 import com.angel.provider.mapper.BlogTagMapper;
 import com.angel.provider.model.domain.BlogArticle;
+import com.angel.provider.model.domain.BlogArticleTag;
+import com.angel.provider.model.domain.BlogTag;
 import com.angel.provider.model.dto.BlogArticleDto;
 import com.angel.provider.model.dto.BlogCategoryDto;
-import com.angel.provider.model.vo.BlogCategoryVo;
-import com.angel.provider.model.vo.BlogTagVo;
-import com.angel.provider.model.vo.SysUserVo;
+import com.angel.provider.model.vo.*;
 import com.angel.provider.service.IBlogArticleService;
 import com.angel.provider.service.IUserSysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +49,9 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
 
     @Resource
     private BlogArticleTagMapper blogArticleTagMapper;
+
+    @Resource
+    private BlogTagMapper blogTagMapper;
 
     @Resource
     private IUserSysUserService iUserSysUserService;
@@ -99,7 +108,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         BeanUtils.copyProperties(blogArticleDto, blogArticle);
 
         //新增文章 返回id
-        Integer id = blogArticleMapper.insertForId(blogArticle);
+        int result = blogArticleMapper.insertForId(blogArticle);
 
         // 获取tag集合
         List<BlogTagVo> tagList = blogArticleDto.getTagList();
@@ -109,12 +118,121 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
 
         // 判断是否有标签
         if (!tagList.isEmpty()) {
-            blogArticleTagMapper.insertBatch(tagIdList, id);
+            int tagResult = blogArticleTagMapper.insertBatch(tagIdList, blogArticle.getId());
+            if (tagResult == GlobalConstant.Attribute.NO) {
+                throw new BlogBizException(ErrorCodeEnum.BLOG10031009);
+            }
         }
 
-        if (id == null || id == GlobalConstant.Attribute.NO) {
+        if (result == GlobalConstant.Attribute.NO) {
+            throw new BlogBizException(ErrorCodeEnum.BLOG10031002);
+        }
+        return ServiceResult.of(result);
+    }
+
+    /**
+     * 根据id查询文章
+     * @param id 文章id
+     * @return 文章结果集
+     */
+    @Override
+    public ServiceResult<BlogArticleDto> getBlogArticleById(Integer id) {
+        BlogArticle blogArticle = blogArticleMapper.selectById(id);
+
+        if (blogArticle == null) {
             return ServiceResult.notFound();
         }
-        return ServiceResult.of(id);
+
+        BlogArticleDto blogArticleDto = new BlogArticleDto();
+        BeanUtils.copyProperties(blogArticle, blogArticleDto);
+
+
+        //条件查询 文章标签表
+        LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
+                .eq(BlogArticleTag:: getArticleId, id);
+        List<BlogArticleTag> blogArticleTagList = blogArticleTagMapper.selectList(entity);
+
+        if (!blogArticleTagList.isEmpty()) {
+            List<Integer> tagIdList = blogArticleTagList.stream().map(e -> e.getTagId()).collect(Collectors.toList());
+
+            // 根据id集合查询Tag标签
+            List<BlogTag> blogTagList = blogTagMapper.selectBatchIds(tagIdList);
+            List<BlogTagVo> blogTagVoList = blogTagList.stream().map(e -> {
+                BlogTagVo blogTagVo = new BlogTagVo();
+                BeanUtils.copyProperties(e, blogTagVo);
+                return blogTagVo;
+            }).collect(Collectors.toList());
+            BeanUtils.copyProperties(blogTagList, blogTagVoList);
+
+            blogArticleDto.setTagList(blogTagVoList);
+        }
+
+        return ServiceResult.of(blogArticleDto);
+    }
+
+    /**
+     * 修改博客文章
+     * @param blogArticleDto 条件实体类DTO
+     * @return 返回成功个数
+     */
+    @Override
+    public ServiceResult<Integer> updateBlogArticle(BlogArticleDto blogArticleDto) {
+        BlogArticle blogArticle = new BlogArticle();
+        BeanUtils.copyProperties(blogArticleDto, blogArticle);
+
+        //修改时间
+        blogArticle.setUpdateTime(new Date());
+
+        //修改文章
+        int result = blogArticleMapper.updateById(blogArticle);
+
+        // 获取tag集合
+        List<BlogTagVo> tagList = blogArticleDto.getTagList();
+
+        // 获取tag id集合
+        List<Integer> tagIdList = tagList.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        // 判断是否有标签
+        if (!tagList.isEmpty()) {
+            //条件 文章标签表
+            LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
+                    .eq(BlogArticleTag:: getArticleId, blogArticle.getId());
+            // 根据文章id先删除所有标签 再创建
+            int deleteResult = blogArticleTagMapper.delete(entity);
+
+            if (deleteResult == GlobalConstant.Attribute.NO) {
+                throw new BlogBizException(ErrorCodeEnum.BLOG10031011);
+            }
+
+            // 创建
+            int tagResult = blogArticleTagMapper.insertBatch(tagIdList, blogArticle.getId());
+
+            if (tagResult == GlobalConstant.Attribute.NO) {
+                throw new BlogBizException(ErrorCodeEnum.BLOG10031010);
+            }
+        }
+
+        if (result == GlobalConstant.Attribute.NO) {
+            throw new BlogBizException(ErrorCodeEnum.BLOG10031002);
+        }
+        return ServiceResult.of(result);
+    }
+
+    /**
+     * 删除博客文章
+     * @param id 主键id
+     * @return 返回删除个数结果集
+     */
+    @Override
+    public ServiceResult<Integer> deleteBlogArticleById(int id) {
+        BlogArticle blogCategory = new BlogArticle();
+        blogCategory.setId(id);
+        blogCategory.setIsDel(GlobalConstant.IsDel.YES);
+        blogCategory.setUpdateTime(new Date());
+        Integer count = blogArticleMapper.updateById(blogCategory);
+        if (count < GlobalConstant.Attribute.YES) {
+            return ServiceResult.notFound();
+        }
+        return ServiceResult.of(count);
     }
 }
