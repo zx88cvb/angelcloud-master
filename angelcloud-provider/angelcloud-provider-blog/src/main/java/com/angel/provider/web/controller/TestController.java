@@ -14,4 +14,15 @@ public class TestController {
     public String home() {
         return "Hello world";
     }
+
+    @GetMapping("/exception")
+    public void exception() {
+        String s = null;
+        System.out.println(s.charAt(0));
+    }
+
+    @GetMapping("/illegalArgumentException")
+    public void illegalArgumentException() {
+        throw new IllegalArgumentException("IllegalArgumentException来袭");
+    }
 }

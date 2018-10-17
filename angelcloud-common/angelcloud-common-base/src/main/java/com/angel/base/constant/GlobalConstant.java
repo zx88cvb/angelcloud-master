@@ -56,4 +56,7 @@ public class GlobalConstant {
     public static final String DEV_PROFILE = "dev";
     public static final String TEST_PROFILE = "test";
     public static final String PRO_PROFILE = "pro";
+
+    public static final int EXCEPTION_CAUSE_MAX_LENGTH = 2048;
+    public static final int EXCEPTION_MESSAGE_MAX_LENGTH = 2048;
 }

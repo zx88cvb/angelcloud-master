@@ -17,6 +17,11 @@
       "sourceType": "com.angel.config.properties.AngelcloudProperties",
       "name": "angelcloud.swagger-properties",
       "type": "com.angel.config.properties.SwaggerProperties"
+    },
+    {
+      "sourceType": "com.angel.config.properties.AngelcloudProperties",
+      "name": "angelcloud.task",
+      "type": "com.angel.config.properties.AsyncTaskProperties"
     }
   ]
 }

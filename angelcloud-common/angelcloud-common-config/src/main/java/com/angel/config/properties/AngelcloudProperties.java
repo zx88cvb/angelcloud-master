@@ -17,4 +17,7 @@ public class AngelcloudProperties {
 
     // 七牛云
     private QiNiuProperties qiniu = new QiNiuProperties();
+
+    // 线程池
+    private AsyncTaskProperties task = new AsyncTaskProperties();
 }
