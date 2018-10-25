@@ -23,7 +23,6 @@ public class SysUserForm implements Serializable {
     /**
      * 用户表id
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 用户名

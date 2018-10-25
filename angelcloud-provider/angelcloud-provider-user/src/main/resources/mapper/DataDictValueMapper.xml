@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.angel.provider.mapper.DataDictValueMapper" >
+  <resultMap id="BaseResultMap" type="com.angel.provider.model.domain.DataDictValue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="data_dict_id" property="dataDictId" jdbcType="INTEGER" />
+    <result column="show_value" property="showValue" jdbcType="VARCHAR" />
+    <result column="sn" property="sn" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.angel.provider.model.domain.DataDictValue" extends="BaseResultMap" >
+    <result column="params" property="params" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, data_dict_id, show_value, sn, create_time, update_time, is_del
+  </sql>
+  <sql id="Blob_Column_List" >
+    params
+  </sql>
+
+</mapper>

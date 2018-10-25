@@ -60,11 +60,6 @@ public class BlogArticleController {
 
         ServiceResult<Integer> integerServiceResult = iBlogArticleService.insertBlogArticle(blogArticleDto);
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByErrorMessage(integerServiceResult.getMessage());
-        }
-
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031002.code(),ErrorCodeEnum.BLOG10031002.msg());
         }
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
@@ -140,11 +135,6 @@ public class BlogArticleController {
 
         //判断 是否返回错误结果集
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByErrorMessage(integerServiceResult.getMessage());
-        }
-
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031002.code(),ErrorCodeEnum.BLOG10031002.msg());
         }
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());

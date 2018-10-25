@@ -96,11 +96,6 @@ public class BlogCategoryController {
         BeanUtils.copyProperties(blogCategoryForm, blogCategoryDto);
         ServiceResult<Integer> integerServiceResult = iBlogCategoryService.insertBlogCategory(blogCategoryDto);
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByError();
-        }
-
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031006.code(),ErrorCodeEnum.BLOG10031006.msg());
         }
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
@@ -127,11 +122,6 @@ public class BlogCategoryController {
 
         ServiceResult<Integer> integerServiceResult = iBlogCategoryService.updateBlogCategory(blogCategoryDto);
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByError();
-        }
-
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031007.code(),ErrorCodeEnum.BLOG10031007.msg());
         }
 

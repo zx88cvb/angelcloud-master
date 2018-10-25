@@ -1,5 +1,7 @@
 package com.angel.base.service;
 
+import com.angel.base.constant.GlobalConstant;
+import com.angel.base.enums.ErrorCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,6 +43,14 @@ public class ServiceResult<T> {
 
     public static <T> ServiceResult<T> notFound() {
         return new ServiceResult<>(false, Message.NOT_FOUND.getValue());
+    }
+
+    public static <T> ServiceResult<T> errorByEnumMessage(ErrorCodeEnum errorCodeEnum) {
+        return new ServiceResult<>(false, errorCodeEnum.msg());
+    }
+
+    public static <T> ServiceResult<T> errorByMessage(String message) {
+        return new ServiceResult<>(false, message);
     }
 
     public enum Message {

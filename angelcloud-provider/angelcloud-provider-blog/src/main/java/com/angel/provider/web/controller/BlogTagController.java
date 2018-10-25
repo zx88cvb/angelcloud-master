@@ -78,13 +78,9 @@ public class BlogTagController {
 
         ServiceResult<Integer> integerServiceResult = iBlogTagService.insertBlogTag(blogTagDto);
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByError();
-        }
-
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031009.code(),ErrorCodeEnum.BLOG10031009.msg());
         }
+
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
     }
 
@@ -109,11 +105,6 @@ public class BlogTagController {
 
         ServiceResult<Integer> integerServiceResult = iBlogTagService.updateBlogTag(blogTagDto);
         if (!integerServiceResult.isSuccess()) {
-            return ServerResponse.createByError();
-        }
-
-        // 个数小于1时 新增错误
-        if (integerServiceResult.getResult() < 1) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.BLOG10031010.code(),ErrorCodeEnum.BLOG10031010.msg());
         }
 

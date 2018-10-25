@@ -340,6 +340,34 @@ public enum ErrorCodeEnum {
 	 */
 	USER10015009(10015009, "找不到上级组织, groupId=%s"),
 	/**
+	 * USER 10015010 error code enum.
+	 */
+	USER10015010(10015010, "找不到数据字典信息, dictId=%s"),
+	/**
+	 * USER 10015011 error code enum.
+	 */
+	USER10015011(10015011, "更新字典状态失败, dictId=%s"),
+	/**
+	 * USER 10015012 error code enum.
+	 */
+	USER10015012(10015012, "上级数据字典不存在, dictId=%s"),
+	/**
+	 * USER 10015013 error code enum.
+	 */
+	USER10015013(10015013, "新增字典失败, dictId=%s"),
+	/**
+	 * USER 10015014 error code enum.
+	 */
+	USER10015014(10015014, "新增字典值失败, dictId=%s"),
+	/**
+	 * USER 10015015 error code enum.
+	 */
+	USER10015015(10015015, "修改字典值失败, dictId=%s"),
+	/**
+	 * USER 10015016 error code enum.
+	 */
+	USER10015016(10015016, "找不到字典值信息, dictId=%s"),
+	/**
 	 * Mdc 10021001 error code enum.
 	 */
 // 1002 数据中心
@@ -368,18 +396,6 @@ public enum ErrorCodeEnum {
 	 * Mdc 10021017 error code enum.
 	 */
 	MDC10021017(10021017, "产品已下架或者删除, productId=%s"),
-	/**
-	 * Mdc 10021018 error code enum.
-	 */
-	MDC10021018(10021018, "找不到数据字典信息, dictId=%s"),
-	/**
-	 * Mdc 10021019 error code enum.
-	 */
-	MDC10021019(10021019, "更新字典状态失败, dictId=%s"),
-	/**
-	 * Mdc 10021020 error code enum.
-	 */
-	MDC10021020(10021020, "上级数据字典不存在, dictId=%s"),
 	/**
 	 * Mdc 10021021 error code enum.
 	 */
