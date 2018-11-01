@@ -370,66 +370,39 @@ public enum ErrorCodeEnum {
 	/**
 	 * Mdc 10021001 error code enum.
 	 */
-// 1002 数据中心
-	MDC10021001(10021001, "获取地址信息失败"),
-	/**
-	 * Mdc 10021002 error code enum.
-	 */
-	MDC10021002(10021002, "找不到该地址信息"),
-	/**
-	 * Mdc 10021003 error code enum.
-	 */
-	MDC10021003(10021003, "获取商品信息失败"),
-	/**
-	 * Mdc 10021004 error code enum.
-	 */
-	MDC10021004(10021004, "找不到该商品信息,productId=%s"),
-	/**
-	 * Mdc 10021015 error code enum.
-	 */
-	MDC10021015(10021015, "商品不是在线售卖状态, productId=%s"),
-	/**
-	 * Mdc 10021016 error code enum.
-	 */
-	MDC10021016(10021016, "商品库存不足, productId=%s"),
-	/**
-	 * Mdc 10021017 error code enum.
-	 */
-	MDC10021017(10021017, "产品已下架或者删除, productId=%s"),
-	/**
-	 * Mdc 10021021 error code enum.
-	 */
-	MDC10021021(10021021, "商品ID不能为空"),
-	/**
-	 * Mdc 10021024 error code enum.
-	 */
-	MDC10021024(10021024, "商品编码不能为空"),
+// 1002 广告中心
+	ADGROUP10021001(10021001, "获取广告组分类失败"),
 
 	/**
-	 * Mdc 10023001 error code enum.
+	 * ADGROUP 10021002 error code enum.
 	 */
-	MDC10023001(10023001, "找不到商品分类信息, categoryId=%s"),
+	ADGROUP10021002(10021002, "创建广告组分类失败"),
 
 	/**
-	 * Mdc 10023002 error code enum.
+	 * ADGROUP 10021003 error code enum.
 	 */
-	MDC10023002(10023002, "上级商品分类不存在, categoryId=%s"),
+	ADGROUP10021003(10021003, "修改广告组分类失败"),
 
 	/**
-	 * Mdc 10023003 error code enum.
+	 * ADGROUP 10021004 error code enum.
 	 */
-	MDC10023003(10023003, "更新商品分类状态失败, categoryId=%s"),
+	ADGROUP10021004(10021004, "删除广告组分类失败"),
+
 	/**
-	 * Mdc 10021022 error code enum.
+	 * ADGROUP 10021005 error code enum.
 	 */
-	MDC10021022(10021022, "更新商品信息失败, productId=%s"),
+	ADGROUP10021005(10021005, "获取广告组失败"),
+
 	/**
-	 * Mdc 10021023 error code enum.
+	 * ADGROUP 10021006 error code enum.
 	 */
-	MDC10021023(10021023, "删除商品信息失败, productId=%s"),
+	ADGROUP10021006(10021006, "创建广告组失败"),
+
 	/**
-	 * BLOG 10031001 error code enum.
+	 * ADGROUP 10021007 error code enum.
 	 */
+	ADGROUP10021007(10021007, "修改广告组失败"),
+
 // 1003 博客中心
 	BLOG10031001(10031001, "博客为空"),
 	/**

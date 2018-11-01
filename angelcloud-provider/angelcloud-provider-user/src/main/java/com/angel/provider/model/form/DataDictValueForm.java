@@ -25,7 +25,6 @@ public class DataDictValueForm implements Serializable {
      * 数据字典ID
      */
     @NotNull(message = "数据字典ID不能为空!")
-    @Max(value = 11, message = "数据字典ID长度最大为11位")
     private Integer dataDictId;
 
     /**

@@ -30,7 +30,7 @@ public class DataDictForm implements Serializable {
      * 描述
      */
     @NotNull(message = "描述不能为空!")
-    @Size(min = 1, max = 500, message = "描述最大字符不超过500")
+    @Size(min = 1, max = 500, message = "描述长度必须在1~500之间")
     private String description;
 
     /**

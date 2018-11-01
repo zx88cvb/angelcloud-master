@@ -45,7 +45,7 @@ public class BlogArticleForm extends BaseEntity implements Serializable {
      * 文章摘录(描述)
      */
     @NotNull(message = "文章摘录不能为空!")
-    @Size(min = 1, max = 300, message = "文章摘录最大字符不超过300")
+    @Size(min = 1, max = 300, message = "文章摘录字符长度必须在1~300之间")
     private String excerpt;
     /**
      * 文章内容

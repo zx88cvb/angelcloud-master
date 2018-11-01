@@ -12,6 +12,7 @@
     <modules>
         <module>angelcloud-provider-user</module>
         <module>angelcloud-provider-blog</module>
+        <module>angelcloud-provider-adgroup</module>
     </modules>
     <artifactId>angelcloud-provider</artifactId>
 

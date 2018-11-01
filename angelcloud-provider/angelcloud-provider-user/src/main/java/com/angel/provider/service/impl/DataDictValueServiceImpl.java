@@ -102,6 +102,7 @@ public class DataDictValueServiceImpl extends ServiceImpl<DataDictValueMapper, D
         }
         DataDictValue dataDictValue = new DataDictValue();
         BeanUtils.copyProperties(dataDictValueDto, dataDictValue);
+        dataDictValue.setUpdateTime(new Date());
 
         //返回个数
         int result = dataDictValueMapper.updateById(dataDictValue);

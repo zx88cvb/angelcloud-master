@@ -14,6 +14,7 @@
     <modules>
         <module>angelcloud-provider-user-api</module>
         <module>angelcloud-provider-blog-api</module>
+        <module>angelcloud-provider-adgroup-api</module>
     </modules>
 
     <dependencies>
