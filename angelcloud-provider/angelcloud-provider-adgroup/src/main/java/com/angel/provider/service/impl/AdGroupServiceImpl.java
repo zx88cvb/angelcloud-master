@@ -86,7 +86,7 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
         BeanUtils.copyProperties(adGroupDto, adGroup);
         //返回个数
         Integer count = adGroupMapper.insert(adGroup);
-        if (count < 1) {
+        if (count < GlobalConstant.Attribute.YES) {
             return ServiceResult.notFound();
         }
         return ServiceResult.of(count);
@@ -114,7 +114,7 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
         adGroup.setUpdateTime(new Date());
         //返回个数
         Integer count = adGroupMapper.updateById(adGroup);
-        if (count < 1) {
+        if (count < GlobalConstant.Attribute.YES) {
             return ServiceResult.notFound();
         }
         return ServiceResult.of(count);

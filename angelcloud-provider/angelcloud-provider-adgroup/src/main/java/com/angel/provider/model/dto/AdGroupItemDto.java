@@ -6,13 +6,10 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 广告组DTO
- * @Author: Angel
- * @Date: 2018/10/29.
- * @Description:
+ * 广告项表
  */
 @Data
-public class AdGroupDto extends BaseDto implements Serializable{
+public class AdGroupItemDto extends BaseDto implements Serializable {
 
     /**
      * id
@@ -20,9 +17,9 @@ public class AdGroupDto extends BaseDto implements Serializable{
     private Integer id;
 
     /**
-     * 广告组分类ID
+     * 广告组外键
      */
-    private Integer typeId;
+    private Integer groupId;
 
     /**
      * 名称
@@ -30,12 +27,18 @@ public class AdGroupDto extends BaseDto implements Serializable{
     private String name;
 
     /**
+     * 类型(1 - 文本、2 - 链接、3 - 图片)
+     */
+    private Integer type;
+
+    /**
      * 标识
      */
-    private String adKey;
+    private String flag;
 
     /**
      * 备注
      */
     private String remake;
+
 }
