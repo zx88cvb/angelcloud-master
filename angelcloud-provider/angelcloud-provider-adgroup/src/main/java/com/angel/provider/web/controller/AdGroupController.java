@@ -43,7 +43,7 @@ public class AdGroupController {
      * @param adGroupDto 分类信息
      * @return 分类集合
      */
-    @GetMapping("getAdGroupPage")
+    @GetMapping({"getAdGroupPage", "recent"})
     @ApiOperation(value = "获取广告组分页数据", httpMethod = "GET")
     public ServerResponse<Page<AdGroupVo>> getAdGroupPage (HttpServletRequest request,
                                                                @ApiParam(name = "adGroupDto", value = "广告组信息")AdGroupDto adGroupDto) {
@@ -62,7 +62,7 @@ public class AdGroupController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PostMapping("insertAdGroup")
+    @PostMapping({"insertAdGroup", "add"})
     @ApiOperation(value = "新增广告组", httpMethod = "POST")
     public ServerResponse insertAdGroup (HttpServletRequest request,
                                              @ApiParam(name = "adGroupForm", value = "广告组信息Form") @Valid AdGroupForm adGroupForm,

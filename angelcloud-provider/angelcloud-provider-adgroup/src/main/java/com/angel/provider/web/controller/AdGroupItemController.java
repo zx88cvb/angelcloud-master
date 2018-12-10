@@ -40,9 +40,9 @@ public class AdGroupItemController {
      * @param adGroupItemDto 分类信息
      * @return 分类集合
      */
-    @GetMapping("getAdGroupItemPage")
+    @GetMapping({"getAdGroupItemPage", "recent"})
     @ApiOperation(value = "获取广告项分页数据", httpMethod = "GET")
-    public ServerResponse<Page<AdGroupItemVo>> getAdGroupItemItemPage (HttpServletRequest request,
+    public ServerResponse<Page<AdGroupItemVo>> recent (HttpServletRequest request,
                                                            @ApiParam(name = "adGroupItemDto", value = "广告项信息")AdGroupItemDto adGroupItemDto) {
         ServiceResult<Page<AdGroupItemVo>> serviceResult = iAdGroupItemService.getAdGroupItemPage(adGroupItemDto);
         if (!serviceResult.isSuccess()) {
@@ -59,9 +59,9 @@ public class AdGroupItemController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PostMapping("insertAdGroupItem")
+    @PostMapping({"insertAdGroupItem", "add"})
     @ApiOperation(value = "新增广告项", httpMethod = "POST")
-    public ServerResponse insertAdGroupItem (HttpServletRequest request,
+    public ServerResponse add (HttpServletRequest request,
                                          @ApiParam(name = "adGroupItemForm", value = "广告项信息Form") @Valid AdGroupItemForm adGroupItemForm,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -83,9 +83,9 @@ public class AdGroupItemController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PutMapping("updateAdGroupItem")
+    @PutMapping({"updateAdGroupItem", "edit"})
     @ApiOperation(value = "修改广告项", httpMethod = "PUT")
-    public ServerResponse updateAdGroupItem (HttpServletRequest request,
+    public ServerResponse edit (HttpServletRequest request,
                                          @ApiParam(name = "adGroupItemForm", value = "广告项信息Form") @Valid AdGroupItemForm adGroupItemForm,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -109,7 +109,7 @@ public class AdGroupItemController {
      * @param id 主键id
      * @return 返回个数
      */
-    @DeleteMapping("deleteAdGroupItemById/{id}")
+    @DeleteMapping({"deleteAdGroupItemById/{id}", "delete/{id}"})
     @ApiOperation(value = "删除广告项", httpMethod = "DELETE")
     public ServerResponse deleteAdGroupItemById (HttpServletRequest request,
                                              @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {

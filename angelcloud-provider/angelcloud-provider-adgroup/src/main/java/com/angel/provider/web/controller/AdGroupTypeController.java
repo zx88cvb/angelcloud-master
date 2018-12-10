@@ -41,9 +41,9 @@ public class AdGroupTypeController {
      * @param adGroupTypeDto 分类信息
      * @return 分类集合
      */
-    @GetMapping("getAdGroupTypePage")
+    @GetMapping("recent")
     @ApiOperation(value = "获取广告组分类分页数据", httpMethod = "GET")
-    public ServerResponse<Page<AdGroupTypeVo>> getAdGroupTypePage (HttpServletRequest request,
+    public ServerResponse<Page<AdGroupTypeVo>> recent (HttpServletRequest request,
                                                                    @ApiParam(name = "adGroupTypeDto", value = "广告组分类信息")AdGroupTypeDto adGroupTypeDto) {
         ServiceResult<Page<AdGroupTypeVo>> serviceResult = iAdGroupTypeService.getAdGroupTypePage(adGroupTypeDto);
         if (!serviceResult.isSuccess()) {
@@ -60,9 +60,9 @@ public class AdGroupTypeController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PostMapping("insertAdGroupType")
+    @PostMapping("add")
     @ApiOperation(value = "新增广告组分类", httpMethod = "POST")
-    public ServerResponse insertAdGroupType (HttpServletRequest request,
+    public ServerResponse add (HttpServletRequest request,
                                               @ApiParam(name = "adGroupTypeForm", value = "广告组分类信息Form") @Valid AdGroupTypeForm adGroupTypeForm,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -84,9 +84,9 @@ public class AdGroupTypeController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PutMapping("updateAdGroupType")
+    @PutMapping("edit")
     @ApiOperation(value = "修改广告组分类", httpMethod = "PUT")
-    public ServerResponse updateAdGroupType (HttpServletRequest request,
+    public ServerResponse edit (HttpServletRequest request,
                                               @ApiParam(name = "adGroupTypeForm", value = "广告组分类信息Form") @Valid AdGroupTypeForm adGroupTypeForm,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -110,9 +110,9 @@ public class AdGroupTypeController {
      * @param id 主键id
      * @return 返回个数
      */
-    @DeleteMapping("deleteAdGroupTypeById/{id}")
+    @DeleteMapping("delete/{id}")
     @ApiOperation(value = "删除广告组分类", httpMethod = "DELETE")
-    public ServerResponse deleteAdGroupTypeById (HttpServletRequest request,
+    public ServerResponse delete (HttpServletRequest request,
                                                   @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {
         if (id < GlobalConstant.Attribute.YES) {
             return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
