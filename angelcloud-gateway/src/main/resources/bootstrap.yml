@@ -37,6 +37,14 @@ spring:
         - Path= /blogapi/**
         filters:
         - StripPrefix= 1
+
+        # 广告路由
+      - id: angelcloud-provider-adgroup
+        uri: lb://angelcloud-provider-adgroup
+        predicates:
+        - Path= /adapi/**
+        filters:
+        - StripPrefix= 1
     consul:
       host: localhost
       port: 8500

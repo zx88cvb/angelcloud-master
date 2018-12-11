@@ -125,4 +125,31 @@ public class AdGroupTypeController {
 
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
     }
+
+    /**
+     * 根据id查询
+     * @param request request
+     * @param id
+     * @return 返回单个对象结果集
+     */
+    @GetMapping("type/{id}")
+    @ApiOperation(value = "根据id获取广告组分类数据", httpMethod = "GET")
+    public ServerResponse<AdGroupTypeDto> getTypeById (HttpServletRequest request,
+                                                              @ApiParam(name = "id", value = "id") @PathVariable("id") Integer id) {
+        // 判断id是否为null 或者小于1
+        if (id == null || id < GlobalConstant.Attribute.YES) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        //调用service
+        ServiceResult<AdGroupTypeDto> serviceResult = iAdGroupTypeService.getAdGroupTypeById(id);
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(serviceResult.getMessage());
+        }
+
+        //获取结果
+        AdGroupTypeDto adGroupTypeDto = serviceResult.getResult();
+
+        return ServerResponse.createBySuccess(adGroupTypeDto);
+    }
 }

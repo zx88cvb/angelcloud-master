@@ -148,7 +148,7 @@ public class BlogArticleController {
      */
     @DeleteMapping("deleteBlogArticleById/{id}")
     @ApiOperation(value = "删除博客文章", httpMethod = "DELETE")
-    public ServerResponse deleteBlogArticleById (javax.servlet.http.HttpServletRequest request,
+    public ServerResponse deleteBlogArticleById (HttpServletRequest request,
                                                   @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {
         if (id < 1) {
             return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
