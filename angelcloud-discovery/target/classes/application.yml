@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: angelcloud-discovery
+    name: @pom.artifactId@
   cloud:
     config:
       server:

@@ -28,7 +28,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/adGroupType")
+@RequestMapping("/type")
 @Api("广告组分类Api")
 public class AdGroupTypeController {
 

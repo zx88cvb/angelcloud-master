@@ -30,7 +30,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/adGroup")
+@RequestMapping("/group")
 @Api("广告组Api")
 public class AdGroupController {
 
