@@ -75,9 +75,7 @@ public class AdGroupTypeServiceImpl extends ServiceImpl<AdGroupTypeMapper, AdGro
     }
 
     @Override
-    public ServiceResult<Integer> insertAdGroupType(AdGroupTypeDto adGroupTypeDto) {
-        AdGroupType adGroupType = new AdGroupType();
-        BeanUtils.copyProperties(adGroupTypeDto, adGroupType);
+    public ServiceResult<Integer> insertAdGroupType(AdGroupType adGroupType) {
         //返回个数
         Integer count = adGroupTypeMapper.insert(adGroupType);
         if (count < 1) {
@@ -102,9 +100,7 @@ public class AdGroupTypeServiceImpl extends ServiceImpl<AdGroupTypeMapper, AdGro
     }
 
     @Override
-    public ServiceResult<Integer> updateAdGroupType(AdGroupTypeDto adGroupTypeDto) {
-        AdGroupType adGroupType = new AdGroupType();
-        BeanUtils.copyProperties(adGroupTypeDto, adGroupType);
+    public ServiceResult<Integer> updateAdGroupType(AdGroupType adGroupType) {
         adGroupType.setUpdateTime(new Date());
         //返回个数
         Integer count = adGroupTypeMapper.updateById(adGroupType);

@@ -23,10 +23,10 @@ public interface IAdGroupTypeService extends IService<AdGroupType> {
 
     /**
      * 新增广告组分类
-     * @param adGroupTypeDto 条件实体类DTO
+     * @param adGroupType 条件实体类
      * @return 返回新增个数
      */
-    ServiceResult<Integer> insertAdGroupType (AdGroupTypeDto adGroupTypeDto);
+    ServiceResult<Integer> insertAdGroupType (AdGroupType adGroupType);
 
     /**
      * 根据id查询广告组分类
@@ -37,10 +37,10 @@ public interface IAdGroupTypeService extends IService<AdGroupType> {
 
     /**
      * 修改广告组分类
-     * @param adGroupTypeDto 条件实体类DTO
+     * @param adGroupType 条件实体类
      * @return 返回修改个数
      */
-    ServiceResult<Integer> updateAdGroupType (AdGroupTypeDto adGroupTypeDto);
+    ServiceResult<Integer> updateAdGroupType (AdGroupType adGroupType);
 
     /**
      * 删除广告组分类

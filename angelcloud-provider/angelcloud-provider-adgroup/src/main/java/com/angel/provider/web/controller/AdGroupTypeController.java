@@ -5,6 +5,7 @@ import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.provider.model.domain.AdGroupType;
 import com.angel.provider.model.dto.AdGroupTypeDto;
 import com.angel.provider.model.form.AdGroupTypeForm;
 import com.angel.provider.model.vo.AdGroupTypeVo;
@@ -68,9 +69,9 @@ public class AdGroupTypeController {
         if (bindingResult.hasErrors()) {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
-        AdGroupTypeDto AdGroupTypeDto = new AdGroupTypeDto();
-        BeanUtils.copyProperties(adGroupTypeForm, AdGroupTypeDto);
-        ServiceResult<Integer> integerServiceResult = iAdGroupTypeService.insertAdGroupType(AdGroupTypeDto);
+        AdGroupType adGroupType = new AdGroupType();
+        BeanUtils.copyProperties(adGroupTypeForm, adGroupType);
+        ServiceResult<Integer> integerServiceResult = iAdGroupTypeService.insertAdGroupType(adGroupType);
         if (!integerServiceResult.isSuccess()) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.ADGROUP10021002.code(),ErrorCodeEnum.ADGROUP10021002.msg());
         }
@@ -93,10 +94,10 @@ public class AdGroupTypeController {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
 
-        AdGroupTypeDto AdGroupTypeDto = new AdGroupTypeDto();
-        BeanUtils.copyProperties(adGroupTypeForm, AdGroupTypeDto);
+        AdGroupType adGroupType = new AdGroupType();
+        BeanUtils.copyProperties(adGroupTypeForm, adGroupType);
 
-        ServiceResult<Integer> integerServiceResult = iAdGroupTypeService.updateAdGroupType(AdGroupTypeDto);
+        ServiceResult<Integer> integerServiceResult = iAdGroupTypeService.updateAdGroupType(adGroupType);
         if (!integerServiceResult.isSuccess()) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.ADGROUP10021003.code(),ErrorCodeEnum.ADGROUP10021003.msg());
         }
