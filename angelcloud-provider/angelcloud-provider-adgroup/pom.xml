@@ -48,6 +48,11 @@
             <groupId>com.angel</groupId>
             <artifactId>angelcloud-provider-blog-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-provider-adgroup-api</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
