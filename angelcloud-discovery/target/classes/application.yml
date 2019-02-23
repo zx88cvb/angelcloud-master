@@ -2,23 +2,23 @@ spring:
   profiles:
     active: dev
   application:
-    name: @pom.artifactId@
+    name: angelcloud-discovery
   cloud:
     config:
       server:
         git:
           uri: https://github.com/zx88cvb/angelcloud-config
           username: zx88cvb
-          password: *
-          basedir: D:/Software_Development/Java_Development/WorkSpace/IntelliJ-IDEA-workspace/github/angelcloud-config/config/basedir
+          password: Xiang19951101
+          # basedir: D:/Software_Development/Java_Development/WorkSpace/IntelliJ-IDEA-workspace/github/angelcloud-config/config/basedir
     consul:
       host: localhost
       port: 8500
-    rabbitmq:
-      host: 192.168.188.34
-      port: 5672
-      username: guest
-      password: guest
+#    rabbitmq:
+#      host: 192.168.188.34
+#      port: 5672
+#      username: guest
+#      password: guest
 server:
   port: 8888
 # eureka:

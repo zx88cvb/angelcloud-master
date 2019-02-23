@@ -1,23 +1,20 @@
-server:
-  port: 8030
-
 spring:
   profiles:
-    active: dev
-  application:
-    # name: @pom.artifactId@
-    name: angelcloud-provider-user
-  datasource:
-    username: root
-    password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/angelcloud_master?characterEncoding=utf-8&useSSL=false
+    active: ${spring.profiles.active}
   cloud:
-    consul:
-      host: localhost
-      port: 8500
+    config:
       discovery:
-        healthCheckPath: /
-        healthCheckInterval: 15s
+        enabled: true
+        service-id: angelcloud-discovery
+      profile: dev
+  application:
+    name: angelcloud-provider-user
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        healthCheckPath: /
+#        healthCheckInterval: 15s
 mybatis-plus:
   typeAliasesPackage: com.angel.provider.model.domain
   mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
@@ -28,16 +25,4 @@ mapper:
   mappers: com.angel.provider.mapper.*
   not-empty: false
   identity: MYSQL
-
-# pagehelper:
-#  helperDialect: mysql
-#  reasonable: true
-#  support-methods-arguments: true
-#  params: count=countSql
-
-
-# eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
 
