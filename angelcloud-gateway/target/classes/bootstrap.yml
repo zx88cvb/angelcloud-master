@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: ${spring.profiles.active}
   application:
     name: angelcloud-gateway
   cloud:
@@ -52,9 +52,3 @@ spring:
 
 server:
   port: 8082
-
-# eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
-

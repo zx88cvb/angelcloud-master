@@ -7,6 +7,8 @@ import com.angel.provider.model.vo.AdGroupTypeVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * 广告组分类 服务
  * @Author: Angel
@@ -48,4 +50,11 @@ public interface IAdGroupTypeService extends IService<AdGroupType> {
      * @return 返回删除个数结果集
      */
     ServiceResult<Integer> deleteAdGroupTypeById(int id);
+
+    /**
+     * 查询广告组分类集合
+     * @param adGroupTypeDto 广告组dto
+     * @return List结果集
+     */
+    ServiceResult<List<AdGroupType>> getAdGroupTypeList(AdGroupTypeDto adGroupTypeDto);
 }

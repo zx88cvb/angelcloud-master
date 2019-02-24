@@ -27,7 +27,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/ad/item")
 @Api("广告项Api")
 public class AdGroupItemController {
 

@@ -1,6 +1,5 @@
 package com.angel.provider.web.feign;
 
-import com.alibaba.druid.wall.violation.ErrorCode;
 import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;

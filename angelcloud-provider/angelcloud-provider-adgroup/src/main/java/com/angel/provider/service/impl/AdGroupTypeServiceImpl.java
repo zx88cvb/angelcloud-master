@@ -122,4 +122,28 @@ public class AdGroupTypeServiceImpl extends ServiceImpl<AdGroupTypeMapper, AdGro
         }
         return ServiceResult.of(count);
     }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<List<AdGroupType>> getAdGroupTypeList(AdGroupTypeDto adGroupTypeDto) {
+        //条件查询
+        LambdaQueryWrapper<AdGroupType> entity = new QueryWrapper<AdGroupType>().lambda()
+                .eq(AdGroupType:: getIsDel, GlobalConstant.IsDel.NO)
+                .orderByDesc(AdGroupType:: getCreateTime);
+
+        //判断名称为不为空
+        if (StringUtils.isNotBlank(adGroupTypeDto.getName())) {
+            entity.like(AdGroupType:: getName, adGroupTypeDto.getName());
+        }
+
+        // 判断表示不为空
+        if (StringUtils.isNotBlank(adGroupTypeDto.getTypeKey())) {
+            entity.eq(AdGroupType:: getTypeKey, adGroupTypeDto.getTypeKey());
+        }
+
+        List<AdGroupType> adGroupTypeList = adGroupTypeMapper.selectList(entity);
+
+
+        return ServiceResult.of(adGroupTypeList);
+    }
 }

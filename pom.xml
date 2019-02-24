@@ -113,7 +113,7 @@
 				<version>1.2.5</version>
 			</dependency>-->
 
-			<dependency>
+			<!--<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid</artifactId>
 				<version>${druid.version}</version>
@@ -122,7 +122,7 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
 				<version>1.1.10</version>
-			</dependency>
+			</dependency>-->
 			<!--<dependency>
 				<groupId>org.mybatis.generator</groupId>
 				<artifactId>mybatis-generator-core</artifactId>

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 广告组分类Controller
@@ -29,7 +31,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/type")
+@RequestMapping("/ad/type")
 @Api("广告组分类Api")
 public class AdGroupTypeController {
 
@@ -152,5 +154,36 @@ public class AdGroupTypeController {
         AdGroupTypeDto adGroupTypeDto = serviceResult.getResult();
 
         return ServerResponse.createBySuccess(adGroupTypeDto);
+    }
+
+    /**
+     * 查询广告组分类集合
+     * @param request request
+     * @param adGroupTypeDto 广告组分类dto
+     * @return 返回结果集
+     */
+    @GetMapping("list")
+    @ApiOperation(value = "获取广告组分类数据集合", httpMethod = "GET")
+    public ServerResponse<List<AdGroupTypeVo>> getTypeList(HttpServletRequest request,
+                                                           @ApiParam(name = "adGroupTypeDto", value = "广告组分类信息Dto")AdGroupTypeDto adGroupTypeDto) {
+        // 查询
+        ServiceResult<List<AdGroupType>> result = iAdGroupTypeService.getAdGroupTypeList(adGroupTypeDto);
+
+        // 判断是否成功
+        if (!result.isSuccess()){
+            return ServerResponse.createByError();
+        }
+
+        // list集合
+        List<AdGroupType> list = result.getResult();
+
+        // 转换成vo
+        List<AdGroupTypeVo> groupTypeVoList = list.stream().map(e -> {
+            AdGroupTypeVo adGroupTypeVo = new AdGroupTypeVo();
+            BeanUtils.copyProperties(e, adGroupTypeVo);
+            return adGroupTypeVo;
+        }).collect(Collectors.toList());
+
+        return ServerResponse.createBySuccess(groupTypeVoList);
     }
 }

@@ -36,4 +36,9 @@ public class AdGroupVo extends BaseVo {
      * 备注
      */
     private String remake;
+
+    /**
+     * 分组类型
+     */
+    private AdGroupTypeVo adGroupType;
 }

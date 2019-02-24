@@ -11,7 +11,53 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
+
+  <resultMap id="TypeResultMap" type="com.angel.provider.model.domain.AdGroup" extends="BaseResultMap">
+    <association property="adGroupType" javaType="com.angel.provider.model.domain.AdGroupType">
+      <id column="agt_id" property="id" jdbcType="INTEGER" />
+      <result column="agt_name" property="name" jdbcType="VARCHAR" />
+      <result column="agt_type_key" property="typeKey" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, type_id, name, ad_key, remake, create_time, update_time, is_del
   </sql>
+
+  <sql id="Type_Column_List" >
+    ${alias_ag}.id, ${alias_ag}.type_id, ${alias_ag}.name, ${alias_ag}.ad_key, ${alias_ag}.remake,
+    ${alias_ag}.create_time, ${alias_ag}.update_time, ${alias_ag}.is_del,
+    ${alias_agt}.id `agt_id`, ${alias_agt}.name `agt_name`, ${alias_agt}.type_key `agt_type_key`
+  </sql>
+
+  <sql id="conditionPage">
+      where
+      ${alias_ag}.is_del = 0
+      AND ${alias_ag}.type_id = ${alias_agt}.id
+      <if test="adGroupDto.typeId != null">
+        AND ${alias_agt}.id = #{adGroupDto.typeId}
+      </if>
+      <if test="adGroupDto.name != null">
+        AND ${alias_ag}.name LIKE concat(concat('%',#{adGroupDto.name}),'%')
+      </if>
+      <if test="adGroupDto.adKey != null">
+        AND ${alias_ag}.adKey LIKE concat(concat('%',#{adGroupDto.adKey}),'%')
+      </if>
+  </sql>
+
+  <select id="selectPageByCondition" resultMap="TypeResultMap">
+    SELECT
+    <include refid="Type_Column_List">
+      <property name="alias_ag" value="ag" />
+      <property name="alias_agt" value="agt" />
+    </include>
+    FROM
+    ad_group ag,
+    ad_group_type agt
+    <include refid="conditionPage">
+      <property name="alias_ag" value="ag" />
+      <property name="alias_agt" value="agt" />
+    </include>
+    ORDER BY ag.CREATE_TIME desc
+  </select>
 </mapper>

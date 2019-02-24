@@ -6,6 +6,7 @@ import com.angel.provider.mapper.AdGroupMapper;
 import com.angel.provider.model.domain.AdGroup;
 import com.angel.provider.model.domain.AdGroupType;
 import com.angel.provider.model.dto.AdGroupDto;
+import com.angel.provider.model.vo.AdGroupTypeVo;
 import com.angel.provider.model.vo.AdGroupVo;
 import com.angel.provider.service.IAdGroupService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -42,7 +43,7 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
     public ServiceResult<Page<AdGroupVo>> getAdGroupPage(AdGroupDto adGroupDto) {
         Page<AdGroupVo> page = new Page<AdGroupVo>();
         //条件查询
-        LambdaQueryWrapper<AdGroup> entity = new QueryWrapper<AdGroup>().lambda()
+        /*LambdaQueryWrapper<AdGroup> entity = new QueryWrapper<AdGroup>().lambda()
                 .eq(AdGroup:: getIsDel, GlobalConstant.IsDel.NO)
                 .orderByDesc(AdGroup:: getCreateTime);
 
@@ -62,6 +63,11 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
         }
 
         IPage<AdGroup> iPageAdGroup = adGroupMapper.selectPage(new Page<>(adGroupDto.getPageNum(), adGroupDto.getPageSize()), entity);
+        */
+
+        // 查询
+        IPage<AdGroup> iPageAdGroup = adGroupMapper.selectPageByCondition(new Page<>(adGroupDto.getPageNum(), adGroupDto.getPageSize()),
+                adGroupDto);
 
         // 获取集合对象
         List<AdGroup> adGroupList = iPageAdGroup.getRecords();
@@ -70,6 +76,11 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
         List<AdGroupVo> collect = adGroupList.stream().map(e -> {
             AdGroupVo adGroupVo = new AdGroupVo();
             BeanUtils.copyProperties(e, adGroupVo);
+
+            // type -> vo
+            AdGroupTypeVo adGroupTypeVo = new AdGroupTypeVo();
+            BeanUtils.copyProperties(e.getAdGroupType(), adGroupTypeVo);
+            adGroupVo.setAdGroupType(adGroupTypeVo);
             return adGroupVo;
         }).collect(Collectors.toList());
 
@@ -94,17 +105,17 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public ServiceResult<AdGroupDto> getAdGroupById(Integer id) {
+    public ServiceResult<AdGroup> getAdGroupById(Integer id) {
         AdGroup adGroup = adGroupMapper.selectById(id);
 
         if (adGroup == null) {
             return ServiceResult.notFound();
         }
 
-        AdGroupDto AdGroupDto = new AdGroupDto();
-        BeanUtils.copyProperties(adGroup, AdGroupDto);
+        /*AdGroupDto AdGroupDto = new AdGroupDto();
+        BeanUtils.copyProperties(adGroup, AdGroupDto);*/
 
-        return ServiceResult.of(AdGroupDto);
+        return ServiceResult.of(adGroup);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.provider.model.domain.AdGroup;
 import com.angel.provider.model.dto.AdGroupDto;
 import com.angel.provider.model.dto.AdGroupTypeDto;
 import com.angel.provider.model.form.AdGroupForm;
@@ -30,7 +31,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/ad/group")
 @Api("广告组Api")
 public class AdGroupController {
 
@@ -86,7 +87,7 @@ public class AdGroupController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PutMapping("updateAdGroup")
+    @PutMapping({"updateAdGroup", "edit"})
     @ApiOperation(value = "修改广告组", httpMethod = "PUT")
     public ServerResponse updateAdGroup (HttpServletRequest request,
                                              @ApiParam(name = "adGroupForm", value = "广告组信息Form") @Valid AdGroupForm adGroupForm,
@@ -112,7 +113,7 @@ public class AdGroupController {
      * @param id 主键id
      * @return 返回个数
      */
-    @DeleteMapping("deleteAdGroupById/{id}")
+    @DeleteMapping("delete/{id}")
     @ApiOperation(value = "删除广告组", httpMethod = "DELETE")
     public ServerResponse deleteAdGroupById (HttpServletRequest request,
                                                  @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {
@@ -126,5 +127,32 @@ public class AdGroupController {
         }
 
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 根据id查询
+     * @param request request
+     * @param id
+     * @return 返回单个对象结果集
+     */
+    @GetMapping("{id}")
+    @ApiOperation(value = "根据id获取广告组数据", httpMethod = "GET")
+    public ServerResponse<AdGroupDto> getTypeById (HttpServletRequest request,
+                                                       @ApiParam(name = "id", value = "id") @PathVariable("id") Integer id) {
+        // 判断id是否为null 或者小于1
+        if (id == null || id < GlobalConstant.Attribute.YES) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        //调用service
+        ServiceResult<AdGroup> serviceResult = iAdGroupService.getAdGroupById(id);
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(serviceResult.getMessage());
+        }
+
+        //获取结果
+        AdGroupDto adGroupDto = serviceResult.getResult().convertTo();;
+
+        return ServerResponse.createBySuccess(adGroupDto);
     }
 }

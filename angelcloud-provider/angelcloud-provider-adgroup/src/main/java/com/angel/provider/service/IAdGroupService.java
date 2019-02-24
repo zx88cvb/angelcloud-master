@@ -34,7 +34,7 @@ public interface IAdGroupService extends IService<AdGroup> {
      * @param id 广告组id
      * @return 广告组结果集
      */
-    ServiceResult<AdGroupDto> getAdGroupById (Integer id);
+    ServiceResult<AdGroup> getAdGroupById (Integer id);
 
     /**
      * 修改广告组
