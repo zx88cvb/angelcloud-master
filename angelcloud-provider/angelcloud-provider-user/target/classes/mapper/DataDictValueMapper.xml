@@ -20,4 +20,23 @@
     params
   </sql>
 
+  <sql id="All_Column_List" >
+    ${alias_dv}.id, ${alias_dv}.data_dict_id, ${alias_dv}.show_value,
+    ${alias_dv}.sn, ${alias_dv}.create_time, ${alias_dv}.update_time, ${alias_dv}.is_del, ${alias_dv}.params
+  </sql>
+
+  <select id="getDictValueForKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    SELECT
+      <include refid="All_Column_List">
+        <property name="alias_dv" value="dv" />
+      </include>
+    from
+    data_dict dd,
+    data_dict_value dv
+    WHERE
+    dd.dict_key=#{key}
+    AND
+    dd.id = dv.data_dict_id
+    order by dv.sn asc, dv.create_time desc
+  </select>
 </mapper>

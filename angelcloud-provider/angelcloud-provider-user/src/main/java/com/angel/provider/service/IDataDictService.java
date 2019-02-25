@@ -2,10 +2,13 @@ package com.angel.provider.service;
 
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.DataDict;
+import com.angel.provider.model.domain.DataDictValue;
 import com.angel.provider.model.dto.DataDictDto;
 import com.angel.provider.model.vo.DataDictVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * @Author: Angel
@@ -41,4 +44,11 @@ public interface IDataDictService extends IService<DataDict> {
      * @return ServiceResult int
      */
     ServiceResult<Integer> deleteDataDictById(int id);
+
+    /**
+     * 根据key查询字典值
+     * @param key key
+     * @return ServiceResult 字典Value
+     */
+    ServiceResult<List<DataDictValue>> getDictValueForKey(String key);
 }

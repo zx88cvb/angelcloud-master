@@ -3,7 +3,9 @@ package com.angel.provider.service.impl;
 import com.angel.base.constant.GlobalConstant;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.DataDictMapper;
+import com.angel.provider.mapper.DataDictValueMapper;
 import com.angel.provider.model.domain.DataDict;
+import com.angel.provider.model.domain.DataDictValue;
 import com.angel.provider.model.dto.DataDictDto;
 import com.angel.provider.model.vo.DataDictVo;
 import com.angel.provider.service.IDataDictService;
@@ -35,6 +37,9 @@ public class DataDictServiceImpl extends ServiceImpl<DataDictMapper, DataDict> i
 
     @Resource
     private DataDictMapper dataDictMapper;
+
+    @Resource
+    private DataDictValueMapper dataDictValueMapper;
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
@@ -118,5 +123,14 @@ public class DataDictServiceImpl extends ServiceImpl<DataDictMapper, DataDict> i
             return ServiceResult.notFound();
         }
         return ServiceResult.of(count);
+    }
+
+    @Override
+    public ServiceResult<List<DataDictValue>> getDictValueForKey(String key) {
+        List<DataDictValue> dataDictValueList = dataDictValueMapper.getDictValueForKey(key);
+        if (dataDictValueList == null) {
+            return ServiceResult.notFound();
+        }
+        return ServiceResult.of(dataDictValueList);
     }
 }

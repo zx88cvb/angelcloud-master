@@ -1,7 +1,6 @@
 package com.angel.provider.model.dto;
 
 import com.angel.base.model.dto.BaseDto;
-import com.angel.base.model.vo.BaseVo;
 import lombok.Data;
 
 import java.io.Serializable;
