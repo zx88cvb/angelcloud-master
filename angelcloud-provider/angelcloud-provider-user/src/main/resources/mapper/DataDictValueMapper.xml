@@ -39,4 +39,21 @@
     dd.id = dv.data_dict_id
     order by dv.sn asc, dv.create_time desc
   </select>
+
+  <select id="getDictValueDetail" resultMap="ResultMapWithBLOBs">
+    SELECT
+    <include refid="All_Column_List">
+      <property name="alias_dv" value="dv" />
+    </include>
+    from
+    data_dict dd,
+    data_dict_value dv
+    <where>
+      dd.dict_key=#{key}
+      AND
+      dv.params = #{params}
+      AND
+      dd.id = dv.data_dict_id
+    </where>
+  </select>
 </mapper>

@@ -5,6 +5,7 @@ import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.provider.model.domain.AdGroupItem;
 import com.angel.provider.model.dto.AdGroupItemDto;
 import com.angel.provider.model.form.AdGroupItemForm;
 import com.angel.provider.model.vo.AdGroupItemVo;
@@ -123,5 +124,35 @@ public class AdGroupItemController {
         }
 
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 根据id获取广告项数据
+     * @param request request
+     * @param id id
+     * @return 单个广告项结果集
+     */
+    @GetMapping("{id}")
+    @ApiOperation(value = "根据id获取广告项数据", httpMethod = "GET")
+    public ServerResponse<AdGroupItemVo> getTypeById (HttpServletRequest request,
+                                                       @ApiParam(name = "id", value = "id") @PathVariable("id") Integer id) {
+        // 判断id是否为null 或者小于1
+        if (id == null || id < GlobalConstant.Attribute.YES) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        //调用service
+        ServiceResult<AdGroupItem> serviceResult = iAdGroupItemService.getAdGroupItemById(id);
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(serviceResult.getMessage());
+        }
+
+        //获取结果
+        AdGroupItem adGroupItem = serviceResult.getResult();
+
+        AdGroupItemVo adGroupTypeVo = new AdGroupItemVo();
+        BeanUtils.copyProperties(adGroupItem, adGroupTypeVo);
+
+        return ServerResponse.createBySuccess(adGroupTypeVo);
     }
 }

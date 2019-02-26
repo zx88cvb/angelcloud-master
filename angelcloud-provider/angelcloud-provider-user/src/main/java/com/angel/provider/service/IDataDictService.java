@@ -51,4 +51,12 @@ public interface IDataDictService extends IService<DataDict> {
      * @return ServiceResult 字典Value
      */
     ServiceResult<List<DataDictValue>> getDictValueForKey(String key);
+
+    /**
+     * 根据key和params参数查询字典值
+     * @param key
+     * @param params
+     * @return
+     */
+    ServiceResult<DataDictValue> getDictValueDetail(String key, String params);
 }

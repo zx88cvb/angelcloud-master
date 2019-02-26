@@ -100,17 +100,14 @@ public class AdGroupItemServiceImpl extends ServiceImpl<AdGroupItemMapper, AdGro
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public ServiceResult<AdGroupItemDto> getAdGroupItemById(Integer id) {
+    public ServiceResult<AdGroupItem> getAdGroupItemById(Integer id) {
         AdGroupItem adGroupItem = adGroupItemMapper.selectById(id);
 
         if (adGroupItem == null) {
             return ServiceResult.notFound();
         }
 
-        AdGroupItemDto adGroupItemDto = new AdGroupItemDto();
-        BeanUtils.copyProperties(adGroupItem, adGroupItemDto);
-
-        return ServiceResult.of(adGroupItemDto);
+        return ServiceResult.of(adGroupItem);
     }
 
     @Override

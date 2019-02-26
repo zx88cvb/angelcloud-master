@@ -168,7 +168,7 @@ public class DataDictController {
      * @param key key
      * @return ServerResponse包含list集合
      */
-    @GetMapping("key/{key}")
+    /*@GetMapping("key/{key}")
     @ApiOperation(value = "根据key值字典数据值", httpMethod = "GET")
     public ServerResponse<List<DataDictValueVo>> getDictValueForKey(HttpServletRequest request,
                                                               @ApiParam(name = "key", value = "key")
@@ -196,5 +196,5 @@ public class DataDictController {
 
 
         return ServerResponse.createBySuccess(dictValueVoList);
-    }
+    }*/
 }

@@ -126,11 +126,22 @@ public class DataDictServiceImpl extends ServiceImpl<DataDictMapper, DataDict> i
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<List<DataDictValue>> getDictValueForKey(String key) {
         List<DataDictValue> dataDictValueList = dataDictValueMapper.getDictValueForKey(key);
         if (dataDictValueList == null) {
             return ServiceResult.notFound();
         }
         return ServiceResult.of(dataDictValueList);
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<DataDictValue> getDictValueDetail(String key, String params) {
+        DataDictValue dataDictValue = dataDictValueMapper.getDictValueDetail(key, params);
+        if (dataDictValue == null) {
+            return ServiceResult.notFound();
+        }
+        return ServiceResult.of(dataDictValue);
     }
 }

@@ -29,7 +29,7 @@ public class AdGroupItemDto extends BaseDto implements Serializable {
     /**
      * 类型(1 - 文本、2 - 链接、3 - 图片)
      */
-    private Integer type;
+    private String type;
 
     /**
      * 标识
