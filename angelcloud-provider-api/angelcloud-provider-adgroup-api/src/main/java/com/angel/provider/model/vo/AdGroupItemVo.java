@@ -41,4 +41,9 @@ public class AdGroupItemVo extends BaseVo implements Serializable {
      */
     private String remake;
 
+    /**
+     * 数据字典值名称（type）
+     */
+    private String dictValueName;
+
 }

@@ -5,6 +5,7 @@ import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.provider.model.domain.DataDictValue;
 import com.angel.provider.model.dto.DataDictValueDto;
 import com.angel.provider.model.form.DataDictValueForm;
 import com.angel.provider.model.vo.DataDictValueVo;
@@ -27,7 +28,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@RequestMapping("/dataDictValue")
+@RequestMapping("/dict/value")
 @Api("数据字典值API")
 public class DataDictValueController {
 
@@ -40,7 +41,7 @@ public class DataDictValueController {
      * @param dataDictValueDto 字典值信息
      * @return 标签集合
      */
-    @GetMapping("getDataDictValuePage")
+    @GetMapping({"getDataDictValuePage", "recent"})
     @ApiOperation(value = "获取数据字典值分页数据", httpMethod = "GET")
     public ServerResponse<Page<DataDictValueVo>> getDataDictValuePage (HttpServletRequest request,
                                                                        @ApiParam(name = "dataDictValueDto", value = "标签信息")DataDictValueDto dataDictValueDto) {
@@ -59,7 +60,7 @@ public class DataDictValueController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PostMapping("insertDataDictValue")
+    @PostMapping({"insertDataDictValue", "add"})
     @ApiOperation(value = "新增数据字典值", httpMethod = "POST")
     public ServerResponse insertDataDictValue (HttpServletRequest request,
                                           @ApiParam(name = "dataDictValueForm", value = "数据字典值信息Form") @Valid DataDictValueForm dataDictValueForm,
@@ -85,7 +86,7 @@ public class DataDictValueController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PutMapping("updateDataDictValue")
+    @PutMapping({"updateDataDictValue", "edit"})
     @ApiOperation(value = "修改数据字典值", httpMethod = "PUT")
     public ServerResponse updateDataDictValue (HttpServletRequest request,
                                           @ApiParam(name = "dataDictValueForm", value = "字典值信息Form") @Valid DataDictValueForm dataDictValueForm,
@@ -111,7 +112,7 @@ public class DataDictValueController {
      * @param id 主键id
      * @return 返回个数
      */
-    @DeleteMapping("deleteDataDictValue/{id}")
+    @DeleteMapping("delete/{id}")
     @ApiOperation(value = "删除数据字典值", httpMethod = "DELETE")
     public ServerResponse deleteDataDictValue (HttpServletRequest request,
                                           @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {

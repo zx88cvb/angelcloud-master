@@ -43,4 +43,11 @@ public interface IDataDictValueService extends IService<DataDictValue> {
      */
     ServiceResult<Integer> deleteDataDictValueById(int id);
 
+    /**
+     * 根据params参数获取实体
+     * @param params 参数
+     * @return 结果集包含单个实体
+     */
+    ServiceResult<DataDictValue> getEntityByParams(String params);
+
 }

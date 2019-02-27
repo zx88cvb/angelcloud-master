@@ -69,7 +69,7 @@ public class DataDictFeignClient implements DataDictFeignApi {
      */
     @Override
     @ApiOperation(value = "根据key值和params参数查询字典数据值", httpMethod = "GET")
-    public ServerResponse<DataDictValueVo> getDictValueForKey(@ApiParam(name = "key", value = "key")
+    public ServerResponse<DataDictValueVo> getDictValueDetail(@ApiParam(name = "key", value = "key")
                                                                   @PathVariable("key") String key,
                                                               @ApiParam(name = "params", value = "params")
                                                                   @PathVariable("params") String params) {

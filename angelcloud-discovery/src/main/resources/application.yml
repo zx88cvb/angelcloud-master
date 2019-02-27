@@ -9,7 +9,7 @@ spring:
         git:
           uri: https://github.com/zx88cvb/angelcloud-config
           username: zx88cvb
-          password: your git password
+          password: Xiang19951101
           # basedir: D:/Software_Development/Java_Development/WorkSpace/IntelliJ-IDEA-workspace/github/angelcloud-config/config/basedir
     consul:
       host: localhost

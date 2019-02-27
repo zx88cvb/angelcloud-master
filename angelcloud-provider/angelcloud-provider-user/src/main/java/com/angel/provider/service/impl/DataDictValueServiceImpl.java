@@ -125,4 +125,16 @@ public class DataDictValueServiceImpl extends ServiceImpl<DataDictValueMapper, D
         }
         return ServiceResult.of(count);
     }
+
+    @Override
+    public ServiceResult<DataDictValue> getEntityByParams(String params) {
+        // 条件查询
+        LambdaQueryWrapper<DataDictValue> entity = new QueryWrapper<DataDictValue>().lambda()
+                .eq(DataDictValue:: getIsDel, GlobalConstant.IsDel.NO)
+                .eq(DataDictValue:: getParams, params);
+
+        // 查询单个实体
+        DataDictValue dataDictValue = dataDictValueMapper.selectOne(entity);
+        return ServiceResult.of(dataDictValue);
+    }
 }

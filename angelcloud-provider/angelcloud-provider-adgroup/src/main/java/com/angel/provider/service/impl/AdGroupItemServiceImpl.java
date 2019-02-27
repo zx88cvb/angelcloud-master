@@ -1,13 +1,15 @@
 package com.angel.provider.service.impl;
 
 import com.angel.base.constant.GlobalConstant;
+import com.angel.base.constant.ServerResponse;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.AdGroupItemMapper;
 import com.angel.provider.model.domain.AdGroupItem;
 import com.angel.provider.model.dto.AdGroupItemDto;
 import com.angel.provider.model.vo.AdGroupItemVo;
+import com.angel.provider.model.vo.DataDictValueVo;
 import com.angel.provider.service.IAdGroupItemService;
-import com.angel.provider.service.IAdGroupService;
+import com.angel.provider.service.IDataDictValueFeignService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -36,6 +38,9 @@ public class AdGroupItemServiceImpl extends ServiceImpl<AdGroupItemMapper, AdGro
 
     @Resource
     private AdGroupItemMapper adGroupItemMapper;
+
+    @Resource
+    private IDataDictValueFeignService iDataDictValueFeignService;
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
@@ -76,6 +81,15 @@ public class AdGroupItemServiceImpl extends ServiceImpl<AdGroupItemMapper, AdGro
         List<AdGroupItemVo> collect = adGroupItemList.stream().map(e -> {
             AdGroupItemVo adGroupItemVo = new AdGroupItemVo();
             BeanUtils.copyProperties(e, adGroupItemVo);
+
+            // feign远程调用
+            ServerResponse<DataDictValueVo> serverResponse =
+                    iDataDictValueFeignService.getDictValueByParams(e.getType());
+            if (serverResponse.isSuccess()) {
+                DataDictValueVo dataDictValueVo = serverResponse.getData();
+                // 设置名称
+                adGroupItemVo.setDictValueName(dataDictValueVo.getShowValue());
+            }
             return adGroupItemVo;
         }).collect(Collectors.toList());
 

@@ -33,7 +33,7 @@ public interface DataDictFeignApi {
      * @return ServerResponse单个实体
      */
     @GetMapping("/api/user/dict/key/{key}/value/{params}")
-    ServerResponse<DataDictValueVo> getDictValueForKey(@ApiParam(name = "key", value = "key")
+    ServerResponse<DataDictValueVo> getDictValueDetail(@ApiParam(name = "key", value = "key")
                                                              @PathVariable("key") String key,
                                                              @ApiParam(name = "params", value = "params")
                                                              @PathVariable("params") String params);
