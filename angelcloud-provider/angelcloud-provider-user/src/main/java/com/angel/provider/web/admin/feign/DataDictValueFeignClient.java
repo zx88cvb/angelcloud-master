@@ -60,6 +60,7 @@ public class DataDictValueFeignClient implements DataDictValueFeignApi {
     @Override
     @ApiOperation(value = "根据params参数获取字典数据值", httpMethod = "GET")
     public ServerResponse<DataDictValueVo> getDictValueByParams(@ApiParam(name = "params", value = "params")
+                                                                @PathVariable("params")
                                                                             String params) {
         if (StringUtils.isBlank(params)) {
             return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());

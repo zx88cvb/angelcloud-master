@@ -31,8 +31,9 @@ public interface DataDictValueFeignApi {
      * @param params params参数
      * @return 结果集包含单个实体
      */
-    @GetMapping("/api/get/dictvalue/params")
+    @GetMapping("/api/dictvalue/params/{params}")
     @ApiOperation(value = "根据params参数获取字典数据值", httpMethod = "GET")
     ServerResponse<DataDictValueVo> getDictValueByParams(@ApiParam(name = "params", value = "params")
+                                                         @PathVariable("params")
                                                                  String params);
 }
