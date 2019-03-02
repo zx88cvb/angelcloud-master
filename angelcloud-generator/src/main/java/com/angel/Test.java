@@ -1,11 +1,11 @@
 package com.angel;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 
@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  */
 public class Test {
 
-    public void generateCode() {
+   /* public void generateCode() {
         String packageName = "com.baomidou.springboot";
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
         generateByTables(serviceNameStartWithI, packageName, "user", "role");
@@ -60,5 +60,5 @@ public class Test {
 
     public static void main(String[] args) {
         new Test().generateByTables("com.angel","blog_article");
-    }
+    }*/
 }
