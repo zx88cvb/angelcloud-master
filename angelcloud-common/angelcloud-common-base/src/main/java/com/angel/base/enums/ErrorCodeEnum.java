@@ -438,6 +438,26 @@ public enum ErrorCodeEnum {
 	 */
 	ADGROUP10021014(10021014, "删除广告内容失败"),
 
+	/**
+	 * ADGROUP 10021015 error code enum.
+	 */
+	ADGROUP10021015(10021015, "获取广告内容详情失败"),
+
+	/**
+	 * ADGROUP 10021016 error code enum.
+	 */
+	ADGROUP10021016(10021016, "创建广告内容详情失败"),
+
+	/**
+	 * ADGROUP 10021017 error code enum.
+	 */
+	ADGROUP10021017(10021017, "修改广告内容详情失败"),
+
+	/**
+	 * ADGROUP 10021018 error code enum.
+	 */
+	ADGROUP10021018(10021018, "删除广告内容详情失败"),
+
 // 1003 博客中心
 	BLOG10031001(10031001, "博客为空"),
 	/**
