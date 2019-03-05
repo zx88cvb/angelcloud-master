@@ -3,7 +3,7 @@ package com.angel.provider.service;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.AdGroupContext;
 import com.angel.provider.model.dto.AdGroupContextDto;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -19,7 +19,7 @@ public interface IAdGroupContextService extends IService<AdGroupContext> {
      * @param adGroupContextDto 条件实体类
      * @return 类别集合
      */
-    ServiceResult<Page<AdGroupContext>> getConditionPage (AdGroupContextDto adGroupContextDto);
+    ServiceResult<IPage<AdGroupContext>> getConditionPage (AdGroupContextDto adGroupContextDto);
 
     /**
      * 新增广告内容详情

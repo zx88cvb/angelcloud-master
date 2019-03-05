@@ -44,7 +44,7 @@ public class AdGroupContextForm implements Serializable {
      * 打开方式 0:本窗口 1:新窗口
      */
     @NotNull(message = "打开方式不能为空!")
-    private Integer target;
+    private boolean target;
 
     /**
      * 备注

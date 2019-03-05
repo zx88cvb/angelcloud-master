@@ -45,7 +45,7 @@ public class AdGroupContextDto extends BaseDto implements Serializable {
      * 打开方式 0:本窗口 1:新窗口
      */
     @ApiModelProperty("打开方式 0:本窗口 1:新窗口")
-    private Integer target;
+    private boolean target;
 
     /**
      * 备注

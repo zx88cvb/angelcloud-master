@@ -10,6 +10,7 @@ import com.angel.provider.model.dto.AdGroupContextDto;
 import com.angel.provider.model.form.AdGroupContextForm;
 import com.angel.provider.model.vo.AdGroupContextVo;
 import com.angel.provider.service.IAdGroupContextService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,19 +46,19 @@ public class AdGroupContextController {
      */
     @GetMapping("recent")
     @ApiOperation(value = "获取广告内容详情分页数据", httpMethod = "GET")
-    public ServerResponse<Page<AdGroupContextVo>> recent (HttpServletRequest request,
-                                                          @ApiParam(name = "adGroupContentDto", value = "广告内容详情信息")
+    public ServerResponse<IPage<AdGroupContextVo>> recent (HttpServletRequest request,
+                                                           @ApiParam(name = "adGroupContentDto", value = "广告内容详情信息")
                                                                   AdGroupContextDto adGroupContextDto) {
         // 查询
-        ServiceResult<Page<AdGroupContext>> serviceResult = iAdGroupContextService.getConditionPage(adGroupContextDto);
+        ServiceResult<IPage<AdGroupContext>> serviceResult = iAdGroupContextService.getConditionPage(adGroupContextDto);
 
         // 判断是否成功
         if (!serviceResult.isSuccess()) {
             return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.ADGROUP10021015.code(),
                     ErrorCodeEnum.ADGROUP10021015.msg());
         }
-        Page<AdGroupContext> page = serviceResult.getResult();
-        Page<AdGroupContextVo> pageVo = new Page<>();
+        IPage<AdGroupContext> page = serviceResult.getResult();
+        IPage<AdGroupContextVo> pageVo = new Page<>();
 
         // 转换Vo
         List<AdGroupContextVo> adGroupContextVoList = page.getRecords().stream().map(e -> {

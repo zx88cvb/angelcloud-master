@@ -38,8 +38,7 @@ public class AdGroupContextServiceImpl extends ServiceImpl<AdGroupContextMapper,
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public ServiceResult<Page<AdGroupContext>> getConditionPage(AdGroupContextDto adGroupContextDto) {
-        Page<AdGroupContext> page = new Page<>();
+    public ServiceResult<IPage<AdGroupContext>> getConditionPage(AdGroupContextDto adGroupContextDto) {
         //条件查询
         LambdaQueryWrapper<AdGroupContext> entity = new QueryWrapper<AdGroupContext>().lambda()
                 .eq(AdGroupContext:: getIsDel, GlobalConstant.IsDel.NO)
@@ -57,7 +56,7 @@ public class AdGroupContextServiceImpl extends ServiceImpl<AdGroupContextMapper,
         if (iPageAdGroupContent == null) {
             return ServiceResult.errorByMessage(ErrorCodeEnum.GL99990500.msg());
         }
-        return ServiceResult.of(page);
+        return ServiceResult.of(iPageAdGroupContent);
     }
 
     @Override
