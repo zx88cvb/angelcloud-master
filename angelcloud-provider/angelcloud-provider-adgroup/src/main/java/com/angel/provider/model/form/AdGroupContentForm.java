@@ -28,7 +28,7 @@ public class AdGroupContentForm implements Serializable {
     /**
      * 广告项ID
      */
-    @NotNull(message = "广告项不能为空!")
+    /*@NotNull(message = "广告项不能为空!")*/
     private Integer itemId;
 
     /**
