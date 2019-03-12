@@ -132,4 +132,14 @@ public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper,
         }
         return ServiceResult.of(count);
     }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<AdGroupContent> selectById(Integer id) {
+        AdGroupContent adGroupContent = adGroupContentMapper.selectByAllId(id);
+        if (adGroupContent == null) {
+            return ServiceResult.notFound();
+        }
+        return ServiceResult.of(adGroupContent);
+    }
 }

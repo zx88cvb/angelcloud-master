@@ -5,9 +5,12 @@ import com.angel.base.constant.ResponseCode;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.provider.model.domain.AdGroupContent;
+import com.angel.provider.model.domain.AdGroupContext;
 import com.angel.provider.model.dto.AdGroupContentDto;
 import com.angel.provider.model.form.AdGroupContentForm;
 import com.angel.provider.model.vo.AdGroupContentVo;
+import com.angel.provider.model.vo.AdGroupContextVo;
 import com.angel.provider.service.IAdGroupContentService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -128,5 +131,40 @@ public class AdGroupContentController {
         }
 
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 根据id获取广告内容数据
+     * @param request request
+     * @param id id
+     * @return 单个广告内容详情结果集
+     */
+    @GetMapping("{id}")
+    @ApiOperation(value = "根据id获取广告内容", httpMethod = "GET")
+    public ServerResponse<AdGroupContentVo> getById (HttpServletRequest request,
+                                                         @ApiParam(name = "id", value = "id") @PathVariable("id") Integer id) {
+        // 判断id是否为null 或者小于1
+        if (id == null || id < GlobalConstant.Attribute.YES) {
+            return ServerResponse.createByErrorMessage(ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        //调用service
+        ServiceResult<AdGroupContent> serviceResult = iAdGroupContentService.selectById(id);
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(serviceResult.getMessage());
+        }
+
+        //获取结果
+        AdGroupContent adGroupContent = serviceResult.getResult();
+
+        AdGroupContentVo adGroupContentVo = new AdGroupContentVo();
+        BeanUtils.copyProperties(adGroupContent, adGroupContentVo);
+
+        // ContextVo
+        AdGroupContextVo adGroupContextVo = new AdGroupContextVo();
+        BeanUtils.copyProperties(adGroupContent.getAdGroupContext(), adGroupContextVo);
+        adGroupContentVo.setAdGroupContextVo(adGroupContextVo);
+
+        return ServerResponse.createBySuccess(adGroupContentVo);
     }
 }

@@ -12,8 +12,43 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
+
+  <resultMap id="ContextResultMap" type="com.angel.provider.model.domain.AdGroupContent" extends="BaseResultMap">
+    <association property="adGroupContext" javaType="com.angel.provider.model.domain.AdGroupContext">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+      <result column="content" property="content" jdbcType="VARCHAR" />
+      <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+      <result column="target" property="target" jdbcType="INTEGER" />
+      <result column="remake" property="remake" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, group_id, item_id, source_id, sn, remake, create_time, update_time, is_del
   </sql>
+
+  <sql id="Context_Column_List" >
+    ${alias_cn}.id, ${alias_cn}.group_id, ${alias_cn}.item_id, ${alias_cn}.source_id,
+    ${alias_cn}.sn, ${alias_cn}.remake, ${alias_cn}.create_time, ${alias_cn}.update_time, ${alias_cn}.is_del,
+    ${alias_cx}.id, ${alias_cx}.title, ${alias_cx}.img_url, ${alias_cx}.content,
+    ${alias_cx}.link_url, ${alias_cx}.target, ${alias_cx}.remake, ${alias_cx}.create_time
+  </sql>
+
+  <select id="selectByAllId" resultMap="ContextResultMap" parameterType="int">
+    SELECT
+    <include refid="Context_Column_List">
+      <property name="alias_cn" value="cn" />
+      <property name="alias_cx" value="cx" />
+    </include>
+    FROM ad_group_content cn,
+    ad_group_context cx
+    where
+    cn.id = #{id}
+    AND
+    cn.source_id = cx.id
+  </select>
 
 </mapper>

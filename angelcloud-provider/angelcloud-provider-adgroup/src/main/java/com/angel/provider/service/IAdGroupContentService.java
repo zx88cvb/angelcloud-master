@@ -48,4 +48,11 @@ public interface IAdGroupContentService extends IService<AdGroupContent> {
      * @return 返回删除个数结果集
      */
     ServiceResult<Integer> deleteAdGroupContentById(int id);
+
+    /**
+     * 根据id查询
+     * @param id 主键id
+     * @return 单个实体
+     */
+    ServiceResult<AdGroupContent> selectById(Integer id);
 }

@@ -32,8 +32,18 @@ public class AdGroupContentVo extends BaseVo implements Serializable {
     private Integer sourceId;
 
     /**
+     * 序号
+     */
+    private Integer sn;
+
+    /**
      * 备注
      */
     private String remake;
+
+    /**
+     * 内容
+     */
+    private AdGroupContextVo adGroupContextVo;
 
 }
