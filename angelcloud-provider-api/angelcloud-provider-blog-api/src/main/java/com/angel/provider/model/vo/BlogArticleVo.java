@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -86,4 +87,29 @@ public class BlogArticleVo extends BaseVo implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date postTime;
+
+    /**
+     * 喜欢数量
+     */
+    private Long pollCount;
+
+    /**
+     * 评论数量
+     */
+    private Long commentCount;
+
+    /**
+     * 文章分类
+     */
+    private BlogCategoryVo blogCategoryVo;
+
+    /**
+     * 用户id
+     */
+    private SysUserVo sysUserVo;
+
+    /**
+     * 标签组
+     */
+    private List<BlogTagVo> tagList;
 }

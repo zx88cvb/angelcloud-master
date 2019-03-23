@@ -8,6 +8,7 @@ import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.dto.BlogArticleDto;
 import com.angel.provider.model.form.BlogArticleForm;
+import com.angel.provider.model.vo.BlogArticleVo;
 import com.angel.provider.service.IBlogArticleService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -30,7 +31,7 @@ import javax.validation.Valid;
  * @since 2018-08-24
  */
 @RestController
-@RequestMapping("/blogArticle")
+@RequestMapping("/blog/article")
 @Api("博客文章Api")
 public class BlogArticleController {
 
@@ -71,15 +72,15 @@ public class BlogArticleController {
      * @param blogArticleDto 博客DTO实体类
      * @return 返回结果集
      */
-    @GetMapping("getBlogArticlePage")
+    @GetMapping({"getBlogArticlePage", "recent"})
     @ApiOperation(value = "获取博客文章分页数据", httpMethod = "GET")
-    public ServerResponse<Page<BlogArticleDto>> getBlogArticlePage (HttpServletRequest request,
+    public ServerResponse<Page<BlogArticleVo>> getBlogArticlePage (HttpServletRequest request,
                                                                     @ApiParam(name = "blogArticleDto", value = "博客文章信息DTO")BlogArticleDto blogArticleDto) {
-        ServiceResult<Page<BlogArticleDto>> blogArticleDtoResult = iBlogArticleService.getBlogArticlePage(blogArticleDto);
+        ServiceResult<Page<BlogArticleVo>> blogArticleDtoResult = iBlogArticleService.getBlogArticlePage(blogArticleDto);
         if (!blogArticleDtoResult.isSuccess()) {
             return ServerResponse.createByError();
         }
-        Page<BlogArticleDto> blogArticleDtoPage = blogArticleDtoResult.getResult();
+        Page<BlogArticleVo> blogArticleDtoPage = blogArticleDtoResult.getResult();
         return ServerResponse.createBySuccess(blogArticleDtoPage);
     }
 
@@ -89,9 +90,9 @@ public class BlogArticleController {
      * @param id
      * @return 返回单个对象结果集
      */
-    @GetMapping("getBlogArticleById/{id}")
+    @GetMapping("{id}")
     @ApiOperation(value = "根据id获取博客文章数据", httpMethod = "GET")
-    public ServerResponse<BlogArticleDto> getBlogArticleById (HttpServletRequest request,
+    public ServerResponse<BlogArticleVo> getBlogArticleById (HttpServletRequest request,
                                                                      @ApiParam(name = "id", value = "blogArticle文章id") @PathVariable("id") Integer id) {
         // 判断id是否为null 或者小于1
         if (id == null || id < GlobalConstant.Attribute.YES) {
@@ -99,15 +100,15 @@ public class BlogArticleController {
         }
 
         //调用service
-        ServiceResult<BlogArticleDto> serviceResult = iBlogArticleService.getBlogArticleById(id);
+        ServiceResult<BlogArticleVo> serviceResult = iBlogArticleService.getBlogArticleById(id);
         if (!serviceResult.isSuccess()) {
             return ServerResponse.createByErrorMessage(serviceResult.getMessage());
         }
 
         //获取结果
-        BlogArticleDto blogArticleDto = serviceResult.getResult();
+        BlogArticleVo blogArticleVo = serviceResult.getResult();
 
-        return ServerResponse.createBySuccess(blogArticleDto);
+        return ServerResponse.createBySuccess(blogArticleVo);
     }
 
     /**

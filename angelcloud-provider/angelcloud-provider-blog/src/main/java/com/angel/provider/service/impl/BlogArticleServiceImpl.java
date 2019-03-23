@@ -4,9 +4,7 @@ import com.angel.base.constant.GlobalConstant;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.exceptions.BlogBizException;
-import com.angel.provider.mapper.BlogArticleMapper;
-import com.angel.provider.mapper.BlogArticleTagMapper;
-import com.angel.provider.mapper.BlogTagMapper;
+import com.angel.provider.mapper.*;
 import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.domain.BlogArticleTag;
 import com.angel.provider.model.domain.BlogTag;
@@ -56,11 +54,17 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     @Resource
     private IUserSysUserService iUserSysUserService;
 
+    @Resource
+    private BlogPollMapper blogPollMapper;
+
+    @Resource
+    private BlogCommentMapper blogCommentMapper;
+
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public ServiceResult<Page<BlogArticleDto>> getBlogArticlePage(BlogArticleDto blogArticleDto) {
+    public ServiceResult<Page<BlogArticleVo>> getBlogArticlePage(BlogArticleDto blogArticleDto) {
         // 将当前页和每页显示数量加入Page对象
-        Page<BlogArticleDto> page = new Page<>();
+        Page<BlogArticleVo> page = new Page<>();
 
         // DTO -> Entity
         BlogArticle blogArticle = new BlogArticle();
@@ -74,9 +78,13 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         List<BlogArticle> blogArticleList = blogArticlePage.getRecords();
 
         // stram() 转换成 VO LIST
-        List<BlogArticleDto> articleVoList = blogArticleList.stream().map(e -> {
-            BlogArticleDto blogArticleItem = new BlogArticleDto();
+        List<BlogArticleVo> articleVoList = blogArticleList.stream().map(e -> {
+            BlogArticleVo blogArticleItem = new BlogArticleVo();
             BeanUtils.copyProperties(e, blogArticleItem);
+
+            // 查询喜欢（点赞）个数
+            long count = blogPollMapper.selectCountByArticleId(e.getId());
+            blogArticleItem.setPollCount(count);
 
             // Category -> CategoryVo
             BlogCategoryVo blogCategoryVoItem = new BlogCategoryVo();
@@ -136,16 +144,30 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return 文章结果集
      */
     @Override
-    public ServiceResult<BlogArticleDto> getBlogArticleById(Integer id) {
-        BlogArticle blogArticle = blogArticleMapper.selectById(id);
+    public ServiceResult<BlogArticleVo> getBlogArticleById(Integer id) {
+        // 根据id查询
+        BlogArticle blogArticle = blogArticleMapper.selectByPrimaryId(id);
 
         if (blogArticle == null) {
             return ServiceResult.notFound();
         }
 
-        BlogArticleDto blogArticleDto = new BlogArticleDto();
-        BeanUtils.copyProperties(blogArticle, blogArticleDto);
+        // 创建vo对象
+        BlogArticleVo blogArticleVo = new BlogArticleVo();
+        BeanUtils.copyProperties(blogArticle, blogArticleVo);
 
+        // 评论数量
+        long commentCount = blogCommentMapper.selectCountByArticleId(id);
+        blogArticleVo.setCommentCount(commentCount);
+
+        // 喜欢数量
+        long pollCount = blogPollMapper.selectCountByArticleId(id);
+        blogArticleVo.setPollCount(pollCount);
+
+        // 设置类型Vo
+        BlogCategoryVo blogCategoryVo = new BlogCategoryVo();
+        BeanUtils.copyProperties(blogArticle.getBlogCategory(), blogCategoryVo);
+        blogArticleVo.setBlogCategoryVo(blogCategoryVo);
 
         //条件查询 文章标签表
         LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
@@ -164,10 +186,10 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             }).collect(Collectors.toList());
             BeanUtils.copyProperties(blogTagList, blogTagVoList);
 
-            blogArticleDto.setTagList(blogTagVoList);
+            blogArticleVo.setTagList(blogTagVoList);
         }
 
-        return ServiceResult.of(blogArticleDto);
+        return ServiceResult.of(blogArticleVo);
     }
 
     /**

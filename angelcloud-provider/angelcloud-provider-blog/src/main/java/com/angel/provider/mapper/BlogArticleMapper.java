@@ -30,4 +30,11 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
      * @return 返回id
      */
     int insertForId(BlogArticle blogArticle);
+
+    /**
+     * 根据id查询
+     * @param id 主键id
+     * @return 单个实体
+     */
+    BlogArticle selectByPrimaryId(Integer id);
 }

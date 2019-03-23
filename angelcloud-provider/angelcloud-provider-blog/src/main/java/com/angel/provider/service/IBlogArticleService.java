@@ -21,7 +21,7 @@ public interface IBlogArticleService extends IService<BlogArticle> {
      * @param blogArticleDto 条件实体类
      * @return 类别集合
      */
-    ServiceResult<Page<BlogArticleDto>> getBlogArticlePage (BlogArticleDto blogArticleDto);
+    ServiceResult<Page<BlogArticleVo>> getBlogArticlePage (BlogArticleDto blogArticleDto);
 
     /**
      * 新增博客文章
@@ -35,7 +35,7 @@ public interface IBlogArticleService extends IService<BlogArticle> {
      * @param id 文章id
      * @return 文章结果集
      */
-    ServiceResult<BlogArticleDto> getBlogArticleById (Integer id);
+    ServiceResult<BlogArticleVo> getBlogArticleById (Integer id);
 
     /**
      * 修改博客文章

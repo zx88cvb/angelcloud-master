@@ -79,6 +79,28 @@
         ${alias_two}.category_name
     </sql>
 
+    <sql id="Page_Column_List">
+        ${alias}.ID,
+        ${alias}.author,
+        ${alias}.title,
+        ${alias}.excerpt,
+        ${alias}.blog_status,
+        ${alias}.comment_status,
+        ${alias}.thumbnail,
+        ${alias}.is_recommend,
+        ${alias}.user_id,
+        ${alias}.category_id,
+        ${alias}.browse_count,
+        ${alias}.CREATE_TIME,
+        ${alias}.UPDATE_TIME,
+        ${alias}.IS_DEL,
+        ${alias}.link_url,
+        ${alias}.source,
+        ${alias}.post_time,
+        ${alias_two}.IS_DEL `BC_ID`,
+        ${alias_two}.category_name
+    </sql>
+
     <sql id="commonCondition">
         where ${alias}.IS_DEL =
         <include refid="com.angel.base.mapper.BaseMapper.DList-Attribute-NO" />
@@ -215,7 +237,7 @@
 
     <select id="selectBlogArticleConditionPage" resultMap="allResultMap">
         SELECT 
-        <include refid="All_Column_List">
+        <include refid="Page_Column_List">
             <property name="alias" value="ba" />
             <property name="alias_two" value="bc" />
         </include>
@@ -227,6 +249,21 @@
             <property name="alias_two" value="bc" />
         </include>
         ORDER BY ba.CREATE_TIME desc
+    </select>
+
+    <select id="selectByPrimaryId" resultMap="allResultMap" parameterType="int">
+        SELECT
+        <include refid="All_Column_List">
+            <property name="alias" value="ba" />
+            <property name="alias_two" value="bc" />
+        </include>
+        FROM
+        blog_article ba,
+        blog_category bc
+        <where>
+            ba.ID = #{id}
+        </where>
+
     </select>
 
 </mapper>

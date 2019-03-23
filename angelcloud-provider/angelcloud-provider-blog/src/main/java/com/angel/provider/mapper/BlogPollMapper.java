@@ -15,5 +15,5 @@ public interface BlogPollMapper extends BaseMapper<BlogPoll> {
      * @param articleId 文章id
      * @return 总个数
      */
-    Long selectCountByArticleId(Integer articleId);
+    long selectCountByArticleId(Integer articleId);
 }

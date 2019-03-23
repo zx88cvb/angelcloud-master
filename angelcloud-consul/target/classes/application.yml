@@ -2,13 +2,13 @@ spring:
   profiles:
     active: dev
   application:
-    name: @pom.artifactId@
+    name: angelcloud-consul
   cloud:
     consul:
       host: localhost
       port: 8500
       discovery:
-        serviceName: @pom.artifactId@
+        serviceName: angelcloud-consul
 
 server:
   port: 8501
