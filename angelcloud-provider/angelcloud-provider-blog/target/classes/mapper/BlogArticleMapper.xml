@@ -266,4 +266,17 @@
 
     </select>
 
+    <select id="selectRandArticleThree" resultMap="baseResultMap">
+        SELECT
+        <include refid="Base_Column_List">
+            <property name="alias" value="ba" />
+        </include>
+        FROM
+        blog_article ba
+        JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM blog_article where is_del = 0) ) as id ) as tid
+        where ba.id >= tid.id
+        and ba.is_del = 0
+        order by ba.id asc LIMIT 3
+    </select>
+
 </mapper>

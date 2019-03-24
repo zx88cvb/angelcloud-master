@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客文章表 Mapper 接口
@@ -37,4 +39,10 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
      * @return 单个实体
      */
     BlogArticle selectByPrimaryId(Integer id);
+
+    /**
+     * 随机查询3条文章
+     * @return
+     */
+    List<BlogArticle> selectRandArticleThree();
 }

@@ -144,6 +144,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return 文章结果集
      */
     @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<BlogArticleVo> getBlogArticleById(Integer id) {
         // 根据id查询
         BlogArticle blogArticle = blogArticleMapper.selectByPrimaryId(id);
@@ -256,5 +257,23 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             return ServiceResult.notFound();
         }
         return ServiceResult.of(count);
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<List<BlogArticleVo>> selectRandArticleThree() {
+        // 查询
+        List<BlogArticle> blogArticleList = blogArticleMapper.selectRandArticleThree();
+        if (blogArticleList == null) {
+            return ServiceResult.notFound();
+        }
+
+        // VO转换
+        List<BlogArticleVo> blogArticleVoList = blogArticleList.stream().map(e -> {
+            BlogArticleVo blogArticleVo = new BlogArticleVo();
+            BeanUtils.copyProperties(e, blogArticleVo);
+            return blogArticleVo;
+        }).collect(Collectors.toList());
+        return ServiceResult.of(blogArticleVoList);
     }
 }

@@ -7,6 +7,8 @@ import com.angel.provider.model.vo.BlogArticleVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客文章表 服务类
@@ -50,4 +52,10 @@ public interface IBlogArticleService extends IService<BlogArticle> {
      * @return 返回删除个数结果集
      */
     ServiceResult<Integer> deleteBlogArticleById(int id);
+
+    /**
+     * 随机查询3条文章
+     * @return List
+     */
+    ServiceResult<List<BlogArticleVo>> selectRandArticleThree();
 }
