@@ -55,6 +55,16 @@
       ${alias}.post_time
     </sql>
 
+    <sql id="Simple_Column_List">
+      ${alias}.ID,
+      ${alias}.author,
+      ${alias}.title,
+      ${alias}.excerpt,
+      ${alias}.thumbnail,
+      ${alias}.browse_count,
+      ${alias}.post_time
+    </sql>
+
     <sql id="All_Column_List">
         ${alias}.ID,
         ${alias}.author,
@@ -268,7 +278,7 @@
 
     <select id="selectRandArticleThree" resultMap="baseResultMap">
         SELECT
-        <include refid="Base_Column_List">
+        <include refid="Simple_Column_List">
             <property name="alias" value="ba" />
         </include>
         FROM
