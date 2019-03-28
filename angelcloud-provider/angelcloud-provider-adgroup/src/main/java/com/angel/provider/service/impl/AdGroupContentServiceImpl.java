@@ -4,8 +4,10 @@ import com.angel.base.constant.GlobalConstant;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.AdGroupContentMapper;
 import com.angel.provider.model.domain.AdGroupContent;
+import com.angel.provider.model.domain.AdGroupContext;
 import com.angel.provider.model.dto.AdGroupContentDto;
 import com.angel.provider.model.vo.AdGroupContentVo;
+import com.angel.provider.model.vo.AdGroupContextVo;
 import com.angel.provider.service.IAdGroupContentService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -31,7 +33,8 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
-public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper, AdGroupContent> implements IAdGroupContentService{
+public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper, AdGroupContent>
+        implements IAdGroupContentService{
 
     @Resource
     private AdGroupContentMapper adGroupContentMapper;
@@ -40,7 +43,7 @@ public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper,
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<Page<AdGroupContentVo>> getAdGroupContentPage(AdGroupContentDto adGroupContentDto) {
         Page<AdGroupContentVo> page = new Page<>();
-        //条件查询
+        /*//条件查询
         LambdaQueryWrapper<AdGroupContent> entity = new QueryWrapper<AdGroupContent>().lambda()
                 .eq(AdGroupContent:: getIsDel, GlobalConstant.IsDel.NO)
                 .orderByDesc(AdGroupContent:: getCreateTime);
@@ -61,15 +64,27 @@ public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper,
         }
 
         IPage<AdGroupContent> iPageAdGroupContent = adGroupContentMapper.
-                selectPage(new Page<>(adGroupContentDto.getPageNum(), adGroupContentDto.getPageSize()), entity);
+                selectPage(new Page<>(adGroupContentDto.getPageNum(), adGroupContentDto.getPageSize()), entity);*/
+
+        IPage<AdGroupContent> iPageAdGroupContent = adGroupContentMapper.
+                selectByCondition(new Page<>(adGroupContentDto.getPageNum(), adGroupContentDto.getPageSize()),
+                adGroupContentDto);
 
         // 获取集合对象
         List<AdGroupContent> adGroupContentList = iPageAdGroupContent.getRecords();
 
-        //将AdGroup 转换成Vo对象
+        //将AdGroupContent 转换成Vo对象
         List<AdGroupContentVo> collect = adGroupContentList.stream().map(e -> {
+            // Content -> Vo
             AdGroupContentVo AdGroupContentVo = new AdGroupContentVo();
             BeanUtils.copyProperties(e, AdGroupContentVo);
+
+            // Context -> Vo
+            AdGroupContextVo adGroupContextVo = new AdGroupContextVo();
+            BeanUtils.copyProperties(e.getAdGroupContext(), adGroupContextVo);
+
+            // setContextVo
+            AdGroupContentVo.setAdGroupContextVo(adGroupContextVo);
             return AdGroupContentVo;
         }).collect(Collectors.toList());
 
@@ -141,5 +156,33 @@ public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper,
             return ServiceResult.notFound();
         }
         return ServiceResult.of(adGroupContent);
+    }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<List<AdGroupContentVo>> getContentByTypeAndGroup(String typeKey, String adKey) {
+        List<AdGroupContent> list =
+                adGroupContentMapper.getContentByTypeAndGroup(typeKey, adKey);
+        if (list == null) {
+            return ServiceResult.notFound();
+        }
+
+        //将AdGroupContent 转换成Vo对象
+        List<AdGroupContentVo> resultList = list.stream().map(e -> {
+            // Content -> Vo
+            AdGroupContentVo AdGroupContentVo = new AdGroupContentVo();
+            BeanUtils.copyProperties(e, AdGroupContentVo);
+
+            // Context -> Vo
+            AdGroupContextVo adGroupContextVo = new AdGroupContextVo();
+            BeanUtils.copyProperties(e.getAdGroupContext(), adGroupContextVo);
+
+            // setContextVo
+            AdGroupContentVo.setAdGroupContextVo(adGroupContextVo);
+
+            return AdGroupContentVo;
+        }).collect(Collectors.toList());
+
+        return ServiceResult.of(resultList);
     }
 }

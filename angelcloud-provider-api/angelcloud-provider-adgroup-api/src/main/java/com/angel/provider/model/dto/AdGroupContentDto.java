@@ -40,4 +40,9 @@ public class AdGroupContentDto extends BaseDto implements Serializable {
      */
     private String remake;
 
+    /**
+     * 内容详情标题
+     */
+    private String title;
+
 }

@@ -37,6 +37,25 @@
     ${alias_cx}.link_url, ${alias_cx}.target, ${alias_cx}.remake, ${alias_cx}.create_time
   </sql>
 
+  <sql id="conditionPage">
+    where
+    ${alias_cn}.is_del = 0
+    AND
+    ${alias_cn}.source_id = ${alias_cx}.id
+    <if test="adGroupContentDto.id != null">
+      AND ${alias_cn}.id = #{adGroupContentDto.id}
+    </if>
+    <if test="adGroupContentDto.groupId != null">
+      AND ${alias_cn}.group_id = #{adGroupContentDto.groupId}
+    </if>
+    <if test="adGroupContentDto.sourceId != null">
+      AND ${alias_cn}.source_id = #{adGroupContentDto.sourceId}
+    </if>
+    <if test="adGroupContentDto.title != null">
+      AND ${alias_cx}.title LIKE concat(concat('%',#{adGroupContentDto.title}),'%')
+    </if>
+  </sql>
+
   <select id="selectByAllId" resultMap="ContextResultMap" parameterType="int">
     SELECT
     <include refid="Context_Column_List">
@@ -49,6 +68,44 @@
     cn.id = #{id}
     AND
     cn.source_id = cx.id
+  </select>
+
+  <select id="selectByCondition" resultMap="ContextResultMap">
+    SELECT
+    <include refid="Context_Column_List">
+      <property name="alias_cn" value="cn" />
+      <property name="alias_cx" value="cx" />
+    </include>
+    FROM ad_group_content cn,
+    ad_group_context cx
+    <include refid="conditionPage">
+      <property name="alias_cn" value="cn" />
+      <property name="alias_cx" value="cx" />
+    </include>
+    ORDER BY cn.sn desc, cn.create_time desc
+  </select>
+
+  <select id="getContentByTypeAndGroup" resultMap="ContextResultMap">
+    SELECT
+    <include refid="Context_Column_List">
+      <property name="alias_cn" value="cn" />
+      <property name="alias_cx" value="cx" />
+    </include>
+    FROM
+    ad_group_type gt,
+    ad_group ag,
+    ad_group_content cn,
+    ad_group_context cx
+    WHERE
+    gt.type_key = #{typeKey}
+    AND ag.ad_key = #{adKey}
+    AND gt.is_del = 0
+    AND ag.is_del = 0
+    AND cn.is_del = 0
+    AND cx.is_del = 0
+    AND gt.id = ag.type_id
+    AND ag.id = cn.group_id
+    AND cn.source_id = cx.id
   </select>
 
 </mapper>

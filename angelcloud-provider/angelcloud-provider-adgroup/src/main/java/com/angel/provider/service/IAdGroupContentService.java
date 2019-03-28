@@ -7,6 +7,8 @@ import com.angel.provider.model.vo.AdGroupContentVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * 广告内容 服务层
  * @Author: Angel
@@ -55,4 +57,12 @@ public interface IAdGroupContentService extends IService<AdGroupContent> {
      * @return 单个实体
      */
     ServiceResult<AdGroupContent> selectById(Integer id);
+
+    /**
+     * 根据类型key和广告组key 查询广告内容
+     * @param typeKey 类型key
+     * @param adKey 广告组key
+     * @return 集合Vo
+     */
+    ServiceResult<List<AdGroupContentVo>> getContentByTypeAndGroup(String typeKey, String adKey);
 }
