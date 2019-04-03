@@ -1,6 +1,8 @@
 package com.angel.provider.model.domain;
 
 import com.angel.base.model.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class BlogPoll extends BaseEntity implements Serializable {
     /**
      * 主键id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
