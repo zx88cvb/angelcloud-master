@@ -20,9 +20,9 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
 
     /**
      * 分页条件查询文章
-     * @param page
-     * @param blogArticle
-     * @return
+     * @param page page
+     * @param blogArticle 实体
+     * @return iPage对象
      */
     IPage<BlogArticle> selectBlogArticleConditionPage(Page page, @Param("blogArticle") BlogArticle blogArticle);
 
@@ -42,7 +42,7 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
 
     /**
      * 随机查询3条文章
-     * @return
+     * @return 集合
      */
     List<BlogArticle> selectRandArticleThree();
 }

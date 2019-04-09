@@ -53,14 +53,14 @@ public class BlogCommentForm implements Serializable {
      * 邮箱
      */
     @ApiModelProperty("邮箱")
-    @Size(min = 1, max = 100, message = "邮箱字符长度必须在1~100之间")
+    @Size(max = 100, message = "邮箱字符长度必须在0~100之间")
     private String email;
 
     /**
      * 网址
      */
     @ApiModelProperty("网址")
-    @Size(min = 1, max = 100, message = "网址字符长度必须在1~100之间")
+    @Size(max = 100, message = "网址字符长度必须在0~100之间")
     private String website;
 
     /**

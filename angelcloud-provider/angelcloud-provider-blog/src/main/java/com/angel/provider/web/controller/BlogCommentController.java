@@ -7,8 +7,12 @@ import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.BlogComment;
 import com.angel.provider.model.dto.BlogCategoryDto;
+import com.angel.provider.model.dto.BlogCommentDto;
 import com.angel.provider.model.form.BlogCommentForm;
+import com.angel.provider.model.vo.BlogArticleVo;
+import com.angel.provider.model.vo.BlogCommentVo;
 import com.angel.provider.service.IBlogCommentService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,6 +37,23 @@ public class BlogCommentController {
 
     @Autowired
     private IBlogCommentService iBlogCommentService;
+
+    /**
+     * 获取评论分页数据
+     * @param blogCommentDto
+     * @return
+     */
+    @GetMapping("recent")
+    @ApiOperation(value = "获取评论数据分页", httpMethod = "GET")
+    public ServerResponse recent(@ApiParam(name = "blogArticleDto", value = "评论信息DTO")
+                                 BlogCommentDto blogCommentDto) {
+        ServiceResult<Page<BlogCommentVo>> serviceResult = iBlogCommentService.getBlogCommentPage(blogCommentDto);
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByError();
+        }
+        Page<BlogCommentVo> page = serviceResult.getResult();
+        return ServerResponse.createBySuccess(page);
+    }
 
     /**
      * 新增博客评论

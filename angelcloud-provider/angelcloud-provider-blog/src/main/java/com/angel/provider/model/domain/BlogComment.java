@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -57,5 +58,10 @@ public class BlogComment extends BaseEntity implements Serializable {
      * 内容
      */
     private String content;
+
+    /**
+     * 子评论集合
+     */
+    private List<BlogComment> blogCommentList;
 
 }

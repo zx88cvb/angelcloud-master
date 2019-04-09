@@ -4,6 +4,7 @@ import com.angel.base.model.vo.BaseVo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 博客评论Vo
@@ -52,4 +53,9 @@ public class BlogCommentVo extends BaseVo implements Serializable {
      * 内容
      */
     private String content;
+
+    /**
+     * 子评论集合
+     */
+    private List<BlogCommentVo> blogCommentList;
 }

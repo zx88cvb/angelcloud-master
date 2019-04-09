@@ -14,9 +14,34 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_del" jdbcType="INTEGER" property="isDel" />
   </resultMap>
+
+  <resultMap id="PageResultMap" type="com.angel.provider.model.domain.BlogComment" extends="BaseResultMap">
+    <collection property="blogCommentList" ofType="com.angel.provider.model.domain.BlogComment"
+                javaType="java.util.List" select="com.angel.provider.mapper.BlogCommentMapper.selectCommentByPId" column="id">
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List">
     id, p_id, article_id, user_id, nickname, email, website, content, create_time, update_time, 
     is_del
+  </sql>
+
+  <sql id="commonCondition">
+    where IS_DEL = 0
+    <if test="condition.id != null">
+      AND id = #{condition.id}
+    </if>
+    <if test="condition.pId != null">
+      AND p_id = #{condition.pId}
+    </if>
+    <if test="condition.articleId != null">
+      AND article_id = #{condition.articleId}
+    </if>
+    <if test="condition.userId != null">
+      AND user_id = #{condition.userId}
+    </if>
+    <if test="condition.nickname != null">
+      AND nickname LIKE concat(concat('%',#{condition.nickname}),'%')
+    </if>
   </sql>
 
   <select id="selectCountByArticleId" resultType="long" parameterType="int">
@@ -24,5 +49,23 @@
       count(1)
     from blog_comment
     where article_id = #{articleId}
+  </select>
+
+  <select id="selectBlogCommentConditionPage" resultMap="PageResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    blog_comment
+    <include refid="commonCondition" />
+    ORDER BY CREATE_TIME desc
+  </select>
+
+  <select id="selectCommentByPId" resultMap="BaseResultMap" parameterType="int">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    blog_comment
+    WHERE
+    p_id = #{pId}
   </select>
 </mapper>
