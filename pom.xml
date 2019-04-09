@@ -12,7 +12,6 @@
         <module>angelcloud-provider</module>
 		<module>angelcloud-generator</module>
 		<module>angelcloud-gateway</module>
-        <module>angelcloud-consul</module>
         <module>angelcloud-provider-api</module>
     </modules>
 	<packaging>pom</packaging>
