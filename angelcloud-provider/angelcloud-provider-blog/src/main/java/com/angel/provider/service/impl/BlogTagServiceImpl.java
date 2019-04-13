@@ -129,4 +129,25 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         }
         return ServiceResult.of(count);
     }
+
+    @Override
+    public ServiceResult<List<BlogTagVo>> getAllTag() {
+        //条件查询
+        LambdaQueryWrapper<BlogTag> entity = new QueryWrapper<BlogTag>().lambda()
+                .eq(BlogTag:: getIsDel, GlobalConstant.IsDel.NO)
+                .orderByDesc(BlogTag:: getCreateTime);
+        List<BlogTag> blogTags = blogTagMapper.selectList(entity);
+        if (blogTags == null) {
+            return ServiceResult.notFound();
+        }
+
+        // do -> vo
+        List<BlogTagVo> collect = blogTags.stream().map(e -> {
+            BlogTagVo blogTagVo = new BlogTagVo();
+            BeanUtils.copyProperties(e, blogTagVo);
+            return blogTagVo;
+        }).collect(Collectors.toList());
+
+        return ServiceResult.of(collect);
+    }
 }

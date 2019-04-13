@@ -66,14 +66,10 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         // 将当前页和每页显示数量加入Page对象
         Page<BlogArticleVo> page = new Page<>();
 
-        // DTO -> Entity
-        BlogArticle blogArticle = new BlogArticle();
-        BeanUtils.copyProperties(blogArticleDto, blogArticle);
-
         //查询
         IPage<BlogArticle> blogArticlePage = blogArticleMapper
                 .selectBlogArticleConditionPage(new Page<>(blogArticleDto.getPageNum(), blogArticleDto.getPageSize()),
-                blogArticle);
+                        blogArticleDto);
 
         List<BlogArticle> blogArticleList = blogArticlePage.getRecords();
 

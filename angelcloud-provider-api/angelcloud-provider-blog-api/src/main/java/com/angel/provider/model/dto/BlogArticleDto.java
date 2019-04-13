@@ -106,6 +106,11 @@ public class BlogArticleDto extends BaseDto implements Serializable {
     private SysUserVo sysUserVo;
 
     /**
+     * 标签id
+     */
+    private Integer tagId;
+
+    /**
      * 标签组
      */
     private List<BlogTagVo> tagList;

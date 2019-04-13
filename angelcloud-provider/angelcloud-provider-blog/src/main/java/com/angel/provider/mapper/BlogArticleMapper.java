@@ -1,6 +1,7 @@
 package com.angel.provider.mapper;
 
 import com.angel.provider.model.domain.BlogArticle;
+import com.angel.provider.model.dto.BlogArticleDto;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -21,10 +22,10 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
     /**
      * 分页条件查询文章
      * @param page page
-     * @param blogArticle 实体
+     * @param blogArticleDto 实体DTO
      * @return iPage对象
      */
-    IPage<BlogArticle> selectBlogArticleConditionPage(Page page, @Param("blogArticle") BlogArticle blogArticle);
+    IPage<BlogArticle> selectBlogArticleConditionPage(Page page, @Param("condition") BlogArticleDto blogArticleDto);
 
     /**
      * 新增文章

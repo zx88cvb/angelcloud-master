@@ -8,6 +8,8 @@ import com.angel.provider.model.vo.BlogTagVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客标签表 服务类
@@ -46,4 +48,9 @@ public interface IBlogTagService extends IService<BlogTag> {
      */
     ServiceResult<Integer> deleteBlogTagById (Integer id);
 
+    /**
+     * 查询全部标签
+     * @return 集合对象
+     */
+    ServiceResult<List<BlogTagVo>> getAllTag();
 }

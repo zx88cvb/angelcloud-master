@@ -121,6 +121,18 @@
         ${alias}.IS_DEL = 0
         AND ${alias_two}.IS_DEL = 0
         AND ${alias}.category_id = ${alias_two}.id
+
+        <if test="condition.categoryId != null">
+            AND ${alias}.category_id = #{condition.categoryId}
+        </if>
+        <if test="condition.tagId != null">
+            AND exists (
+            SELECT article_id
+            FROM blog_article_tag
+            where tag_id = #{condition.tagId}
+            AND article_id = ${alias}.id
+            )
+        </if>
     </sql>
 
     <insert id="insertForId" parameterType="com.angel.provider.model.domain.BlogArticle" useGeneratedKeys="true" keyProperty="id">

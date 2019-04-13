@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -32,8 +33,8 @@ import javax.validation.Valid;
  * @since 2018-08-24
  */
 @RestController
-@RequestMapping("/blogTag")
-@Api("博客标签API")
+@RequestMapping("/blog/tag")
+@Api(tags = "博客标签API")
 public class BlogTagController {
 
     @Resource
@@ -45,7 +46,7 @@ public class BlogTagController {
      * @param blogTag 标签信息
      * @return 标签集合
      */
-    @GetMapping("getBlogTagPage")
+    @GetMapping({"getBlogTagPage", "recent"})
     @ApiOperation(value = "获取博客标签分页数据", httpMethod = "GET")
     public ServerResponse<Page<BlogTagVo>> getBlogTagPage (HttpServletRequest request,
                                                            @ApiParam(name = "blogTag", value = "标签信息")BlogTag blogTag) {
@@ -64,7 +65,7 @@ public class BlogTagController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PostMapping("insertBlogTag")
+    @PostMapping({"insertBlogTag", "add"})
     @ApiOperation(value = "新增博客标签", httpMethod = "POST")
     public ServerResponse insertBlogTag (HttpServletRequest request,
                                               @ApiParam(name = "blogTagForm", value = "标签信息Form") @Valid BlogTagForm blogTagForm,
@@ -91,7 +92,7 @@ public class BlogTagController {
      * @param bindingResult 验证
      * @return 返回code
      */
-    @PutMapping("updateBlogTag")
+    @PutMapping({"updateBlogTag", "edit"})
     @ApiOperation(value = "修改博客标签", httpMethod = "PUT")
     public ServerResponse updateBlogTag (HttpServletRequest request,
                                               @ApiParam(name = "blogTagForm", value = "分类标签Form") @Valid BlogTagForm blogTagForm,
@@ -117,7 +118,7 @@ public class BlogTagController {
      * @param id 主键id
      * @return 返回个数
      */
-    @DeleteMapping("deleteBlogTagById/{id}")
+    @DeleteMapping("delete/{id}")
     @ApiOperation(value = "删除博客标签", httpMethod = "DELETE")
     public ServerResponse deleteBlogTagById (HttpServletRequest request,
                                                   @PathVariable(name = "id") @ApiParam(name = "id", value = "主键", required = true, type = "int") int id) {
@@ -131,6 +132,22 @@ public class BlogTagController {
         }
 
         return ServerResponse.createBySuccessMessage(ResponseCode.SUCCESS.getDesc());
+    }
+
+    /**
+     * 查询全部博客标签
+     * @return List结果集
+     */
+    @GetMapping("all")
+    @ApiOperation(value = "查询全部博客标签", httpMethod = "GET")
+    public ServerResponse getAllTag() {
+        ServiceResult<List<BlogTagVo>> serviceResult = iBlogTagService.getAllTag();
+
+        if (!serviceResult.isSuccess()) {
+            return ServerResponse.createByErrorMessage(serviceResult.getMessage());
+        }
+
+        return ServerResponse.createBySuccess(serviceResult.getResult());
     }
 }
 
