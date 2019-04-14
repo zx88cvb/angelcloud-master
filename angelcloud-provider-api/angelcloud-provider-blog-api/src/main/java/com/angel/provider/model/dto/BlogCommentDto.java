@@ -26,7 +26,7 @@ public class BlogCommentDto extends BaseDto implements Serializable {
      * 父id(默认为0)
      */
     @ApiModelProperty("父id")
-    private Integer pId;
+    private Integer pId = 0;
 
     /**
      * 文章id
