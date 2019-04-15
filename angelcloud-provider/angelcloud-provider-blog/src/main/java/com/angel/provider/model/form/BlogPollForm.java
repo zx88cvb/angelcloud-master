@@ -26,7 +26,7 @@ public class BlogPollForm implements Serializable {
     /**
      * 用户id(保留)
      */
-    private Integer userId;
+    private Integer userId = 0;
 
     /**
      * 是否点赞(0:未点赞 1:点赞)

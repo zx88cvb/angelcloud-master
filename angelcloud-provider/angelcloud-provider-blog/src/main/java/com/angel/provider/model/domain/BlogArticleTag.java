@@ -1,5 +1,7 @@
 package com.angel.provider.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,6 +18,7 @@ public class BlogArticleTag implements Serializable{
     /**
      * id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**

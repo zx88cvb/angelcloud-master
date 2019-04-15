@@ -32,7 +32,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/blog/comment")
-@Api("博客分类API")
+@Api(tags = "博客分类API")
 public class BlogCommentController {
 
     @Autowired
