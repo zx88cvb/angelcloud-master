@@ -46,4 +46,13 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
      * @return 集合
      */
     List<BlogArticle> selectRandArticleThree();
+
+
+    /**
+     * 根据评论多少查询
+     * @param count 查询个数
+     * @return 集合
+     */
+    List<BlogArticle> selectCommentTop(Integer count);
+
 }

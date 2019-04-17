@@ -5,6 +5,7 @@ import com.angel.provider.model.vo.BlogArticleVo;
 import com.angel.provider.service.hystrix.BlogArticleFeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -22,4 +23,12 @@ public interface BlogArticleFeignApi {
      */
     @GetMapping("/api/blog/article/rand")
     ServerResponse<List<BlogArticleVo>> selectRandArticleThree();
+
+    /**
+     * 根据评论多少查询
+     * @param count 查询个数
+     * @return 集合
+     */
+    @GetMapping("/api/blog/article/comment/{count}")
+    ServerResponse<List<BlogArticleVo>> selectCommentTop(@PathVariable("count") Integer count);
 }

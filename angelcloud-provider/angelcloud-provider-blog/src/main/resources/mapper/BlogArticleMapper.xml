@@ -26,6 +26,18 @@
         <result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
+    <!-- 简化版 -->
+    <resultMap id="simpleResultMap" type="com.angel.provider.model.domain.BlogArticle">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="author" property="author" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="excerpt" property="excerpt" jdbcType="VARCHAR" />
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+        <result column="browse_count" property="browseCount" jdbcType="INTEGER" />
+        <result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
+        <result column="comment_count" property="commentCount" jdbcType="BIGINT" />
+    </resultMap>
+
     <resultMap id="allResultMap" type="com.angel.provider.model.domain.BlogArticle" extends="baseResultMap">
         <association property="blogCategory" javaType="com.angel.provider.model.domain.BlogCategory" >
             <id column="BC_ID" property="id" jdbcType="INTEGER" />
@@ -299,6 +311,21 @@
         where ba.id >= tid.id
         and ba.is_del = 0
         order by ba.id asc LIMIT 3
+    </select>
+
+    <select id="selectCommentTop" resultMap="simpleResultMap" parameterType="int">
+        SELECT
+        <include refid="Simple_Column_List">
+            <property name="alias" value="a" />
+        </include>
+        ,COUNT(c.id) `comment_count`
+        FROM
+        blog_article a
+        left JOIN blog_comment c on(a.id = c.article_id)
+        where a.is_del = 0
+        GROUP BY a.id
+        ORDER BY COUNT(c.id) desc, a.post_time desc
+        limit #{count}
     </select>
 
 </mapper>

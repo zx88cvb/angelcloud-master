@@ -58,4 +58,11 @@ public interface IBlogArticleService extends IService<BlogArticle> {
      * @return List
      */
     ServiceResult<List<BlogArticleVo>> selectRandArticleThree();
+
+    /**
+     * 根据评论多少查询
+     * @param count 查询个数
+     * @return 集合
+     */
+    ServiceResult<List<BlogArticleVo>> selectCommentTop(Integer count);
 }

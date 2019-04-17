@@ -16,4 +16,9 @@ public class BlogArticleFeignHystrix implements BlogArticleFeignApi {
     public ServerResponse<List<BlogArticleVo>> selectRandArticleThree() {
         return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.GL99990002.code(), ErrorCodeEnum.GL99990002.msg());
     }
+
+    @Override
+    public ServerResponse<List<BlogArticleVo>> selectCommentTop(Integer count) {
+        return ServerResponse.createByErrorCodeMessage(ErrorCodeEnum.GL99990002.code(), ErrorCodeEnum.GL99990002.msg());
+    }
 }

@@ -95,6 +95,12 @@ public class BlogArticle extends BaseEntity implements Serializable {
     private Date postTime;
 
     /**
+     * 评论数量
+     */
+    @TableField(exist = false)
+    private Long commentCount;
+
+    /**
      * 文章分类
      */
     @TableField(exist = false)

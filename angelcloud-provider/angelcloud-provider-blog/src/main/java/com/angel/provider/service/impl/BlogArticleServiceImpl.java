@@ -272,4 +272,21 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         }).collect(Collectors.toList());
         return ServiceResult.of(blogArticleVoList);
     }
+
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public ServiceResult<List<BlogArticleVo>> selectCommentTop(Integer count) {
+        // 查询
+        List<BlogArticle> blogArticleList = blogArticleMapper.selectCommentTop(count);
+        if (blogArticleList == null) {
+            return ServiceResult.notFound();
+        }
+        // VO转换
+        List<BlogArticleVo> blogArticleVoList = blogArticleList.stream().map(e -> {
+            BlogArticleVo blogArticleVo = new BlogArticleVo();
+            BeanUtils.copyProperties(e, blogArticleVo);
+            return blogArticleVo;
+        }).collect(Collectors.toList());
+        return ServiceResult.of(blogArticleVoList);
+    }
 }
