@@ -31,4 +31,12 @@ public interface BlogArticleFeignApi {
      */
     @GetMapping("/api/blog/article/comment/{count}")
     ServerResponse<List<BlogArticleVo>> selectCommentTop(@PathVariable("count") Integer count);
+
+    /**
+     * 组合查询评论,随机文章,标签云
+     * @param count 查询个数
+     * @return map
+     */
+    @GetMapping("/api/blog/article/three/comment/{count}")
+    ServerResponse selectCommentTopAndRandThree(@PathVariable("count") Integer count);
 }
