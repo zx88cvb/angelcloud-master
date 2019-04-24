@@ -9,6 +9,8 @@ spring:
       profile: dev
   application:
     name: angelcloud-provider-user
+  jackson:
+    default-property-inclusion: non_null # 全局jackson配置
 #    consul:
 #      host: localhost
 #      port: 8500

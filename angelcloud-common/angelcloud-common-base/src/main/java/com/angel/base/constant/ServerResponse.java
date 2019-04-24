@@ -1,14 +1,14 @@
 package com.angel.base.constant;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 
 /**
  * Created by Administrator on 2017/8/7.
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)  //为null字段不显示
+// @JsonSerialize(typing = JsonSerialize.Typing.DYNAMIC)  //为null字段不显示 加了全局
 public class ServerResponse<T> implements Serializable {
     private int code;
     private String message;
