@@ -55,4 +55,18 @@ public interface BlogArticleMapper extends BaseMapper<BlogArticle> {
      */
     List<BlogArticle> selectCommentTop(Integer count);
 
+    /**
+     * 修改访问数量
+     * @param id 主键id
+     * @param browseCount 访问个数
+     * @return 成功条数
+     */
+    int updateBrowseCount(@Param("id") Integer id, @Param("browseCount")Long browseCount);
+
+    /**
+     * 批量修改访问数量
+     * @param list 集合
+     * @return 成功条数
+     */
+    int updateBrowseCountList(@Param("list")List<BlogArticle> list);
 }

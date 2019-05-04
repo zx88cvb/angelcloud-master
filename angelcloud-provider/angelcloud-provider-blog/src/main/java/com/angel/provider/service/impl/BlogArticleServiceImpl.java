@@ -3,22 +3,26 @@ package com.angel.provider.service.impl;
 import com.angel.base.constant.GlobalConstant;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
+import com.angel.core.utils.RedisObjectService;
+import com.angel.core.utils.RedisSetService;
 import com.angel.provider.exceptions.BlogBizException;
 import com.angel.provider.mapper.*;
 import com.angel.provider.model.domain.BlogArticle;
 import com.angel.provider.model.domain.BlogArticleTag;
 import com.angel.provider.model.domain.BlogTag;
 import com.angel.provider.model.dto.BlogArticleDto;
-import com.angel.provider.model.dto.BlogCategoryDto;
-import com.angel.provider.model.vo.*;
+import com.angel.provider.model.vo.BlogArticleVo;
+import com.angel.provider.model.vo.BlogCategoryVo;
+import com.angel.provider.model.vo.BlogTagVo;
+import com.angel.provider.model.vo.SysUserVo;
 import com.angel.provider.service.IBlogArticleService;
 import com.angel.provider.service.IUserSysUserService;
+import com.angel.util.RedisKeyUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -59,6 +64,12 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
 
     @Resource
     private BlogCommentMapper blogCommentMapper;
+
+    @Resource
+    private RedisObjectService redisObjectService;
+
+    @Resource
+    private RedisSetService redisSetService;
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
@@ -142,16 +153,46 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult<BlogArticleVo> getBlogArticleById(Integer id) {
-        // 根据id查询
-        BlogArticle blogArticle = blogArticleMapper.selectByPrimaryId(id);
+        // 查询redis
+        BlogArticleVo blogArticleVo = (BlogArticleVo) redisObjectService.getKey(RedisKeyUtil.getArticleDetail(id));
+        if (blogArticleVo == null) {
+            // 根据id查询
+            BlogArticle blogArticle = blogArticleMapper.selectByPrimaryId(id);
+            if (blogArticle == null) {
+                return ServiceResult.notFound();
+            }
 
-        if (blogArticle == null) {
-            return ServiceResult.notFound();
+            // 创建vo对象
+            blogArticleVo = new BlogArticleVo();
+            BeanUtils.copyProperties(blogArticle, blogArticleVo);
+
+            // 设置类型Vo
+            BlogCategoryVo blogCategoryVo = new BlogCategoryVo();
+            BeanUtils.copyProperties(blogArticle.getBlogCategory(), blogCategoryVo);
+            blogArticleVo.setBlogCategoryVo(blogCategoryVo);
+
+            //条件查询 文章标签表
+            LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
+                    .eq(BlogArticleTag:: getArticleId, id);
+            List<BlogArticleTag> blogArticleTagList = blogArticleTagMapper.selectList(entity);
+
+            if (!blogArticleTagList.isEmpty()) {
+                List<Integer> tagIdList = blogArticleTagList.stream().map(e -> e.getTagId()).collect(Collectors.toList());
+
+                // 根据id集合查询Tag标签
+                List<BlogTag> blogTagList = blogTagMapper.selectBatchIds(tagIdList);
+                List<BlogTagVo> blogTagVoList = blogTagList.stream().map(e -> {
+                    BlogTagVo blogTagVo = new BlogTagVo();
+                    BeanUtils.copyProperties(e, blogTagVo);
+                    return blogTagVo;
+                }).collect(Collectors.toList());
+                BeanUtils.copyProperties(blogTagList, blogTagVoList);
+
+                blogArticleVo.setTagList(blogTagVoList);
+            }
+
+            redisObjectService.setKey(RedisKeyUtil.getArticleDetail(id), blogArticleVo, 7L, TimeUnit.DAYS);
         }
-
-        // 创建vo对象
-        BlogArticleVo blogArticleVo = new BlogArticleVo();
-        BeanUtils.copyProperties(blogArticle, blogArticleVo);
 
         // 评论数量
         long commentCount = blogCommentMapper.selectCountByArticleId(id);
@@ -161,30 +202,9 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         long pollCount = blogPollMapper.selectCountByArticleId(id);
         blogArticleVo.setPollCount(pollCount);
 
-        // 设置类型Vo
-        BlogCategoryVo blogCategoryVo = new BlogCategoryVo();
-        BeanUtils.copyProperties(blogArticle.getBlogCategory(), blogCategoryVo);
-        blogArticleVo.setBlogCategoryVo(blogCategoryVo);
-
-        //条件查询 文章标签表
-        LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
-                .eq(BlogArticleTag:: getArticleId, id);
-        List<BlogArticleTag> blogArticleTagList = blogArticleTagMapper.selectList(entity);
-
-        if (!blogArticleTagList.isEmpty()) {
-            List<Integer> tagIdList = blogArticleTagList.stream().map(e -> e.getTagId()).collect(Collectors.toList());
-
-            // 根据id集合查询Tag标签
-            List<BlogTag> blogTagList = blogTagMapper.selectBatchIds(tagIdList);
-            List<BlogTagVo> blogTagVoList = blogTagList.stream().map(e -> {
-                BlogTagVo blogTagVo = new BlogTagVo();
-                BeanUtils.copyProperties(e, blogTagVo);
-                return blogTagVo;
-            }).collect(Collectors.toList());
-            BeanUtils.copyProperties(blogTagList, blogTagVoList);
-
-            blogArticleVo.setTagList(blogTagVoList);
-        }
+        // 获取浏览量
+        Long browseCount = addBrowseCount(id);
+        blogArticleVo.setBrowseCount(browseCount);
 
         return ServiceResult.of(blogArticleVo);
     }
@@ -234,6 +254,9 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         if (result == GlobalConstant.Attribute.NO) {
             throw new BlogBizException(ErrorCodeEnum.BLOG10031002);
         }
+
+        // 删除redis缓存
+        redisObjectService.deleteKey(RedisKeyUtil.getArticleDetail(blogArticleDto.getId()));
         return ServiceResult.of(result);
     }
 
@@ -252,6 +275,9 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         if (count < GlobalConstant.Attribute.YES) {
             return ServiceResult.notFound();
         }
+
+        // 删除redis缓存
+        redisObjectService.deleteKey(RedisKeyUtil.getArticleDetail(id));
         return ServiceResult.of(count);
     }
 
@@ -288,5 +314,17 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             return blogArticleVo;
         }).collect(Collectors.toList());
         return ServiceResult.of(blogArticleVoList);
+    }
+
+    /**
+     * 获取浏览量
+     * @param id id
+     * @return 浏览个数
+     */
+    private Long addBrowseCount(Integer id) {
+        // 这里一定是整数
+        // 为了日后可以排序 所以用zset
+        Double zIncr = redisSetService.zIncr(RedisKeyUtil.getArticleBrowseCount(), id.toString(), 1);
+        return zIncr.longValue();
     }
 }

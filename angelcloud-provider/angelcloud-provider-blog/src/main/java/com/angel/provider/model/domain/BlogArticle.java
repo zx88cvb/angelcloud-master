@@ -77,7 +77,7 @@ public class BlogArticle extends BaseEntity implements Serializable {
     /**
      * 浏览量
      */
-    private Integer browseCount;
+    private Long browseCount;
 
     /**
      * 外链

@@ -23,7 +23,7 @@ import java.util.Set;
 public class RedisHashService {
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate redisTemplate;
 
     /**
      * 根据key获取给定字段值
@@ -33,8 +33,8 @@ public class RedisHashService {
      * @return list集合
      */
     public <T> List<T> getValueByFields(String key, Set<String> fields) {
-        HashOperations<String, String, T> hash = stringRedisTemplate.opsForHash();
-        if (!stringRedisTemplate.hasKey(key)) {
+        HashOperations<String, String, T> hash = redisTemplate.opsForHash();
+        if (!redisTemplate.hasKey(key)) {
             return Collections.emptyList();
         }
         List<T> values = hash.multiGet(key, fields);
@@ -54,8 +54,8 @@ public class RedisHashService {
      * @return list集合
      */
     public <T> List<T> getValueByField(String key, String field) {
-        HashOperations<String, String, T> hash = stringRedisTemplate.opsForHash();
-        if (!stringRedisTemplate.hasKey(key)) {
+        HashOperations<String, String, T> hash = redisTemplate.opsForHash();
+        if (!redisTemplate.hasKey(key)) {
             return Collections.emptyList();
         }
         T value = hash.get(key, field);
@@ -69,7 +69,7 @@ public class RedisHashService {
     }
 
     public void setValueByFields(String key, Map<String, Object> map) {
-        HashOperations<String, String, Object> hash = stringRedisTemplate.opsForHash();
+        HashOperations<String, String, Object> hash = redisTemplate.opsForHash();
         hash.putAll(key, map);
         log.info("setValueByFields - 同时将多个 field-value (域-值)对设置到哈希表 key 中. [ok] key={}, map={}", key, map);
     }
@@ -81,7 +81,7 @@ public class RedisHashService {
      * @return 删除个数
      */
     public Long removeFields(String key, String... hashKeys) {
-        HashOperations<String, String, Object> hash = stringRedisTemplate.opsForHash();
+        HashOperations<String, String, Object> hash = redisTemplate.opsForHash();
         Long result = hash.delete(key, (Object) hashKeys);
         log.info("removeFields- 删除一个或多个哈希表字段. [OK] key={}, hashKeys={}, result={}", key, hashKeys, result);
         return result;

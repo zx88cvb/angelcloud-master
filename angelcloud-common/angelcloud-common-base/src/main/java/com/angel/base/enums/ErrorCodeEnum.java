@@ -509,6 +509,12 @@ public enum ErrorCodeEnum {
 	 * BLOG 10031013 error code enum.
 	 */
 	BLOG10031013(10031013, "创建博客点赞失败"),
+
+	/**
+	 * BLOG 10031014 error code enum.
+	 */
+	BLOG10031014(10031014, "记录文章访问量失败"),
+
 	/**
 	 * Opc 10040001 error code enum.
 	 */

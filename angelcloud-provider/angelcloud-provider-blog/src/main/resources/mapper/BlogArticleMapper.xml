@@ -17,7 +17,7 @@
         <result column="is_recommend" property="isRecommend" jdbcType="INTEGER" />
         <result column="user_id" property="userId" jdbcType="INTEGER" />
         <result column="category_id" property="categoryId" jdbcType="INTEGER" />
-        <result column="browse_count" property="browseCount" jdbcType="INTEGER" />
+        <result column="browse_count" property="browseCount" jdbcType="BIGINT" />
         <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
         <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
         <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
@@ -327,5 +327,23 @@
         ORDER BY COUNT(c.id) desc, a.post_time desc
         limit #{count}
     </select>
+
+    <update id="updateBrowseCount">
+        UPDATE blog_article
+        set browse_count = #{browseCount}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateBrowseCountList" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE blog_article
+            <set>
+                browse_count = #{item.browseCount}
+            </set>
+            <where>
+                id = #{item.id,jdbcType=VARCHAR}
+            </where>
+        </foreach>
+    </update>
 
 </mapper>

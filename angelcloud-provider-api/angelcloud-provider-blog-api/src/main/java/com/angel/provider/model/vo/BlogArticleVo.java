@@ -69,7 +69,7 @@ public class BlogArticleVo extends BaseVo implements Serializable {
     /**
      * 浏览量
      */
-    private Integer browseCount;
+    private Long browseCount;
 
     /**
      * 外链
