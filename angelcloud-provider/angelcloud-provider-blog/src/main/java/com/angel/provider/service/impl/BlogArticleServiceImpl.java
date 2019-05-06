@@ -89,6 +89,12 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             BlogArticleVo blogArticleItem = new BlogArticleVo();
             BeanUtils.copyProperties(e, blogArticleItem);
 
+            // 从redis中取浏览个数
+            Double browseCount = redisSetService.
+                    zScore(RedisKeyUtil.getArticleBrowseCount(), e.getId().toString());
+            if (browseCount != null) {
+                blogArticleItem.setBrowseCount(browseCount.longValue());
+            }
             // 查询喜欢（点赞）个数
             long count = blogPollMapper.selectCountByArticleId(e.getId());
             blogArticleItem.setPollCount(count);
