@@ -104,4 +104,47 @@ public class GlobalConstant {
          */
         public static final long REDIS_DEFAULT_EXPIRE = 1L;
     }
+
+    public interface Ad {
+        /**
+         * 类型键
+         */
+        interface TYPE_KEY {
+            /**
+             * index主页
+             */
+            String PC_INDEX = "pc_index";
+
+            /**
+             * 友情链接
+             */
+            String PC_LINK = "pc_link";
+        }
+
+        /**
+         * 广告键
+         */
+        interface AD_KEY {
+            /**
+             * 轮播图
+             */
+            String PC_INDEX_LOOP = "pc_index_loop";
+
+            /**
+             * 主页头部菜单
+             */
+            String PC_INDEX_TOP_MENU = "pc_index_top_menu";
+
+            /**
+             * 主页文章类型
+             */
+            String PC_INDEX_LIST_CATEGORY = "pc_index_list_category";
+
+            /**
+             * 友情链接
+             */
+            String PC_LINK_LIST = "pc_link_list";
+
+        }
+    }
 }
