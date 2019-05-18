@@ -12,8 +12,16 @@ spring:
           password: Bi19951101
           # basedir: D:/Software_Development/Java_Development/WorkSpace/IntelliJ-IDEA-workspace/github/angelcloud-config/config/basedir
     consul:
-      host: localhost
+      host: ${consul.host}
       port: 8500
+      discovery:
+        register: true
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        hostname: ${consul.discovery.hostname}
 #    rabbitmq:
 #      host: 192.168.188.34
 #      port: 5672

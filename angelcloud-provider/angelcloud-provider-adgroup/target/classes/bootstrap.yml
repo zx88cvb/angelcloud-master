@@ -8,7 +8,18 @@ spring:
       discovery:
         enabled: true
         service-id: angelcloud-discovery
-      profile: dev
+      profile: ${spring.cloud.config.profile}
+    consul:
+      host: ${consul.host}
+      port: ${consul.port}
+      discovery:
+        register: true
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        hostname: ${consul.discovery.hostname}
 mybatis-plus:
   typeAliasesPackage: com.angel.provider.model.domain
   mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml

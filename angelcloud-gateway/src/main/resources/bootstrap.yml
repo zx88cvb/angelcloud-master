@@ -46,9 +46,17 @@ spring:
         filters:
         - StripPrefix= 1
     consul:
-      host: localhost
+      host: ${consul.host}
       port: 8500
       healthCheckInterval: 15s
+      discovery:
+        register: true
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        hostname: ${consul.discovery.hostname}
 
 server:
   port: 8082

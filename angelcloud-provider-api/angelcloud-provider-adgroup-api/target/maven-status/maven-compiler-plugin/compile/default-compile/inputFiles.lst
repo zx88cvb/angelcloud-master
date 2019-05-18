@@ -1,0 +1,13 @@
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/dto/AdGroupContentDto.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/vo/AdGroupItemVo.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/dto/AdGroupTypeDto.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/service/hystrix/AdGroupContentFeignHystrix.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/vo/AdGroupContentVo.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/service/AdGroupContentFeignApi.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/vo/AdGroupTypeVo.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/exceptions/AdGroupBizException.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/vo/AdGroupVo.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/dto/AdGroupItemDto.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/dto/AdGroupDto.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/vo/AdGroupContextVo.java
+/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-provider-api/angelcloud-provider-adgroup-api/src/main/java/com/angel/provider/model/dto/AdGroupContextDto.java

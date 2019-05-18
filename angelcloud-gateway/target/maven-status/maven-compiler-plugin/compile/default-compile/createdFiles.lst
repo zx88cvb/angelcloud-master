@@ -1,0 +1,4 @@
+com/angel/gateway/controller/ServiceController.class
+com/angel/gateway/config/RouteConfiguration.class
+com/angel/gateway/controller/TestController.class
+com/angel/gateway/AngelcloudgatewayApplication.class
