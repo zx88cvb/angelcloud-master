@@ -1,5 +1,0 @@
-/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-gateway/src/main/java/com/angel/gateway/AngelcloudgatewayApplication.java
-/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-gateway/src/main/java/com/angel/gateway/controller/ServiceController.java
-/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-gateway/src/main/java/com/angel/gateway/controller/TestController.java
-/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-gateway/src/main/java/com/angel/gateway/config/RouteConfiguration.java
-/home/angel/Documents/development/javaProject/github/angelcloud-master/angelcloud-gateway/src/main/java/com/angel/gateway/filter/JwtCheckGatewayFilterFactory.java
