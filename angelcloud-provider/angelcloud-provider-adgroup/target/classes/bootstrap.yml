@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: ${spring.profiles.active}
+  application:
+    name: angelcloud-provider-adgroup
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: angelcloud-discovery
+      profile: ${spring.cloud.config.profile}
+    consul:
+      host: ${consul.host}
+      port: ${consul.port}
+      discovery:
+        register: true
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        hostname: ${consul.discovery.hostname}
+mybatis-plus:
+  typeAliasesPackage: com.angel.provider.model.domain
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
+  configuration:
+    # 来开启驼峰功能
+    map-underscore-to-camel-case: true
+    # 打印SQL
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mapper:
+  mappers: com.angel.provider.mapper.*
+  not-empty: false
+  identity: MYSQL
+

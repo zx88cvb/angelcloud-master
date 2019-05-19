@@ -37,8 +37,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult login(String username, String password) {
-        String passwordNew = DigestUtils.md5Hex(password);
-        SysUser sysUser = sysUserMapper.selectByUsernameAndPass(username, passwordNew);
+        // String passwordNew = DigestUtils.md5Hex(password);
+        SysUser sysUser = sysUserMapper.selectByUsernameAndPass(username, password);
         if (sysUser == null) {
             return ServiceResult.notFound();
         }
