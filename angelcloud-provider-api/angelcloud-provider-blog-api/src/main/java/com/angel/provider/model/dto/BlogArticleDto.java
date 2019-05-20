@@ -92,7 +92,7 @@ public class BlogArticleDto extends BaseDto implements Serializable {
      * 发布时间
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date postTime;
 
     /**

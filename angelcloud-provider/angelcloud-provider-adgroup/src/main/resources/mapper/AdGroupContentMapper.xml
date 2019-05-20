@@ -106,6 +106,7 @@
     AND gt.id = ag.type_id
     AND ag.id = cn.group_id
     AND cn.source_id = cx.id
+    ORDER BY cn.sn asc, cn.create_time desc
   </select>
 
 </mapper>

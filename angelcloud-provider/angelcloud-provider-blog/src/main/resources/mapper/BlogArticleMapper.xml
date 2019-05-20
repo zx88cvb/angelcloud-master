@@ -137,6 +137,9 @@
         <if test="condition.categoryId != null">
             AND ${alias}.category_id = #{condition.categoryId}
         </if>
+        <if test="condition.blogStatus != null">
+            AND ${alias}.blog_status = #{condition.blogStatus}
+        </if>
         <if test="condition.tagId != null">
             AND exists (
             SELECT article_id
@@ -311,6 +314,7 @@
         JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM blog_article where is_del = 0) ) as id ) as tid
         where ba.id >= tid.id
         and ba.is_del = 0
+        AND ba.blog_status = 1
         order by ba.id asc LIMIT 3
     </select>
 
@@ -324,6 +328,7 @@
         blog_article a
         left JOIN blog_comment c on(a.id = c.article_id)
         where a.is_del = 0
+        AND a.blog_status = 1
         GROUP BY a.id
         ORDER BY COUNT(c.id) desc, a.post_time desc
         limit #{count}

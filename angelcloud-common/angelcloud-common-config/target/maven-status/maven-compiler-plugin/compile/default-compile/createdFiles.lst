@@ -1,6 +1,0 @@
-com/angel/config/properties/AngelcloudProperties.class
-META-INF/spring-configuration-metadata.json
-com/angel/config/AngelcloudCoreConfig.class
-com/angel/config/properties/AsyncTaskProperties.class
-com/angel/config/properties/QiNiuProperties.class
-com/angel/config/properties/SwaggerProperties.class

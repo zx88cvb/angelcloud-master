@@ -231,34 +231,42 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         //修改文章
         int result = blogArticleMapper.updateById(blogArticle);
 
+
+        if (result == GlobalConstant.Attribute.NO) {
+            throw new BlogBizException(ErrorCodeEnum.BLOG10031002);
+        }
+
         // 获取tag集合
         List<BlogTagVo> tagList = blogArticleDto.getTagList();
 
         // 获取tag id集合
         List<Integer> tagIdList = tagList.stream().map(e -> e.getId()).collect(Collectors.toList());
 
-        // 判断是否有标签
-        if (!tagList.isEmpty()) {
-            //条件 文章标签表
-            LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
-                    .eq(BlogArticleTag:: getArticleId, blogArticle.getId());
+        //条件 文章标签表
+        LambdaQueryWrapper<BlogArticleTag> entity = new QueryWrapper<BlogArticleTag>().lambda()
+                .eq(BlogArticleTag:: getArticleId, blogArticle.getId());
+
+        // 先查询是否存在tag
+        int tagListCount = blogArticleTagMapper.selectCount(entity);
+
+        if (tagListCount > 0) {
             // 根据文章id先删除所有标签 再创建
             int deleteResult = blogArticleTagMapper.delete(entity);
 
+            // 如果删除为0 则抛异常
             if (deleteResult == GlobalConstant.Attribute.NO) {
                 throw new BlogBizException(ErrorCodeEnum.BLOG10031011);
             }
+        }
 
+        // 判断是否有标签
+        if (!tagList.isEmpty()) {
             // 创建
             int tagResult = blogArticleTagMapper.insertBatch(tagIdList, blogArticle.getId());
 
             if (tagResult == GlobalConstant.Attribute.NO) {
                 throw new BlogBizException(ErrorCodeEnum.BLOG10031010);
             }
-        }
-
-        if (result == GlobalConstant.Attribute.NO) {
-            throw new BlogBizException(ErrorCodeEnum.BLOG10031002);
         }
 
         // 删除redis缓存

@@ -42,7 +42,7 @@ public class BlogCommentVo extends BaseVo implements Serializable {
     /**
      * 邮箱
      */
-    private String email;
+//    private String email;
 
     /**
      * 网址
