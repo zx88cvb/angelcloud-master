@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.angel.provider.mapper.SysExceptionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.angel.provider.model.domain.SysExceptionLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR" />
+    <result column="exception_simple_name" property="exceptionSimpleName" jdbcType="VARCHAR" />
+    <result column="exception_message" property="exceptionMessage" jdbcType="VARCHAR" />
+    <result column="exception_cause" property="exceptionCause" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.angel.provider.model.domain.SysExceptionLog" extends="BaseResultMap" >
+    <result column="exception_stack" property="exceptionStack" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, application_name, exception_simple_name, exception_message, exception_cause, 
+    creator, creator_id, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    exception_stack
+  </sql>
+
+</mapper>

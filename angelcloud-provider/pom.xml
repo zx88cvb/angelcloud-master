@@ -13,6 +13,7 @@
         <module>angelcloud-provider-user</module>
         <module>angelcloud-provider-blog</module>
         <module>angelcloud-provider-adgroup</module>
+        <module>angelcloud-provider-search</module>
     </modules>
     <artifactId>angelcloud-provider</artifactId>
 

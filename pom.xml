@@ -39,6 +39,7 @@
 		<fasterxml.jackson.version>2.9.8</fasterxml.jackson.version>
 		<springfox.version>2.9.2</springfox.version>
 		<qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
+		<elasticsearch.version>7.2.0</elasticsearch.version>
 	</properties>
 
 	<!--<dependencies>
@@ -188,6 +189,20 @@
 				<groupId>com.qiniu</groupId>
 				<artifactId>qiniu-java-sdk</artifactId>
 				<version>${qiniu.version}</version>
+			</dependency>
+
+			<!-- elasticsearch server -->
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+
+			<!-- lasticsearch-rest-high-level -->
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>${elasticsearch.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
