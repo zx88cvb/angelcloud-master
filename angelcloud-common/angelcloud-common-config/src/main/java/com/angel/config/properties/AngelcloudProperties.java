@@ -18,4 +18,7 @@ public class AngelcloudProperties {
 
     // 线程池
     private AsyncTaskProperties task = new AsyncTaskProperties();
+
+    // ElasticSearch 搜索引擎
+    private ElasticSearchProperties es = new ElasticSearchProperties();
 }

@@ -39,7 +39,7 @@
 		<fasterxml.jackson.version>2.9.8</fasterxml.jackson.version>
 		<springfox.version>2.9.2</springfox.version>
 		<qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
-		<elasticsearch.version>7.2.0</elasticsearch.version>
+		<elasticsearch.version>6.8.0</elasticsearch.version>
 	</properties>
 
 	<!--<dependencies>
