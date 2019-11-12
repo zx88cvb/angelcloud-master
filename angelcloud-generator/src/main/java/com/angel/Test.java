@@ -50,7 +50,7 @@ public class Test {
                         new PackageConfig()
                                 .setParent(packageName)
                                 .setController("controller")
-                                .setEntity("entity")
+                                .setEntity("domain")
                 ).execute();
     }
 

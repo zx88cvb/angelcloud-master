@@ -17,6 +17,7 @@
         <module>angelcloud-common-core</module>
         <module>angelcloud-common-config</module>
         <module>angelcloud-security-feign</module>
+        <module>angelcloud-common-security</module>
     </modules>
 
     <properties>

@@ -43,26 +43,26 @@ public class AdGroupServiceImpl extends ServiceImpl<AdGroupMapper, AdGroup> impl
     public ServiceResult<Page<AdGroupVo>> getAdGroupPage(AdGroupDto adGroupDto) {
         Page<AdGroupVo> page = new Page<AdGroupVo>();
         //条件查询
-        /*LambdaQueryWrapper<AdGroup> entity = new QueryWrapper<AdGroup>().lambda()
+        /*LambdaQueryWrapper<AdGroup> domain = new QueryWrapper<AdGroup>().lambda()
                 .eq(AdGroup:: getIsDel, GlobalConstant.IsDel.NO)
                 .orderByDesc(AdGroup:: getCreateTime);
 
         //判断分类ID为不为空
         if (adGroupDto.getTypeId() != null) {
-            entity.eq(AdGroup:: getTypeId, adGroupDto.getTypeId());
+            domain.eq(AdGroup:: getTypeId, adGroupDto.getTypeId());
         }
 
         //判断名称为不为空
         if (StringUtils.isNotBlank(adGroupDto.getName())) {
-            entity.like(AdGroup:: getName, adGroupDto.getName());
+            domain.like(AdGroup:: getName, adGroupDto.getName());
         }
 
         // 判断标识不为空
         if (StringUtils.isNotBlank(adGroupDto.getAdKey())) {
-            entity.eq(AdGroup:: getAdKey, adGroupDto.getAdKey());
+            domain.eq(AdGroup:: getAdKey, adGroupDto.getAdKey());
         }
 
-        IPage<AdGroup> iPageAdGroup = adGroupMapper.selectPage(new Page<>(adGroupDto.getPageNum(), adGroupDto.getPageSize()), entity);
+        IPage<AdGroup> iPageAdGroup = adGroupMapper.selectPage(new Page<>(adGroupDto.getPageNum(), adGroupDto.getPageSize()), domain);
         */
 
         // 查询

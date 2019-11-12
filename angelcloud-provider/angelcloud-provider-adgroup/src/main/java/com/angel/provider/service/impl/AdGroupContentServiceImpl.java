@@ -44,27 +44,27 @@ public class AdGroupContentServiceImpl extends ServiceImpl<AdGroupContentMapper,
     public ServiceResult<Page<AdGroupContentVo>> getAdGroupContentPage(AdGroupContentDto adGroupContentDto) {
         Page<AdGroupContentVo> page = new Page<>();
         /*//条件查询
-        LambdaQueryWrapper<AdGroupContent> entity = new QueryWrapper<AdGroupContent>().lambda()
+        LambdaQueryWrapper<AdGroupContent> domain = new QueryWrapper<AdGroupContent>().lambda()
                 .eq(AdGroupContent:: getIsDel, GlobalConstant.IsDel.NO)
                 .orderByDesc(AdGroupContent:: getCreateTime);
 
         //判断广告组外键为不为空
         if (adGroupContentDto.getGroupId() != null) {
-            entity.eq(AdGroupContent:: getGroupId, adGroupContentDto.getGroupId());
+            domain.eq(AdGroupContent:: getGroupId, adGroupContentDto.getGroupId());
         }
 
         //判断广告项外键为不为空
         if (adGroupContentDto.getItemId() != null) {
-            entity.eq(AdGroupContent:: getItemId, adGroupContentDto.getItemId());
+            domain.eq(AdGroupContent:: getItemId, adGroupContentDto.getItemId());
         }
 
         // 判断源内容不为空
         if (adGroupContentDto.getSourceId() != null) {
-            entity.eq(AdGroupContent:: getSourceId, adGroupContentDto.getSourceId());
+            domain.eq(AdGroupContent:: getSourceId, adGroupContentDto.getSourceId());
         }
 
         IPage<AdGroupContent> iPageAdGroupContent = adGroupContentMapper.
-                selectPage(new Page<>(adGroupContentDto.getPageNum(), adGroupContentDto.getPageSize()), entity);*/
+                selectPage(new Page<>(adGroupContentDto.getPageNum(), adGroupContentDto.getPageSize()), domain);*/
 
         IPage<AdGroupContent> iPageAdGroupContent = adGroupContentMapper.
                 selectByCondition(new Page<>(adGroupContentDto.getPageNum(), adGroupContentDto.getPageSize()),

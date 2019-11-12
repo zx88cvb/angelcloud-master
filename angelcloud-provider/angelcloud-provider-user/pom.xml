@@ -38,6 +38,11 @@
             <groupId>com.angel</groupId>
             <artifactId>angelcloud-provider-user-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-common-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

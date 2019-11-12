@@ -34,8 +34,8 @@ public class RedisServiceTest extends ApplicationTests {
         blogTag.setId(1);
         blogTag.setTagName("哈哈");
         redisObjectService.setKey("test_object_tag", blogTag);
-        BlogTag entity = (BlogTag) redisObjectService.getKey("test_object_tag");
-        System.out.println(entity.getTagName());
+        BlogTag domain = (BlogTag) redisObjectService.getKey("test_object_tag");
+        System.out.println(domain.getTagName());
     }*/
 
     @Test

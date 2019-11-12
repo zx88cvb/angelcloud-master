@@ -56,7 +56,7 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
             entity.like(BlogCategory:: getCategoryName, blogCategory.getCategoryName());
         }
 
-        // List<BlogCategory> blogCategoryList = blogCategoryMapper.selectPage(page, entity);
+        // List<BlogCategory> blogCategoryList = blogCategoryMapper.selectPage(page, domain);
         IPage<BlogCategory> iPageBlogCategory = blogCategoryMapper.selectPage(new Page<>(blogCategory.getPageNum(), blogCategory.getPageSize()), entity);
 
         // 获取集合对象
