@@ -1,5 +1,6 @@
 package com.angel.base.constant;
 
+import com.angel.base.enums.ErrorCodeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -82,5 +83,9 @@ public class ServerResponse<T> implements Serializable {
 
     public static <T> ServerResponse<T> createByErrorCodeMessage(int errorCode,String message){
         return new ServerResponse<T>(errorCode,message);
+    }
+
+    public static <T> ServerResponse<T> createByErrorEnum(ErrorCodeEnum errorCodeEnum){
+        return new ServerResponse<T>(errorCodeEnum.code(),errorCodeEnum.msg());
     }
 }

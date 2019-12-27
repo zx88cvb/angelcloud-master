@@ -103,6 +103,35 @@ public class GlobalConstant {
          * redis key default expire = 1MINUTES
          */
         public static final long REDIS_DEFAULT_EXPIRE = 1L;
+
+        /**
+         * 删除
+         */
+        public static final Integer STATUS_DEL = 1;
+        /**
+         * 正常
+         */
+        public static final Integer STATUS_NORMAL = 0;
+
+        /**
+         * 锁定
+         */
+        public static final Integer STATUS_LOCK = 1;
+
+        /**
+         * 菜单
+         */
+        public static final Integer MENU = 0;
+
+        /**
+         * 菜单树根节点
+         */
+        public static final Integer MENU_TREE_ROOT_ID = -1;
+
+        /**
+         * 编码
+         */
+        public static final String UTF8 = "UTF-8";
     }
 
     public interface Ad {

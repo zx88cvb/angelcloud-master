@@ -31,6 +31,12 @@ public class SysMenuVo extends BaseVo implements Serializable{
      * 菜单名称
      */
     private String menuName;
+
+    /**
+     * 权限名称
+     */
+    private String permission;
+
     /**
      * url链接
      */

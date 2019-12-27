@@ -5,4 +5,62 @@
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
+    <resultMap id="BaseResultMap" type="com.angel.provider.model.domain.SysMenu" >
+        <id column="id" property="id" jdbcType="INTEGER" /
+        <result column="p_id" property="pId" jdbcType="INTEGER" />
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+        <result column="permission" property="permission" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="icon_img" property="iconImg" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="order_index" property="orderIndex" jdbcType="INTEGER" />
+        <result column="level" property="level" jdbcType="INTEGER" />
+        <result column="is_activity" property="isActivity" jdbcType="TINYINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="is_del" property="isDel" jdbcType="TINYINT" />
+    </resultMap>
+
+    <resultMap id="MenuVoResultMap" type="com.angel.provider.model.vo.SysMenuVo" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="p_id" property="pId" jdbcType="INTEGER" />
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+        <result column="permission" property="permission" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="icon_img" property="iconImg" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="level" property="level" jdbcType="INTEGER" />
+        <result column="is_activity" property="isActivity" jdbcType="TINYINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, p_id, menu_name, permission, url, icon_img, description, order_index, level, is_activity,
+        create_time, update_time,
+        is_del
+    </sql>
+
+    <sql id="Menu_Column_List" >
+        ${alias}.id, ${alias}.p_id, ${alias}.menu_name, ${alias}.permission, ${alias}.url,
+        ${alias}.icon_img, ${alias}.description, ${alias}.order_index, ${alias}.level, ${alias}.is_activity,
+        ${alias}.create_time, ${alias}.update_time,
+        ${alias}.is_del
+    </sql>
+
+    <!--通过角色查询菜单信息-->
+    <select id="findMenuByRoleId" resultMap="MenuVoResultMap">
+		SELECT
+        <include refid="Menu_Column_List">
+            <property name="alias" value="sys_menu" />
+        </include>
+		FROM
+			sys_menu
+		LEFT JOIN sys_role_menu ON sys_menu.id = sys_role_menu.menu_id
+		WHERE
+			sys_menu.is_del = 0
+		AND sys_role_menu.role_id = #{roleId}
+		ORDER BY
+			sys_menu.create_time desc
+    </select>
+
 </mapper>

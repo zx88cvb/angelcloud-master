@@ -2,6 +2,7 @@ package com.angel.provider.service;
 
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.domain.SysUser;
+import com.angel.provider.model.dto.UserInfo;
 import com.angel.provider.model.vo.SysUserVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -29,4 +30,12 @@ public interface ISysUserService extends IService<SysUser> {
      * @return 返回用户Vo结果集
      */
     ServiceResult<SysUserVo> getUserVoById(Integer userId);
+
+    /**
+     * 查询用户信息
+     *
+     * @param user 用户
+     * @return userInfo
+     */
+    ServiceResult<UserInfo> findUserInfo(SysUser user);
 }

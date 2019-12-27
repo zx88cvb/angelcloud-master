@@ -1,7 +1,7 @@
 package com.angel.provider.mapper;
 
 import com.angel.provider.model.domain.SysMenu;
-import com.angel.provider.model.vo.SysMenuVo;
+import com.angel.provider.model.domain.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.Arrays;
@@ -9,19 +9,18 @@ import java.util.List;
 
 /**
  * <p>
- * 后台菜单表 Mapper 接口
+ * 后台角色表 Mapper 接口
  * </p>
  *
  * @author angel
  * @since 2018-08-18
  */
-public interface SysMenuMapper extends BaseMapper<SysMenu> {
-
+public interface SysRoleMapper extends BaseMapper<SysRole> {
     /**
-     * 通过角色编号查询菜单
+     * 通过用户ID，查询角色信息
      *
-     * @param roleId 角色ID
+     * @param userId
      * @return
      */
-    List<SysMenuVo> findMenuByRoleId(Integer roleId);
+    List<SysRole> findRolesByUserId(Integer userId);
 }
