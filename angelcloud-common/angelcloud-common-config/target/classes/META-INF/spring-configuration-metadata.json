@@ -1,0 +1,27 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.angel.config.properties.AngelcloudProperties",
+      "name": "angelcloud",
+      "type": "com.angel.config.properties.AngelcloudProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.angel.config.properties.AngelcloudProperties",
+      "name": "angelcloud.qiniu",
+      "type": "com.angel.config.properties.QiNiuProperties"
+    },
+    {
+      "sourceType": "com.angel.config.properties.AngelcloudProperties",
+      "name": "angelcloud.swagger-properties",
+      "type": "com.angel.config.properties.SwaggerProperties"
+    },
+    {
+      "sourceType": "com.angel.config.properties.AngelcloudProperties",
+      "name": "angelcloud.task",
+      "type": "com.angel.config.properties.AsyncTaskProperties"
+    }
+  ]
+}

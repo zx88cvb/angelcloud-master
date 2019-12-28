@@ -17,6 +17,24 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-core -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-crypto -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-http -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.angel</groupId>
             <artifactId>angelcloud-common-base</artifactId>

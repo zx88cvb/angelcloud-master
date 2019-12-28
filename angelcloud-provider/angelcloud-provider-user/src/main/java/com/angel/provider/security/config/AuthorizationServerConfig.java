@@ -2,6 +2,7 @@ package com.angel.provider.security.config;
 
 import com.angel.provider.security.handler.CustomAccessDeniedHandler;
 import com.angel.provider.security.handler.CustomAuthEntryPoint;
+import com.angel.security.component.CustomTokenEnhancer;
 import com.angel.security.component.CustomWebResponseExceptionTranslator;
 import com.angel.security.service.ILinkUserDetailsService;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final DataSource dataSource;
 
+    private final CustomTokenEnhancer customTokenEnhancer;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients()
@@ -82,6 +85,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManagerBean)
                 .userDetailsService(linkUserDetailsService)
                 .tokenServices(tokenServices())
+                .tokenEnhancer(customTokenEnhancer)
                 .exceptionTranslator(new CustomWebResponseExceptionTranslator());
 
         log.info("AuthorizationServerEndpointsConfigurer is complete.");
