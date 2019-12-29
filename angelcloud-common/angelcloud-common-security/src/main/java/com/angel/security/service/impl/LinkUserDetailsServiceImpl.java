@@ -51,7 +51,7 @@ public class LinkUserDetailsServiceImpl implements ILinkUserDetailsService {
             return (LinkUser) cache.get(username).get();
         }
 
-        ServerResponse<UserInfo> result = userSysUserFeignApi.info(username);
+        ServerResponse<UserInfo> result = userSysUserFeignApi.info(username, SecurityConstants.FROM_IN);
         UserDetails userDetails = getUserDetails(result);
         cache.put(username, userDetails);
         return userDetails;

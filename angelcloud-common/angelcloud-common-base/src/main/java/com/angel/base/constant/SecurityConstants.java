@@ -55,6 +55,16 @@ public interface SecurityConstants {
 	String ANGELCLOUD_LICENSE = "made by angelcloud";
 
 	/**
+	 * 内部
+	 */
+	String FROM_IN = "Y";
+
+	/**
+	 * 标志
+	 */
+	String FROM = "from";
+
+	/**
 	 * OAUTH URL
 	 */
 	String OAUTH_TOKEN_URL = "/oauth/token";
@@ -122,7 +132,7 @@ public interface SecurityConstants {
 	 * JdbcClientDetailsService 查询语句
 	 */
 	String BASE_FIND_STATEMENT = "select " + CLIENT_FIELDS
-			+ " from sys_oauth_client_details";
+			+ " from oauth_client_details";
 
 	/**
 	 * 默认的查询语句

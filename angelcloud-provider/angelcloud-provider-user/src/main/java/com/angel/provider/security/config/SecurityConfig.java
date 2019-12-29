@@ -4,6 +4,8 @@ import com.angel.security.service.ILinkUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,23 +18,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.Resource;
+
 /**
  * Security 安全配置
  * @Author angel
  * @Date 19-11-12
  */
 @Configuration
+@Primary
+//@Order(90)
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+//@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private ILinkUserDetailsService linkUserDetailsService;
+    @Resource
+    private ILinkUserDetailsService iLinkUserDetailsService;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/",
                 "/css/**",
-                "/favor.ico",
+                "/favicon.ico",
                 "/actuator/**");
     }
 
@@ -54,9 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         //替换成自己验证规则
-//        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-        auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(iLinkUserDetailsService).passwordEncoder(passwordEncoder());
+//        auth.authenticationProvider(authenticationProvider());
     }
 
 
@@ -66,26 +73,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    /*@Bean
-    public static BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    /*@Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }*/
 
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(linkUserDetailsService);
+        provider.setUserDetailsService(iLinkUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         provider.setHideUserNotFoundExceptions(false);
         return provider;

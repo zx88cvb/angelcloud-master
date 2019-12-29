@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: angelcloud-discovery
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zx88cvb/angelcloud-config
+          username: zx88cvb
+          password: Bi19951101
+          # basedir: D:/Software_Development/Java_Development/WorkSpace/IntelliJ-IDEA-workspace/github/angelcloud-config/config/basedir
+    consul:
+      host: ${consul.host}
+      port: 8500
+      discovery:
+        register: true
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        hostname: ${consul.discovery.hostname}
+#    rabbitmq:
+#      host: 192.168.188.34
+#      port: 5672
+#      username: guest
+#      password: guest
+server:
+  port: 8888
+# eureka:
+#  client:
+#    service-url: http://localhost:8761/eureka
+
+# ���Ⱪ¶���нӿ�
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

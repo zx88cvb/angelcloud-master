@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: ${spring.profiles.active}
+  application:
+    name: angelcloud-gateway
+    consul:
+      host: ${consul.host}
+      port: 8500
+      healthCheckInterval: 15s
+      discovery:
+        register: true
+        serviceName: ${spring.application.name}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: urlprefix-/${spring.application.name}
+        instanceId: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        hostname: ${consul.discovery.hostname}
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: angelcloud-discovery
+      profile: ${spring.profiles.active}

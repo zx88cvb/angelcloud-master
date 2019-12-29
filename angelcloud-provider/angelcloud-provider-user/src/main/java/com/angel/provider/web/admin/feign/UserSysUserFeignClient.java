@@ -1,6 +1,7 @@
 package com.angel.provider.web.admin.feign;
 
 import com.angel.base.constant.ResponseCode;
+import com.angel.base.constant.SecurityConstants;
 import com.angel.base.constant.ServerResponse;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.angel.base.service.ServiceResult;
@@ -11,12 +12,14 @@ import com.angel.provider.model.dto.UserInfo;
 import com.angel.provider.model.vo.SysUserVo;
 import com.angel.provider.service.ISysUserService;
 import com.angel.provider.service.UserSysUserFeignApi;
+import com.angel.security.annotation.Inner;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,11 +65,13 @@ public class UserSysUserFeignClient implements UserSysUserFeignApi{
     /**
      * 根据用户名查询用户信息 角色信息
      * @param username 用户名
+     * @param from from
      * @return
      */
     @Override
     @ApiOperation(httpMethod = "GET", value = "根据用户id获取用户信息")
-    public ServerResponse<UserInfo> info(@PathVariable("username") String username) {
+    @Inner
+    public ServerResponse<UserInfo> info(@PathVariable("username") String username, @RequestHeader(SecurityConstants.FROM) String from) {
         // find by this user info
         SysUser user = iSysUserService.getOne(new QueryWrapper<SysUser>()
                 .lambda().eq(SysUser::getUsername, username));

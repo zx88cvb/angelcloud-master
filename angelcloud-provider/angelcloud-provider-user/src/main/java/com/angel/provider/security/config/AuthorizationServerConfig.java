@@ -1,5 +1,6 @@
 package com.angel.provider.security.config;
 
+import com.angel.base.constant.SecurityConstants;
 import com.angel.provider.security.handler.CustomAccessDeniedHandler;
 import com.angel.provider.security.handler.CustomAuthEntryPoint;
 import com.angel.security.component.CustomTokenEnhancer;
@@ -137,6 +138,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public ClientDetailsService clientDetails() {
-        return new JdbcClientDetailsService(dataSource);
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        jdbcClientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+        jdbcClientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
+        return jdbcClientDetailsService;
     }
 }
