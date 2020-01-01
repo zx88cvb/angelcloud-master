@@ -28,7 +28,7 @@ import javax.annotation.Resource;
 @Configuration
 @Primary
 //@Order(90)
-@EnableWebSecurity
+//@EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
@@ -58,13 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable();
     }
 
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         //替换成自己验证规则
         auth.userDetailsService(iLinkUserDetailsService).passwordEncoder(passwordEncoder());
 //        auth.authenticationProvider(authenticationProvider());
-    }
+    }*/
 
 
     @Override
@@ -81,12 +81,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-    @Bean
+    /*@Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(iLinkUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         provider.setHideUserNotFoundExceptions(false);
         return provider;
-    }
+    }*/
 }

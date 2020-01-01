@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 public class CustomFeignConfiguration {
 
     @Bean
-    @ConditionalOnProperty("security.oauth2.client.client-id")
+    @ConditionalOnProperty("security.oauth2.client.client-id2")
     public RequestInterceptor oauth2FeignRequestInterceptor(OAuth2ClientContext oAuth2ClientContext,
                                                             OAuth2ProtectedResourceDetails resource,
                                                             AccessTokenContextRelay accessTokenContextRelay) {

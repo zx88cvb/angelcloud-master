@@ -22,6 +22,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-common-transaction</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

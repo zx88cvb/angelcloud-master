@@ -9,12 +9,23 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>angelcloud-security-feign</artifactId>
+    <artifactId>angelcloud-common-transaction</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- OKHttp 对 Feign 支持 -->
+        <!--<dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-common-core</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,3 +1,5 @@
+server:
+  port: 8040
 spring:
   profiles:
     active: ${spring.profiles.active}
