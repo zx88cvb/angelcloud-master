@@ -98,7 +98,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 .stream()
                 .map(SysRole::getId)
                 .collect(Collectors.toList());
-        userInfo.setRoles((Integer[]) roleIds.toArray());
+//        (Integer[]) roleIds.toArray()  java.lang.ClassCastException
+        userInfo.setRoles(roleIds.toArray(new Integer[0]));
 
         //设置权限列表（menu.permission）
         Set<String> permissions = new HashSet<>();
@@ -110,7 +111,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                     .collect(Collectors.toList());
             permissions.addAll(permissionList);
         });
-        userInfo.setPermissions((String[]) permissions.toArray());
+        userInfo.setPermissions(permissions.toArray(new String[0]));
         return ServiceResult.of(userInfo);
     }
 }

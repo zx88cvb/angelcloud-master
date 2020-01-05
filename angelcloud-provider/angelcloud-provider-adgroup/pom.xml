@@ -48,6 +48,12 @@
             <groupId>com.angel</groupId>
             <artifactId>angelcloud-provider-adgroup-api</artifactId>
         </dependency>
+
+        <!-- undertow容器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
