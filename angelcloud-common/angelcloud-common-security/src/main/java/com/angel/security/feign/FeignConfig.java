@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 public class FeignConfig {
     // 下面3个Bean 配合 application.yml 对应的EndPoint 需要加上 #oauth2.hasScope('server')
     @Bean
-//    @ConfigurationProperties(prefix = "security.oauth2.client")
+    @ConfigurationProperties(prefix = "security.oauth2.client")
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
         return new ClientCredentialsResourceDetails();
     }

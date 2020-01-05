@@ -227,24 +227,10 @@
 				<version>${qiniu.version}</version>
 			</dependency>
 
-			<!-- https://mvnrepository.com/artifact/cn.hutool/hutool-core -->
+			<!--hutool-->
 			<dependency>
 				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-core</artifactId>
-				<version>${hutool.version}</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/cn.hutool/hutool-crypto -->
-			<dependency>
-				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-crypto</artifactId>
-				<version>${hutool.version}</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/cn.hutool/hutool-http -->
-			<dependency>
-				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-http</artifactId>
+				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
 			</dependency>
 
