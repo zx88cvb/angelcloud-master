@@ -5,8 +5,10 @@ import com.angel.base.constant.ServerResponse;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.model.vo.SysMenuVo;
 import com.angel.provider.service.ISysMenuService;
+import com.angel.security.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,10 +29,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/sysMenu")
 @Api("后台菜单API")
+@AllArgsConstructor
 public class SysMenuController {
 
-    @Resource
-    private ISysMenuService iSysMenuService;
+    private final ISysMenuService iSysMenuService;
 
     /**
      * 查询全部菜单列表
@@ -41,6 +43,22 @@ public class SysMenuController {
     @ApiOperation(value = "获取菜单列表", httpMethod = "GET")
     public ServerResponse<List<SysMenuVo>> getMenuList (HttpServletRequest request) {
         ServiceResult<List<SysMenuVo>> menuList = iSysMenuService.getMenuList();
+        if (!menuList.isSuccess()) {
+            return ServerResponse.createByError();
+        }
+
+        return ServerResponse.createBySuccess(menuList.getResult());
+    }
+
+    /**
+     * 根据用户获取菜单列表
+     * @return 菜单树
+     */
+    @GetMapping("/user/tree")
+    @ApiOperation(value = "根据用户获取菜单列表", httpMethod = "GET")
+    public ServerResponse<List<SysMenuVo>> getUserMenu() {
+        List<Integer> roles = SecurityUtils.getRoles();
+        ServiceResult<List<SysMenuVo>> menuList = iSysMenuService.getMenuByRoleIds(roles);
         if (!menuList.isSuccess()) {
             return ServerResponse.createByError();
         }

@@ -24,4 +24,11 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @return
      */
     List<SysMenuVo> findMenuByRoleId(Integer roleId);
+
+    /**
+     * 根据角色集合查询菜单
+     * @param list 角色id集合
+     * @return 菜单集合
+     */
+    List<SysMenuVo> findMenuByRoleIds(List<Integer> list);
 }

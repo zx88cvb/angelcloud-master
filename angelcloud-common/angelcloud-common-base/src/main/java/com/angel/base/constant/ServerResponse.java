@@ -3,6 +3,7 @@ package com.angel.base.constant;
 import com.angel.base.enums.ErrorCodeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
 
 import java.io.Serializable;
 

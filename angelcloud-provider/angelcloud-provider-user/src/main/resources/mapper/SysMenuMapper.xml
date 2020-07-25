@@ -63,4 +63,23 @@
 			sys_menu.create_time desc
     </select>
 
+    <!--通过角色查询菜单信息-->
+    <select id="findMenuByRoleIds" resultMap="MenuVoResultMap">
+        SELECT
+        <include refid="Menu_Column_List">
+            <property name="alias" value="m" />
+        </include>
+        FROM
+        sys_menu m, sys_role_menu rm
+        WHERE
+        m.is_del = 0
+        AND rm.role_id in
+        <foreach collection="list" item="roleId" open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+        AND m.id = rm.menu_id
+        GROUP BY m.id
+        ORDER BY m.order_index ASC, m.create_time desc
+    </select>
+
 </mapper>

@@ -165,6 +165,11 @@ public interface SecurityConstants {
 	String DETAILS_USERNAME = "username";
 
 	/**
+	 * 用户基本信息
+	 */
+	String DETAILS_USER = "user_info";
+
+	/**
 	 * 用户部门字段
 	 */
 	String DETAILS_DEPT_ID = "dept_id";

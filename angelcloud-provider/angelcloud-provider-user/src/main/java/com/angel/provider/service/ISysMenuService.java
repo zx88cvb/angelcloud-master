@@ -19,8 +19,14 @@ public interface ISysMenuService extends IService<SysMenu> {
 
     /**'
      * 查询所有菜单
-     * TODO 目前是所有用户都有权限 后期加权限
      * @return 返回SysMenuVo集合
      */
-    ServiceResult<List<SysMenuVo>> getMenuList ();
+    ServiceResult<List<SysMenuVo>> getMenuList();
+
+    /**
+     * 根据用户查询菜单
+     * @param roles 角色id集合
+     * @return 树形菜单
+     */
+    ServiceResult<List<SysMenuVo>> getMenuByRoleIds(List<Integer> roles);
 }

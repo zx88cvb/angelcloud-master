@@ -1,5 +1,6 @@
 package com.angel.provider.service.impl;
 
+import com.angel.base.constant.CacheConstants;
 import com.angel.base.constant.GlobalConstant;
 import com.angel.base.service.ServiceResult;
 import com.angel.provider.mapper.SysMenuMapper;
@@ -12,8 +13,10 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,22 +32,20 @@ import java.util.stream.Collectors;
  * @author aa
  * @since 2018-08-18
  */
-@Service
 @Slf4j
-@Transactional(rollbackFor = Exception.class)
+@Service
+@AllArgsConstructor
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
-    @Resource
-    private SysMenuMapper sysMenuMapper;
+    private final SysMenuMapper sysMenuMapper;
 
 
     /**'
      * 查询所有菜单
-     * TODO 目前是所有用户都有权限 后期加权限
      * @return 返回SysMenuVo集合
      */
     @Override
-    @Transactional(readOnly = true, rollbackFor = Exception.class)
+//    @Cacheable(value = CacheConstants.MENU_DETAILS, key = "#roleId  + '_menu'", unless = "#result.isEmpty()")
     public ServiceResult<List<SysMenuVo>> getMenuList() {
         LambdaQueryWrapper<SysMenu> sysMenuWrapper = new QueryWrapper<SysMenu>()
                 .lambda()
@@ -56,6 +57,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             BeanUtils.copyProperties(e, sysMenuVo);
             return sysMenuVo;
         }).collect(Collectors.toList());
+        List<SysMenuVo> menuVoList = TreeUtil.getChildMenuVoList(sysMenuVoList, MenuConstant.MENU_LEVEL_ROOT);
+        return ServiceResult.of(menuVoList);
+    }
+
+    @Override
+    public ServiceResult<List<SysMenuVo>> getMenuByRoleIds(List<Integer> roles) {
+        List<SysMenuVo> sysMenuVoList = sysMenuMapper.findMenuByRoleIds(roles);
         List<SysMenuVo> menuVoList = TreeUtil.getChildMenuVoList(sysMenuVoList, MenuConstant.MENU_LEVEL_ROOT);
         return ServiceResult.of(menuVoList);
     }
