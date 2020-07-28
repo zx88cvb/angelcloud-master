@@ -2,6 +2,7 @@ package com.angel.provider.service;
 
 import com.angel.base.constant.SecurityConstants;
 import com.angel.base.constant.ServerResponse;
+import com.angel.base.constant.ServiceNameConstants;
 import com.angel.provider.model.dto.UserInfo;
 import com.angel.provider.model.vo.SysUserVo;
 import com.angel.provider.service.hystrix.UserSysUserFeignHystrix;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Date: 2018/9/23.
  * Description: feign用户模块
  */
-@FeignClient(name = "angelcloud-provider-user",fallback = UserSysUserFeignHystrix.class)
+@FeignClient(contextId = "userSysUserFeignApi", value = ServiceNameConstants.USER_SERVICE,
+        fallback = UserSysUserFeignHystrix.class)
 public interface UserSysUserFeignApi {
 
     /**

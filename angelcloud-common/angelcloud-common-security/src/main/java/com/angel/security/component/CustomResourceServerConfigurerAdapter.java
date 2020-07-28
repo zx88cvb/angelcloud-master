@@ -3,15 +3,17 @@ package com.angel.security.component;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -21,25 +23,26 @@ import org.springframework.web.client.RestTemplate;
  */
 @Slf4j
 @Configuration
-@EnableResourceServer
-//@AllArgsConstructor
+@AllArgsConstructor
 public class CustomResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
-    /*private final ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
 
-//    private final RemoteTokenServices remoteTokenServices;
+    private final ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
+
+    /*@Autowired
+    private RemoteTokenServices remoteTokenServices;*/
 
     private final PermitAllUrlProperties permitAllUrlProperties;
 
-//    private final TokenExtractor tokenExtractor;
+    private final TokenExtractor tokenExtractor;
 
-//    private final RestTemplate lbRestTemplate;
+    private final RestTemplate lbRestTemplate;
 
     private final CustomUserAuthenticationConverter customUserAuthenticationConverter;
 
-    *//**
+    /**
      * 默认的配置，对外暴露
      * @param httpSecurity
-     *//*
+     */
     @Override
     @SneakyThrows
     public void configure(HttpSecurity httpSecurity) {
@@ -56,9 +59,10 @@ public class CustomResourceServerConfigurerAdapter extends ResourceServerConfigu
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
         accessTokenConverter.setUserTokenConverter(customUserAuthenticationConverter);
 
-        *//*remoteTokenServices.setRestTemplate(lbRestTemplate);
+        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
+        remoteTokenServices.setRestTemplate(lbRestTemplate);
         remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
         resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).tokenExtractor(tokenExtractor)
-                .tokenServices(remoteTokenServices);*//*
-    }*/
+                .tokenServices(remoteTokenServices);
+    }
 }

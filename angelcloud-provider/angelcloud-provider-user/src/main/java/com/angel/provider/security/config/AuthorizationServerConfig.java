@@ -2,9 +2,9 @@ package com.angel.provider.security.config;
 
 import com.angel.base.constant.SecurityConstants;
 import com.angel.provider.security.handler.CustomAccessDeniedHandler;
-import com.angel.provider.security.handler.CustomAuthEntryPoint;
 import com.angel.security.component.CustomTokenEnhancer;
 import com.angel.security.component.CustomWebResponseExceptionTranslator;
+import com.angel.security.component.ResourceAuthExceptionEntryPoint;
 import com.angel.security.service.ILinkUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +32,9 @@ import java.util.concurrent.TimeUnit;
  * @Author angel
  * @Date 19-11-12
  */
+@Slf4j
 @Configuration
 @EnableAuthorizationServer
-@Slf4j
 @AllArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     private final AuthenticationManager authenticationManagerBean;
@@ -43,7 +43,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final ILinkUserDetailsService linkUserDetailsService;
 
-    private final CustomAuthEntryPoint customAuthEntryPoint;
+    private final ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
 
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
@@ -56,7 +56,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         security.allowFormAuthenticationForClients()
                 .checkTokenAccess("isAuthenticated()")
                 .tokenKeyAccess("permitAll()")
-                .authenticationEntryPoint(customAuthEntryPoint)
+                .authenticationEntryPoint(resourceAuthExceptionEntryPoint)
                 .accessDeniedHandler(customAccessDeniedHandler);
         log.info("AuthorizationServerSecurityConfigurer is complete");
     }

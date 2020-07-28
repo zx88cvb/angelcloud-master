@@ -1,3 +1,4 @@
+/*
 package com.angel.provider.security.handler;
 
 import com.angel.base.constant.ServerResponse;
@@ -11,22 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+*/
 /**
  * 自定义token校验信息
  * @Author angel
  * @Date 19-11-12
- */
+ *//*
+
 @Component
 public class CustomAuthEntryPoint implements AuthenticationEntryPoint {
 
-    /**
+    */
+/**
      * 自定义EntryPoint用于tokan校验失败返回信息
      * @param httpServletRequest request
      * @param httpServletResponse Response
      * @param e e
      * @throws IOException IOException
      * @throws ServletException ServletException
-     */
+     *//*
+
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         //返回json形式的错误信息
@@ -40,3 +45,4 @@ public class CustomAuthEntryPoint implements AuthenticationEntryPoint {
         httpServletResponse.getWriter().flush();
     }
 }
+*/

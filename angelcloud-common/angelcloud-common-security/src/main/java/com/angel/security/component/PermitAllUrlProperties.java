@@ -1,4 +1,3 @@
-/*
 package com.angel.security.component;
 
 import cn.hutool.core.util.ReUtil;
@@ -23,13 +22,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-*/
 /**
  * 资源服务器对外直接暴露URL,如果设置contex-path 要特殊处理
  * @Author angel
  * @Date 2020/7/25
- *//*
-
+ */
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -47,7 +44,7 @@ public class PermitAllUrlProperties implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+        RequestMappingHandlerMapping mapping = (RequestMappingHandlerMapping)applicationContext.getBean("requestMappingHandlerMapping");
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 
         map.keySet().forEach(info -> {
@@ -67,4 +64,3 @@ public class PermitAllUrlProperties implements InitializingBean {
     }
 
 }
-*/

@@ -1,6 +1,7 @@
 package com.angel.provider.service;
 
 import com.angel.base.constant.ServerResponse;
+import com.angel.base.constant.ServiceNameConstants;
 import com.angel.provider.model.dto.GlobalExceptionLogDto;
 import com.angel.provider.service.hystrix.UserSysExceptionFeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Date: 2018/10/17.
  * @Description:
  */
-@FeignClient(name = "angelcloud-provider-user",fallback = UserSysExceptionFeignHystrix.class)
+@FeignClient(contextId = "userSysExceptionFeignApi", value = ServiceNameConstants.USER_SERVICE,
+        fallback = UserSysExceptionFeignHystrix.class)
 public interface UserSysExceptionFeignApi {
 
     /**

@@ -7,6 +7,7 @@ import com.angel.base.constant.ServerResponse;
 import com.angel.provider.model.dto.SysUserDto;
 import com.angel.provider.model.dto.UserInfo;
 import com.angel.provider.service.UserSysUserFeignApi;
+import com.angel.security.exception.UserException;
 import com.angel.security.model.domain.LinkUser;
 import com.angel.security.service.ILinkUserDetailsService;
 import lombok.AllArgsConstructor;
@@ -65,7 +66,7 @@ public class LinkUserDetailsServiceImpl implements ILinkUserDetailsService {
      */
     private UserDetails getUserDetails(ServerResponse<UserInfo> result) {
         if (result == null || result.getData() == null) {
-            throw new UsernameNotFoundException("用户不存在");
+            throw new UserException("用户不存在");
         }
 
         UserInfo info = result.getData();

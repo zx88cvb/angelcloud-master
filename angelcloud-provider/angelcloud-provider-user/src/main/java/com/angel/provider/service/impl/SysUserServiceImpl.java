@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
  * @since 2018-07-30
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
 @AllArgsConstructor
 @Slf4j
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
@@ -53,7 +52,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 返回结果集
      */
     @Override
-    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public ServiceResult login(String username, String password) {
         // String passwordNew = DigestUtils.md5Hex(password);
         SysUser sysUser = sysUserMapper.selectByUsernameAndPass(username, password);

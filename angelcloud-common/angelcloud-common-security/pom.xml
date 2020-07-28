@@ -12,10 +12,10 @@
     <artifactId>angelcloud-common-security</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>com.angel</groupId>
-            <artifactId>angelcloud-common-base</artifactId>
+            <artifactId>angelcloud-common-core</artifactId>
         </dependency>
 
         <dependency>

@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Aspect
-@Component
 @AllArgsConstructor
 public class InnerSecurityInnerAspect {
 	private final HttpServletRequest request;

@@ -1,6 +1,7 @@
 package com.angel.provider.service;
 
 import com.angel.base.constant.ServerResponse;
+import com.angel.base.constant.ServiceNameConstants;
 import com.angel.base.model.dto.QiNiuPutRet;
 import com.angel.provider.service.hystrix.BlogUploadFeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,7 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @Date: 2018/10/6.
  * @Description:
  */
-@FeignClient(name = "angelcloud-provider-blog",fallback = BlogUploadFeignHystrix.class)
+@FeignClient(contextId = "blogUploadFeignApi", value = ServiceNameConstants.BLOG_SERVICE,
+        fallback = BlogUploadFeignHystrix.class)
 public interface BlogUploadFeignApi {
 
     /**

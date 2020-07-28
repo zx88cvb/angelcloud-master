@@ -1,15 +1,14 @@
 package com.angel.provider.security.config;
 
-import com.angel.security.service.ILinkUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.angel.provider.security.handler.AuthenticationFailureEventHandler;
+import com.angel.provider.security.handler.AuthenticationSuccessEventHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -18,8 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.annotation.Resource;
-
 /**
  * Security 安全配置
  * @Author angel
@@ -27,19 +24,19 @@ import javax.annotation.Resource;
  */
 @Configuration
 @Primary
-//@Order(90)
+@Order(90)
+@AllArgsConstructor
 //@EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Resource
-    private ILinkUserDetailsService iLinkUserDetailsService;
+
+    private final AuthenticationSuccessEventHandler authenticationSuccessEventHandler;
+
+    private final AuthenticationFailureEventHandler authenticationFailureEventHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/",
-                "/css/**",
-                "/favicon.ico",
-                "/actuator/**");
+        web.ignoring().antMatchers("/css/**");
     }
 
     @Override
@@ -48,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/token/login")
                 .loginProcessingUrl("/token/form")
+                .successHandler(authenticationSuccessEventHandler)
+                .failureHandler(authenticationFailureEventHandler)
+                .and().logout()
+                .logoutSuccessHandler((request, response, authentication) -> {
+                    String referer = request.getHeader(HttpHeaders.REFERER);
+                    response.sendRedirect(referer);
+                }).deleteCookies("JSESSIONID").invalidateHttpSession(true)
                 .and()
                 .authorizeRequests()
                 .antMatchers(
@@ -79,6 +83,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    /**
+     * 失败处理器
+     * @return AuthenticationFailureHandler
+     *//*
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new AuthenticationFailureEventHandler();
+    }
+
+    *//**
+     * 成功处理器
+     * @return AuthenticationSuccessHandler
+     *//*
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new AuthenticationSuccessEventHandler();
+    }*/
 
 
     /*@Bean

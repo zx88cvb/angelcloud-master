@@ -1,6 +1,7 @@
 package com.angel.provider.service;
 
 import com.angel.base.constant.ServerResponse;
+import com.angel.base.constant.ServiceNameConstants;
 import com.angel.provider.model.vo.DataDictValueVo;
 import com.angel.provider.service.hystrix.DataDictFeignHystrix;
 import io.swagger.annotations.ApiParam;
@@ -14,7 +15,7 @@ import java.util.List;
  * 数据字典feign
  * @author Angel
  */
-@FeignClient(name = "angelcloud-provider-user",fallback = DataDictFeignHystrix.class)
+@FeignClient(contextId = "dataDictFeignApi", value = ServiceNameConstants.USER_SERVICE,fallback = DataDictFeignHystrix.class)
 public interface DataDictFeignApi {
 
     /**

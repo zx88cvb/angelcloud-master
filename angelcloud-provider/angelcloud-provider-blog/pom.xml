@@ -54,6 +54,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
+            <artifactId>angelcloud-common-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

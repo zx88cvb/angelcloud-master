@@ -14,12 +14,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+//import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -48,8 +49,8 @@ public class BlogArticleController {
     @PostMapping("insertBlogArticle")
     @ApiOperation(value = "新增博客文章", httpMethod = "POST")
     public ServerResponse insertBlogArticle (HttpServletRequest request,
-                                         @ApiParam(name = "blogArticleForm", value = "博客信息Form") @Valid @RequestBody BlogArticleForm blogArticleForm,
-                                         BindingResult bindingResult) {
+                                             @ApiParam(name = "blogArticleForm", value = "博客信息Form") @Valid @RequestBody BlogArticleForm blogArticleForm,
+                                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ServerResponse.createByErrorMessage(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }

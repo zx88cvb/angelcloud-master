@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.angel.security.component.GlobalExceptionHandlerResolver,\
+  com.angel.security.component.CustomTokenEnhancer,\
+  com.angel.security.component.InnerSecurityInnerAspect
+

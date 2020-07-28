@@ -13,10 +13,10 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
  * @Author angel
  * @Date 2020/1/4
  */
-@Configuration
+//@Configuration
 public class FeignConfig {
     // 下面3个Bean 配合 application.yml 对应的EndPoint 需要加上 #oauth2.hasScope('server')
-    @Bean
+    /*@Bean
     @ConfigurationProperties(prefix = "security.oauth2.client")
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
         return new ClientCredentialsResourceDetails();
@@ -30,5 +30,5 @@ public class FeignConfig {
     @Bean
     public OAuth2RestTemplate clientCredentialsRestTemplate() {
         return new OAuth2RestTemplate(clientCredentialsResourceDetails());
-    }
+    }*/
 }

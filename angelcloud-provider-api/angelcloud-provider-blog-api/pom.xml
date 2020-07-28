@@ -25,6 +25,11 @@
 
         <dependency>
             <groupId>com.angel</groupId>
+            <artifactId>angelcloud-common-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.angel</groupId>
             <artifactId>angelcloud-common-transaction</artifactId>
         </dependency>
     </dependencies>

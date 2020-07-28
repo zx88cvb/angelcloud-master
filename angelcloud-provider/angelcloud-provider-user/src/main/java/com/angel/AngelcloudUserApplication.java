@@ -1,5 +1,6 @@
 package com.angel;
 
+import com.angel.security.annotation.EnableCustomResourceServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringCloudApplication
 @EnableFeignClients
 @EnableTransactionManagement
-@EnableResourceServer
+@EnableCustomResourceServer
 public class AngelcloudUserApplication {
 
 	public static void main(String[] args) {

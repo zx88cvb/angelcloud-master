@@ -16,7 +16,6 @@ import java.util.Map;
  * @Author angel
  * @Date 2019/12/28
  */
-@Component
 public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {

@@ -1,6 +1,7 @@
 package com.angel.provider.service;
 
 import com.angel.base.constant.ServerResponse;
+import com.angel.base.constant.ServiceNameConstants;
 import com.angel.provider.model.vo.BlogArticleVo;
 import com.angel.provider.service.hystrix.BlogArticleFeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,7 +15,8 @@ import java.util.List;
  * @Author angel
  * @Date 19-3-24
  */
-@FeignClient(name = "angelcloud-provider-blog",fallback = BlogArticleFeignHystrix.class)
+@FeignClient(contextId = "blogArticleFeignApi", value = ServiceNameConstants.BLOG_SERVICE,
+        fallback = BlogArticleFeignHystrix.class)
 public interface BlogArticleFeignApi {
 
     /**
