@@ -5,9 +5,15 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
@@ -15,6 +21,9 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 支持remoteTokenServices 负载均衡 2. 支持 获取用户全部信息
@@ -27,6 +36,8 @@ import org.springframework.web.client.RestTemplate;
 public class CustomResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {
 
     private final ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
+
+    private final ResourceServerProperties resourceServerProperties;
 
     /*@Autowired
     private RemoteTokenServices remoteTokenServices;*/
@@ -59,10 +70,14 @@ public class CustomResourceServerConfigurerAdapter extends ResourceServerConfigu
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
         accessTokenConverter.setUserTokenConverter(customUserAuthenticationConverter);
 
-        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
-        remoteTokenServices.setRestTemplate(lbRestTemplate);
-        remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
-        resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).tokenExtractor(tokenExtractor)
-                .tokenServices(remoteTokenServices);
+        CustomCheckTokenServices remoteTokenServices = new CustomCheckTokenServices(lbRestTemplate);
+//        remoteTokenServices.setRestTemplate(lbRestTemplate);
+//        remoteTokenServices.setAccessTokenConverter(accessTokenConverter);
+        remoteTokenServices.setCheckTokenEndpointUrl(resourceServerProperties.getTokenInfoUri());
+        remoteTokenServices.setClientId(resourceServerProperties.getClientId());
+        remoteTokenServices.setClientSecret(resourceServerProperties.getClientSecret());
+        resources.tokenServices(remoteTokenServices);
+        /*resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).tokenExtractor(tokenExtractor)
+                .tokenServices(remoteTokenServices);*/
     }
 }
