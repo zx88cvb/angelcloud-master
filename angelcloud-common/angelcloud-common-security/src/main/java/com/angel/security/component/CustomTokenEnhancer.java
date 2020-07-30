@@ -16,6 +16,7 @@ import java.util.Map;
  * @Author angel
  * @Date 2019/12/28
  */
+@Component
 public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
@@ -26,8 +27,9 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 
         final Map<String, Object> additionalInfo = new HashMap<>(8);
         LinkUser linkUser = (LinkUser) oAuth2Authentication.getUserAuthentication().getPrincipal();
-        additionalInfo.put(SecurityConstants.DETAILS_USER_ID, linkUser.getId());
-        additionalInfo.put(SecurityConstants.DETAILS_USERNAME, linkUser.getUsername());
+//        additionalInfo.put(SecurityConstants.DETAILS_USER_ID, linkUser.getId());
+//        additionalInfo.put(SecurityConstants.DETAILS_USERNAME, linkUser.getUsername());
+        additionalInfo.put(SecurityConstants.DETAILS_USER, linkUser);
         additionalInfo.put(SecurityConstants.DETAILS_LICENSE, SecurityConstants.ANGELCLOUD_LICENSE);
         additionalInfo.put(SecurityConstants.ACTIVE, Boolean.TRUE);
         ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionalInfo);

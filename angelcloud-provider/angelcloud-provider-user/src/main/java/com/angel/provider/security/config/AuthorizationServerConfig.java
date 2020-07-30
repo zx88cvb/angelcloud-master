@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
@@ -49,7 +50,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final DataSource dataSource;
 
-    private final CustomTokenEnhancer customTokenEnhancer;
+    private final TokenEnhancer customTokenEnhancer;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -88,7 +89,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 .authenticationManager(authenticationManagerBean)
                 .userDetailsService(linkUserDetailsService)
-                .tokenServices(tokenServices())
+//                .tokenServices(tokenServices())
+                .reuseRefreshTokens(false)
+                .pathMapping("/oauth/confirm_access", "/token/confirm_access")
                 .tokenEnhancer(customTokenEnhancer)
                 .exceptionTranslator(new CustomWebResponseExceptionTranslator());
 

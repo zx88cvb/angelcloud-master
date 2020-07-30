@@ -76,6 +76,9 @@ public class CustomResourceServerConfigurerAdapter extends ResourceServerConfigu
         remoteTokenServices.setCheckTokenEndpointUrl(resourceServerProperties.getTokenInfoUri());
         remoteTokenServices.setClientId(resourceServerProperties.getClientId());
         remoteTokenServices.setClientSecret(resourceServerProperties.getClientSecret());
+        /*resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint)
+                .tokenExtractor(tokenExtractor)
+                .tokenServices(remoteTokenServices);*/
         resources.tokenServices(remoteTokenServices);
         /*resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).tokenExtractor(tokenExtractor)
                 .tokenServices(remoteTokenServices);*/

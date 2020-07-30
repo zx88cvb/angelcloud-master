@@ -1,5 +1,6 @@
 package com.angel.security.feign;
 
+import cn.hutool.core.collection.CollUtil;
 import com.angel.base.constant.SecurityConstants;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class CustomFeignClientInterceptor extends OAuth2FeignRequestInterceptor 
     @Override
     public void apply(RequestTemplate template) {
         Collection<String> fromHeader = template.headers().get(SecurityConstants.FROM);
-        if (!fromHeader.isEmpty() && fromHeader.contains(SecurityConstants.FROM_IN)) {
+        if (CollUtil.isNotEmpty(fromHeader) && fromHeader.contains(SecurityConstants.FROM_IN)) {
             return;
         }
 
